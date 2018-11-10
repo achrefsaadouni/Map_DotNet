@@ -83,7 +83,7 @@
     <Compile Include="dayoff.cs" />
     <Compile Include="inbox.cs" />
     <Compile Include="jobrequest.cs" />
-    <Compile Include="mandate.cs" />
+    <Compile Include="Mandate.cs" />
     <Compile Include="message.cs" />
     <Compile Include="note.cs" />
     <Compile Include="organizationalchart.cs" />

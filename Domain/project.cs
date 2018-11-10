@@ -12,7 +12,7 @@ namespace Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public project()
         {
-            mandates = new HashSet<mandate>();
+            mandates = new HashSet<Mandate>();
             people = new HashSet<person>();
             projectskills = new HashSet<projectskill>();
             requests = new HashSet<request>();
@@ -48,7 +48,7 @@ namespace Domain
         public int? organizationalChart_id { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<mandate> mandates { get; set; }
+        public virtual ICollection<Mandate> mandates { get; set; }
 
         public virtual organizationalchart organizationalchart { get; set; }
 

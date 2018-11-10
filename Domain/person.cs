@@ -15,8 +15,8 @@ namespace Domain
             candidatefolders = new HashSet<candidatefolder>();
             contracts = new HashSet<contract>();
             jobrequests = new HashSet<jobrequest>();
-            mandates = new HashSet<mandate>();
-            mandates1 = new HashSet<mandate>();
+            mandates = new HashSet<Mandate>();
+            mandates1 = new HashSet<Mandate>();
             messages = new HashSet<message>();
             notes = new HashSet<note>();
             notes1 = new HashSet<note>();
@@ -125,10 +125,10 @@ namespace Domain
         public virtual ICollection<jobrequest> jobrequests { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<mandate> mandates { get; set; }
+        public virtual ICollection<Mandate> mandates { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<mandate> mandates1 { get; set; }
+        public virtual ICollection<Mandate> mandates1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }

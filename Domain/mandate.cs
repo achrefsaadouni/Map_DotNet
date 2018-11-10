@@ -7,7 +7,7 @@ namespace Domain
     using System.Data.Entity.Spatial;
 
     [Table("map.mandate")]
-    public partial class mandate
+    public partial class Mandate
     {
         [Key]
         [Column(Order = 0, TypeName = "date")]

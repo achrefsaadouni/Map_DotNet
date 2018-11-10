@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    class MandateService : Service<mandate>, IMandateService
+    class MandateService : Service<Mandate>, IMandateService
     {
         private static IDatabaseFactory dbFactory = new DatabaseFactory();
         private static IUnitOfWork uow = new UnitOfWork(dbFactory);

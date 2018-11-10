@@ -20,7 +20,7 @@ namespace Data
         public virtual DbSet<dayoff> dayoffs { get; set; }
         public virtual DbSet<inbox> inboxes { get; set; }
         public virtual DbSet<jobrequest> jobrequests { get; set; }
-        public virtual DbSet<mandate> mandates { get; set; }
+        public virtual DbSet<Mandate> mandates { get; set; }
         public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<note> notes { get; set; }
         public virtual DbSet<organizationalchart> organizationalcharts { get; set; }
