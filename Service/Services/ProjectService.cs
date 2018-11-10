@@ -1,19 +1,15 @@
 ﻿using Domain;
 using Map_DotNet.Data.Infrastructure;
 using ServicePattern;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Service.Interfaces;
 
-namespace Service
+namespace Service.Services
 {
-    class MandateService : Service<Mandate>, IMandateService
+    public class ProjectService : Service<project>, IProjectService
     {
         private static IDatabaseFactory dbFactory = new DatabaseFactory();
         private static IUnitOfWork uow = new UnitOfWork(dbFactory);
-        public MandateService():base(uow)
+        public ProjectService():base(uow)
         {
 
         }

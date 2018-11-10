@@ -1,3 +1,5 @@
+using Domain;
+
 namespace Data
 {
     using System;
