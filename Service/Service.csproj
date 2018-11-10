@@ -82,7 +82,7 @@
     <Compile Include="Interfaces\IMandateService.cs" />
     <Compile Include="Interfaces\IProjectService.cs" />
     <Compile Include="Interfaces\IResourceService.cs" />
-    <Compile Include="Services\ResourceService.cs" />
+    <Compile Include="ResourceService.cs" />
     <Compile Include="Services\ClientService.cs" />
     <Compile Include="Services\DayOffService.cs" />
     <Compile Include="Services\MandateService.cs" />
