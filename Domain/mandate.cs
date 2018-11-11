@@ -30,13 +30,13 @@ namespace Domain
         [Column(TypeName = "bit")]
         public bool archived { get; set; }
 
-        public double? montant { get; set; }
+        public double montant { get; set; }
 
-        public int? gps_id { get; set; }
+        public int gps_id { get; set; }
 
-        public virtual person person { get; set; }
+        public virtual person resource { get; set; }
 
-        public virtual person person1 { get; set; }
+        public virtual person Gps { get; set; }
 
         public virtual project project { get; set; }
     }

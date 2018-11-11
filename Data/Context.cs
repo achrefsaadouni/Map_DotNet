@@ -256,13 +256,13 @@ namespace Data
 
             modelBuilder.Entity<person>()
                 .HasMany(e => e.mandates)
-                .WithRequired(e => e.person)
+                .WithRequired(e => e.resource)
                 .HasForeignKey(e => e.ressourceId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<person>()
                 .HasMany(e => e.mandates1)
-                .WithOptional(e => e.person1)
+                .WithOptional(e => e.Gps)
                 .HasForeignKey(e => e.gps_id);
 
             modelBuilder.Entity<person>()

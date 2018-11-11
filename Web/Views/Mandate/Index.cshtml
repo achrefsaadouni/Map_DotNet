@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Web.Models.MandateViewModels>
+@using Web.Models
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.dateDebut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateFin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.projetId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ressourceId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.archived)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.montant)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gps_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (MandateViewModels item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateDebut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateFin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projetId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ressourceId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.archived)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.montant)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gps_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
