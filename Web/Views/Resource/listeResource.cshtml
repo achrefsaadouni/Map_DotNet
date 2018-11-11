@@ -14,8 +14,9 @@
         <table class="table">
             <tr class="thead-dark">
                 <th scope="col">Id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
                 <th scope="col">seniority</th>
                 <th scope="col">workProfile</th>
                 <th scope="col">availability</th>
@@ -24,12 +25,19 @@
             {
                 <tr>
                     <th scope="col">@p.id</th>
-                    <th scope="col">@p.firstName</th>
-                    <th scope="col">@p.lastName</th>
+                    <th scope="col">@p.archived</th>
+                     <th scope="col"><a href="@Url.Action("DetailResource")">@p.firstName @p.lastName</a></th>
+                    <th scope="col">@p.email</th>
                     <th scope="col">@p.seniority</th>
-                    <th scope="col">@p.workProfile</th>
+                    <th scope="col">@p.workProfil</th>
                     <th scope="col">@p.availability</th>
-                    <th> <input type="submit" value="Archiver" class="btn btn-default" /></th>
+                    @if (@p.archived == 0) {
+                    <th> <input type="submit" value="Archive" class="btn btn-default" /></th>
+                    }
+                    else
+                    {
+                        <th> <input type="submit" value="Unarchive" class="btn btn-default" /></th>
+                    }
                 </tr>
             }
         </table>

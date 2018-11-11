@@ -81,6 +81,10 @@
     <Compile Include="candidatefolder.cs" />
     <Compile Include="contract.cs" />
     <Compile Include="dayoff.cs" />
+    <Compile Include="Enumeration\AvailibilityType.cs" />
+    <Compile Include="Enumeration\JobType.cs" />
+    <Compile Include="Enumeration\SeniorityType.cs" />
+    <Compile Include="Enumeration\WorkType.cs" />
     <Compile Include="inbox.cs" />
     <Compile Include="jobrequest.cs" />
     <Compile Include="Mandate.cs" />

@@ -1,10 +1,11 @@
 namespace Domain
 {
+    using Enumeration;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    
+
 
     [Table("map.person")]
     public partial class person
@@ -81,7 +82,7 @@ namespace Domain
         public string nameSociety { get; set; }
 
         [StringLength(255)]
-        public string availability { get; set; }
+        public AvailibilityType availability { get; set; }
 
         [StringLength(255)]
         public string businessSector { get; set; }
@@ -90,7 +91,7 @@ namespace Domain
         public string cv { get; set; }
 
         [StringLength(255)]
-        public string jobType { get; set; }
+        public JobType jobType { get; set; }
 
         public float? moyenneSkill { get; set; }
 
@@ -102,12 +103,12 @@ namespace Domain
         public float? salary { get; set; }
 
         [StringLength(255)]
-        public string seniority { get; set; }
+        public SeniorityType seniority { get; set; }
 
         public double? taux { get; set; }
 
         [StringLength(255)]
-        public string workProfil { get; set; }
+        public WorkType workProfil { get; set; }
 
         public int? inBox_id { get; set; }
 
