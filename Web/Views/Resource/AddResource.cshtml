@@ -19,9 +19,18 @@
     @using (Html.BeginForm()) 
     {
         @Html.AntiForgeryToken()
-        
+
+
+        <div class="collapse navbar-collapse" id="exCollapsingNavbar2">
+            <ul class="nav navbar-nav ">
+                <li class="nav-item active"> <a class="nav-link" href="@Url.Action("listeResource")">Liste des resources <span class="sr-only">(current)</span></a> </li>
+                <li class="nav-item"> <a class="nav-link" href="#">Liste des resources archivées</a> </li>
+                <li class="nav-item"> <a class="nav-link" href="@Url.Action("AddResource")">Ajouter resource</a> </li>
+            </ul>
+        </div>
+        <span  class="text-center" style="color:dodgerblue">Add Resource</span>
         <div class="form-horizontal">
-            <h4>ResourceViewModel</h4>
+           
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -130,14 +139,12 @@
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Create" class="btn btn-primary btn-lg btn-block" />
                 </div>
             </div>
         </div>
     }
     
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+   
 </body>
 </html>

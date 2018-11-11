@@ -49,18 +49,21 @@ namespace Web.Controllers
         // GET: Resource/Deateil
         public ActionResult DetailResource(int? id)
         {
-            string idResource = Convert.ToString(id);
+            ResourceViewModel resource = new ResourceViewModel();
+            //string idResource = Convert.ToString(id);
 
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://127.0.0.1:18080");
             Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = Client.GetAsync("Map-JavaEE-web/MAP/Resources/resourceById?resourceId=id").Result;
+            HttpResponseMessage response = Client.GetAsync("Map-JavaEE-web/MAP/Resources/resourceById?resourceId=id.ToString()").Result;
             if (response.IsSuccessStatusCode)
             {
-                ViewBag.result = response.Content.ReadAsAsync<ResourceViewModel>().Result;
+               
+                resource = response.Content.ReadAsAsync<ResourceViewModel>().Result;
+                
             }
             else { ViewBag.result = "erreur"; }
-            return View("DetailResource");
+            return View(resource);
         }
 
 
