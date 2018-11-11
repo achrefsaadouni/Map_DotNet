@@ -226,6 +226,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MandateController.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,6 +235,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
+    <Compile Include="Models\ResourceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -4453,6 +4455,8 @@
     <Content Include="Scripts\vendors\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Scripts\vendors\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\vendors\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Views\Resource\AddResource.cshtml" />
+    <Content Include="Views\Resource\listeResource.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
