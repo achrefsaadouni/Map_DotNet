@@ -133,5 +133,35 @@ namespace Web.Controllers
                 return View();
             }
         }
+        public ActionResult Accept()
+        {
+         
+            return View("Accept");
+        }
+
+
+        // POST: JobRequest/Accept
+        [HttpPost]
+        public ActionResult Accept(int id)
+        {
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080");
+            var responseTask = Client.GetAsync("Map-JavaEE-web/MAP/jobrequest/Accept/" + id.ToString());
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return View("Index");
+
+            }
+            return View("Index");
+        }
+
+
+
     }
+
+
+
+
 }

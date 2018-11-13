@@ -6,10 +6,9 @@
 }
 
 
+<button class="btn btn-responsive btn-warning">@Html.ActionLink("Create New", "Create")
+</button>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <div class="panel panel-success filterable" style="overflow:auto;">
     <div class="panel-heading">
         <h3 class="panel-title">
@@ -59,7 +58,7 @@
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Accept", "Accept", new { id = item.id }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.id })
                         </td>
                     </tr>

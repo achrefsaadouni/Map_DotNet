@@ -4471,6 +4471,7 @@
     <Content Include="Views\JobRequest\Create.cshtml" />
     <Content Include="Views\JobRequest\Delete.cshtml" />
     <Content Include="Views\JobRequest\Edit.cshtml" />
+    <Content Include="Views\JobRequest\Accept.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
