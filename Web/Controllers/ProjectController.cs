@@ -6,48 +6,53 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
+using Newtonsoft.Json;
+using Service.Interfaces;
+using Service.Services;
 using Web.Models;
 
 namespace Web.Controllers
 {
     public class ProjectController : Controller
     {
+        IClientService clientService = new ClientService();
+
         // GET: Project
         public ActionResult Index()
         {
 
-            List<ProjectViewModel> listProjectViewModels = new List<ProjectViewModel>();
+            //List<ProjectViewModel> listProjectViewModels = new List<ProjectViewModel>();
 
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://127.0.0.1:18080");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = Client.GetAsync("Map-JavaEE-web/MAP/projects").Result;
-            ;
+            
             if (response.IsSuccessStatusCode)
             {
-                var listProject = response.Content.ReadAsAsync<IEnumerable<project>>().Result;
-                //ViewBag.result = response.Content.ReadAsAsync<IEnumerable<ProjectViewModel>>().Result;
-                foreach (var project in listProject)
-                {
-                    ProjectViewModel projectViewModel = new ProjectViewModel();
-                    projectViewModel.endDate = project.endDate;
-                    projectViewModel.levioNumberResource = project.levioNumberResource;
-                    projectViewModel.picture = project.picture;
-                    projectViewModel.projectName = project.projectName;
-                    projectViewModel.projectType = project.projectType;
-                    projectViewModel.startDate = project.startDate;
-                    projectViewModel.totalNumberResource = project.totalNumberResource;
-                    projectViewModel.clientId = project.clientId;
-                    projectViewModel.address = project.address;
-                    listProjectViewModels.Add(projectViewModel);
+                //var listProject = response.Content.ReadAsAsync<IEnumerable<project>>().Result;
+                ViewBag.result = response.Content.ReadAsAsync<IEnumerable<ProjectViewModel>>().Result;
+                //foreach (var project in listProject)
+                //{
+                //    ProjectViewModel projectViewModel = new ProjectViewModel();
+                //    projectViewModel.endDate = project.endDate;
+                //    projectViewModel.levioNumberResource = project.levioNumberResource;
+                //    projectViewModel.picture = project.picture;
+                //    projectViewModel.projectName = project.projectName;
+                //    projectViewModel.projectType = project.projectType;
+                //    projectViewModel.startDate = project.startDate;
+                //    projectViewModel.totalNumberResource = project.totalNumberResource;
+                //    projectViewModel.clientId = project.clientId;
+                //    projectViewModel.address = project.address;
+                //    listProjectViewModels.Add(projectViewModel);
 
-                }
+                //}
             }
             else
             {
                 ViewBag.result = "error";
             }
-            return View(listProjectViewModels);
+            return View(ViewBag.result);
         }
 
         // GET: Project/Details/5
@@ -59,23 +64,23 @@ namespace Web.Controllers
         // GET: Project/Create
         public ActionResult Create()
         {
-            return View();
+            initDropList();
+            return View("Create");
         }
 
         // POST: Project/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ProjectViewModel projectViewModel,FormCollection form)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            initDropList();
+            projectViewModel.totalNumberResource = 0;
+            projectViewModel.levioNumberResource = 0;
+            string clientId = Request.Form["CLIENT"].ToString();
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080");
+            Client.PostAsJsonAsync<ProjectViewModel>("Map-JavaEE-web/MAP/projects?idClient=" + Int32.Parse(clientId), projectViewModel)
+               .ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
+            return View();
         }
 
         // GET: Project/Edit/5
@@ -120,6 +125,17 @@ namespace Web.Controllers
             {
                 return View();
             }
+        }
+
+      
+
+        public void initDropList()
+        {
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("Map-JavaEE-web/MAP/clients").Result;
+            ViewBag.CLIENT = response.Content.ReadAsAsync<IEnumerable<ClientViewModel>>().Result;
         }
     }
 }

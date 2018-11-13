@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using Domain;
+using Newtonsoft.Json;
 
 namespace Web.Models
 {
@@ -13,8 +14,9 @@ namespace Web.Models
 
         public int id { get; set; }
 
-        public string address { get; set; }
 
+        public string address { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? endDate { get; set; }
 
         public int levioNumberResource { get; set; }
@@ -24,25 +26,15 @@ namespace Web.Models
         public string projectName { get; set; }
 
         public string projectType { get; set; }
-
+        [DataType(DataType.Date)]
         public DateTime? startDate { get; set; }
 
         public int totalNumberResource { get; set; }
+       // [JsonIgnore]
+        public virtual person clientId { get; set; }
 
-        public int? clientId { get; set; }
+        //[JsonIgnore]
+        //public int? clientId { get; set; }
 
-        public int? organizationalChart_id { get; set; }
-
-        public virtual ICollection<Mandate> mandates { get; set; }
-
-        public virtual organizationalchart organizationalchart { get; set; }
-
-        public virtual ICollection<person> people { get; set; }
-
-        public virtual person person { get; set; }
-
-        public virtual ICollection<projectskill> projectskills { get; set; }
-
-        public virtual ICollection<request> requests { get; set; }
     }
 }

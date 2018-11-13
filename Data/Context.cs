@@ -149,10 +149,10 @@ namespace Data
                 .Property(e => e.projectResponsible)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<organizationalchart>()
-                .HasMany(e => e.projects)
-                .WithOptional(e => e.organizationalchart)
-                .HasForeignKey(e => e.organizationalChart_id);
+            //modelBuilder.Entity<organizationalchart>()
+            //    .HasMany(e => e.projects)
+            //    .WithOptional(e => e.organizationalchart)
+            //    .HasForeignKey(e => e.organizationalChart_id);
 
             modelBuilder.Entity<organizationalchart>()
                 .HasMany(e => e.people)
@@ -295,10 +295,10 @@ namespace Data
                 .WithOptional(e => e.person1)
                 .HasForeignKey(e => e.administrator_id);
 
-            modelBuilder.Entity<person>()
-                .HasMany(e => e.projects)
-                .WithOptional(e => e.person)
-                .HasForeignKey(e => e.clientId);
+            //modelBuilder.Entity<person>()
+            //    .HasMany(e => e.projects)
+            //    .WithOptional(e => e.person)
+            //    .HasForeignKey(e => e.clientId);
 
             modelBuilder.Entity<person>()
                 .HasMany(e => e.requests2)
@@ -327,10 +327,10 @@ namespace Data
                 .HasForeignKey(e => e.projetId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<project>()
-                .HasMany(e => e.people)
-                .WithOptional(e => e.project)
-                .HasForeignKey(e => e.project_id);
+            //modelBuilder.Entity<project>()
+            //    .HasMany(e => e.people)
+            //    .WithOptional(e => e.project)
+            //    .HasForeignKey(e => e.project_id);
 
             modelBuilder.Entity<project>()
                 .HasMany(e => e.projectskills)
