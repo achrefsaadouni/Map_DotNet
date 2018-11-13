@@ -8,17 +8,26 @@ namespace Web.Models
 {
     public class JobRequestModels
     {
-        public int Id { get; set; }
-        public StateType statetype { get; set; }
+        public int id { get; set; }
 
-        public DateTime rdvdate { get; set; }
+        
+        public string Cv { get; set; }
 
-        private DateTime sentdate { get; set; }
+        public DateTime? rdvdate { get; set; }
 
-        private String speciality { get; set; }
+      
+        public DateTime? sentdate { get; set; }
 
-        public string firstName { get; set; }
-        public string lastName { get; set; }
+        
+        public string speciality { get; set; }
+
+      
+        public string stateType { get; set; }
+
+        //public int? candidate_id { get; set; }
+
+     //  public virtual person person { get; set; }
+
     }
 
 }

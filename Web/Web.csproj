@@ -4467,13 +4467,16 @@
     <Content Include="Views\ResourceViewModels\Edit.cshtml" />
     <Content Include="Views\ResourceViewModels\Index.cshtml" />
     <Content Include="Views\Resource\AddResource.cshtml" />
+    <Content Include="Views\JobRequest\Index.cshtml" />
+    <Content Include="Views\JobRequest\Create.cshtml" />
+    <Content Include="Views\JobRequest\Delete.cshtml" />
+    <Content Include="Views\JobRequest\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\vendors\card\scss\bourbon\" />
     <Folder Include="Content\vendors\underscore\" />
     <Folder Include="Scripts\vendors\card\scss\bourbon\" />
-    <Folder Include="Views\JobRequest\" />
     <Folder Include="Views\Mandate\" />
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,6 @@ namespace Web.Controllers
 {
     public class JobRequestController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: JobRequest
         public ActionResult Index()
@@ -26,7 +25,7 @@ namespace Web.Controllers
             }
             else { ViewBag.result = "erreur"; }
 
-            return View();
+            return View(ViewBag.result);
 
 
 
@@ -40,63 +39,92 @@ namespace Web.Controllers
             return View();
         }
 
-        // GET: JobRequest/Create
+        // POST: JobRequest/Create
         public ActionResult Create()
         {
+          
             return View();
         }
 
         // POST: JobRequest/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(JobRequestModels JobRequestModels)
         {
             try
             {
-                // TODO: Add insert logic here
+                HttpClient Client = new HttpClient();
+                Client.BaseAddress = new Uri("http://127.0.0.1:18080/");
+                Client.PostAsJsonAsync<JobRequestModels>("Map-JavaEE-web/MAP/jobrequest", JobRequestModels)
+                  .ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View("Create");
             }
         }
 
         // GET: JobRequest/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            JobRequestModels jobrequest = null;
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080/");
+            var responseTask = Client.GetAsync("Map-JavaEE-web/MAP/jobrequest/ShowMyReq/" + id.ToString());
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<JobRequestModels>();
+                readTask.Wait();
+
+                jobrequest = readTask.Result;
+            }
+            return View(jobrequest);
         }
 
         // POST: JobRequest/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(JobRequestModels JobRequestModels)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add update logic here
+                client.BaseAddress = new Uri("http://127.0.0.1:18080/");
 
-                return RedirectToAction("Index");
+                //HTTP POST
+                var putTask = client.PutAsJsonAsync<JobRequestModels>("Map-JavaEE-web/MAP/jobrequest/update", JobRequestModels);
+                putTask.Wait();
+
+                var result = putTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
-        }
+            return View(JobRequestModels);
+        
+    }
 
         // GET: JobRequest/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
 
         // POST: JobRequest/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                 HttpClient Client = new HttpClient();
+                Client.BaseAddress = new Uri("http://127.0.0.1:18080/");
+                //HTTP DELETE
+                var deleteTask = Client.DeleteAsync("Map-JavaEE-web/MAP/jobrequest/delete/" + id.ToString());
+                deleteTask.Wait();
+                
 
                 return RedirectToAction("Index");
             }
