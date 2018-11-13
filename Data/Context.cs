@@ -212,8 +212,7 @@ namespace Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<person>()
-                .Property(e => e.availability)
-                .IsUnicode(false);
+                .Property(e => e.availability);
 
             modelBuilder.Entity<person>()
                 .Property(e => e.businessSector)
@@ -224,20 +223,17 @@ namespace Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<person>()
-                .Property(e => e.jobType)
-                .IsUnicode(false);
+                .Property(e => e.jobType);
 
             modelBuilder.Entity<person>()
                 .Property(e => e.picture)
                 .IsUnicode(false);
 
             modelBuilder.Entity<person>()
-                .Property(e => e.seniority)
-                .IsUnicode(false);
+                .Property(e => e.seniority);
 
             modelBuilder.Entity<person>()
-                .Property(e => e.workProfil)
-                .IsUnicode(false);
+                .Property(e => e.workProfil);
 
             modelBuilder.Entity<person>()
                 .HasMany(e => e.candidatefolders)

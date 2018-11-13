@@ -25,25 +25,48 @@ namespace Web.Controllers
                 ViewBag.result = response.Content.ReadAsAsync<IEnumerable<ResourceViewModel>>().Result;
             }
             else { ViewBag.result = "erreur"; }
-            return View();
+            return View("listeResource");
         }
 
         
         // GET: Resource/Create
         public ActionResult AddResource()
         {
-            return View();
+            return View("AddResource");
         }
 
      
         [HttpPost]
         public ActionResult AddResource(ResourceViewModel resource)
         {
+           
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://127.0.0.1:18080");
             client.PostAsJsonAsync<ResourceViewModel>("Map-JavaEE-web/MAP/Resources/add",resource);
             return RedirectToAction("listeResource");
         }
+
+        // GET: Resource/Deateil
+        public ActionResult DetailResource(int? id)
+        {
+            ResourceViewModel resource = new ResourceViewModel();
+            //string idResource = Convert.ToString(id);
+
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("Map-JavaEE-web/MAP/Resources/resourceById?resourceId=id.ToString()").Result;
+            if (response.IsSuccessStatusCode)
+            {
+               
+                resource = response.Content.ReadAsAsync<ResourceViewModel>().Result;
+                
+            }
+            else { ViewBag.result = "erreur"; }
+            return View(resource);
+        }
+
+
 
     }
 }
