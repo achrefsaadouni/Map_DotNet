@@ -114,6 +114,7 @@ namespace Web.Controllers
                     return RedirectToAction("Index");
                 }
             }
+            FillEnumDropDownList();
             ViewBag.CLIENT = new SelectList(db.people, "id", "nameSociety", projectViewModel.clientId.id);
             return View(projectViewModel);
         }
