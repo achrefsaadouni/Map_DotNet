@@ -97,10 +97,6 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RestSharp, Version=106.5.4.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.106.5.4\lib\net452\RestSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -228,7 +224,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobRequestController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MandateController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -239,8 +237,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobRequestModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MandateViewModels.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\ResourceViewModel.cs" />
     <Compile Include="Models\UserViewModels.cs" />
@@ -4599,7 +4597,19 @@
     <Content Include="Scripts\vendors\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Scripts\vendors\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\vendors\tinymce\skins\lightgray\fonts\tinymce.woff" />
-    <Content Include="Views\Mandate\Index.cshtml" />
+    <Content Include="Views\Resource\listeResource.cshtml" />
+    <Content Include="Views\Resource\DetailResource.cshtml" />
+    <Content Include="Views\ResourceViewModels\Create.cshtml" />
+    <Content Include="Views\ResourceViewModels\Delete.cshtml" />
+    <Content Include="Views\ResourceViewModels\Details.cshtml" />
+    <Content Include="Views\ResourceViewModels\Edit.cshtml" />
+    <Content Include="Views\ResourceViewModels\Index.cshtml" />
+    <Content Include="Views\Resource\AddResource.cshtml" />
+    <Content Include="Views\JobRequest\Index.cshtml" />
+    <Content Include="Views\JobRequest\Create.cshtml" />
+    <Content Include="Views\JobRequest\Delete.cshtml" />
+    <Content Include="Views\JobRequest\Edit.cshtml" />
+    <Content Include="Views\Project\Create.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Mandate\MyMandate.cshtml" />
@@ -4610,6 +4620,7 @@
     <Folder Include="Content\vendors\card\scss\bourbon\" />
     <Folder Include="Content\vendors\underscore\" />
     <Folder Include="Scripts\vendors\card\scss\bourbon\" />
+    <Folder Include="Views\Mandate\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -4620,6 +4631,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{2592233D-402F-477B-A918-1FA9E52AD659}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{a02d708f-cf2e-4709-b3a7-7edc909373e2}</Project>
       <Name>Domain</Name>

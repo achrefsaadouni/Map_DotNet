@@ -46,6 +46,10 @@
       <HintPath>..\packages\MySql.Data.Entity.6.8.8\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -81,6 +85,11 @@
     <Compile Include="candidatefolder.cs" />
     <Compile Include="contract.cs" />
     <Compile Include="dayoff.cs" />
+    <Compile Include="Enumeration\AvailibilityType.cs" />
+    <Compile Include="Enumeration\JobType.cs" />
+    <Compile Include="Enumeration\SeniorityType.cs" />
+    <Compile Include="Enumeration\StateType.cs" />
+    <Compile Include="Enumeration\WorkType.cs" />
     <Compile Include="inbox.cs" />
     <Compile Include="jobrequest.cs" />
     <Compile Include="Mandate.cs" />

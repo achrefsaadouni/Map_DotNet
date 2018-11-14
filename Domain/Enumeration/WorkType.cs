@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain;
-using ServicePattern;
 
-namespace Service.Interfaces
+namespace Domain.Enumeration
 {
-    public interface IClientService : IService<person>
+    public enum WorkType
     {
+        Developper , Designer , Chef
     }
 }

@@ -36,12 +36,6 @@
         <th>
             @Html.DisplayNameFor(model => model.totalNumberResource)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.clientId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.organizationalChart_id)
-        </th>
         <th></th>
     </tr>
 
@@ -72,15 +66,9 @@
             @Html.DisplayFor(modelItem => item.totalNumberResource)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.clientId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.organizationalChart_id)
-        </td>
-        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
             @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Archive", "Archive", new { id=item.id })
         </td>
     </tr>
 }

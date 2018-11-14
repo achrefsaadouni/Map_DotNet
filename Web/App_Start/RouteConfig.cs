@@ -18,6 +18,16 @@ namespace Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+              name: "DetailResource",
+              url: "{controller}/{action}/{id}",
+              defaults: new { controller = "Resource", action = " DetailResource", id = UrlParameter.Optional }
+          );
+
+
+
+           
         }
     }
 }

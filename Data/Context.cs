@@ -1,11 +1,11 @@
 using Domain;
+using Domain.Enumeration;
 
 namespace Data
 {
     using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
+
 
     public partial class Context : DbContext
     {
@@ -212,8 +212,7 @@ namespace Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<person>()
-                .Property(e => e.availability)
-                .IsUnicode(false);
+                .Property(e => e.availability);
 
             modelBuilder.Entity<person>()
                 .Property(e => e.businessSector)
@@ -224,20 +223,17 @@ namespace Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<person>()
-                .Property(e => e.jobType)
-                .IsUnicode(false);
+                .Property(e => e.jobType);
 
             modelBuilder.Entity<person>()
                 .Property(e => e.picture)
                 .IsUnicode(false);
 
             modelBuilder.Entity<person>()
-                .Property(e => e.seniority)
-                .IsUnicode(false);
+                .Property(e => e.seniority);
 
             modelBuilder.Entity<person>()
-                .Property(e => e.workProfil)
-                .IsUnicode(false);
+                .Property(e => e.workProfil);
 
             modelBuilder.Entity<person>()
                 .HasMany(e => e.candidatefolders)
@@ -256,13 +252,13 @@ namespace Data
 
             modelBuilder.Entity<person>()
                 .HasMany(e => e.mandates)
-                .WithRequired(e => e.resource)
+                .WithRequired(e => e.person)
                 .HasForeignKey(e => e.ressourceId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<person>()
                 .HasMany(e => e.mandates1)
-                .WithOptional(e => e.Gps)
+                .WithOptional(e => e.person1)
                 .HasForeignKey(e => e.gps_id);
 
             modelBuilder.Entity<person>()
@@ -318,8 +314,7 @@ namespace Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<project>()
-                .Property(e => e.projectType)
-                .IsUnicode(false);
+                .Property(e => e.projectType);
 
             modelBuilder.Entity<project>()
                 .HasMany(e => e.mandates)
