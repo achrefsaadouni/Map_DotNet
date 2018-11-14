@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 using Domain;
-using Newtonsoft.Json;
+using Domain.Enumeration;
 
 namespace Web.Models
 {
@@ -14,9 +10,10 @@ namespace Web.Models
 
         public int id { get; set; }
 
-
         public string address { get; set; }
+
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? endDate { get; set; }
 
         public int levioNumberResource { get; set; }
@@ -26,7 +23,9 @@ namespace Web.Models
         public string projectName { get; set; }
 
         public string projectType { get; set; }
+
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? startDate { get; set; }
 
         public int totalNumberResource { get; set; }

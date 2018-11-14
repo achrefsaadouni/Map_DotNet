@@ -1,5 +1,6 @@
-using Newtonsoft.Json;
+using Domain.Enumeration;
 
+using Newtonsoft.Json;
 namespace Domain
 {
     using System;
