@@ -84,6 +84,7 @@
     <Compile Include="inbox.cs" />
     <Compile Include="jobrequest.cs" />
     <Compile Include="Mandate.cs" />
+    <Compile Include="MandateId.cs" />
     <Compile Include="message.cs" />
     <Compile Include="note.cs" />
     <Compile Include="organizationalchart.cs" />
