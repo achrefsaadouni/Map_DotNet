@@ -1,13 +1,5 @@
 ﻿@model Web.Models.ResourceViewModel
 
-@{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Edit</h2>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -21,7 +13,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.seniority, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.seniority, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EnumDropDownListFor(model => model.seniority, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.seniority, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -29,7 +21,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.workProfil, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.workProfil, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EnumDropDownListFor(model => model.workProfil, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.workProfil, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,7 +53,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.jobType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.jobType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EnumDropDownListFor(model => model.jobType, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.jobType, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -85,7 +77,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.availability, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.availability, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EnumDropDownListFor(model => model.availability, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.availability, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -133,7 +125,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

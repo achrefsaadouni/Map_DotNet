@@ -26,26 +26,22 @@
                 <tr>
                     <th scope="col">@p.id</th>
                     <th scope="col">@p.archived</th>
-                     <th scope="col"><a href="@Url.Action("DetailResource")">@p.firstName @p.lastName</a></th>
+                     <th scope="col">@Html.ActionLink("details","DetailResource","Resource",new {id = @p.id },null)</th>
                     <th scope="col">@p.email</th>
                     <th scope="col">@p.seniority</th>
                     <th scope="col">@p.workProfil</th>
                     <th scope="col">@p.availability</th>
+                    <img src="@Url.Content(@p.picture)" width="250" height="250" multiple />
                     @if (@p.archived == 0) {
-                    <th> <a href="#">
-                               <i class="glyphicon glyphicon-lock" data-name="home" data-size="20" data-color="#000" ></i>
-                         </a>
-                    </th>
+                        <th>@Html.ActionLink("Archiver", "Archiver", "Resource", new { id = @p.id }, null)</th>
+
+               
                     }
                     else
                     {
                         <th> <input type="submit" value="Unarchive" class="btn btn-default" /></th>
                     }
-                    <th>
-                       <a href="#">
-                       <i class="glyphicon glyphicon-cog" data-name="home" data-size="20" ></i> 
-                       </a>
-                    </th>
+                    <th>@Html.ActionLink("Edit", "UpdateResource", "Resource", new { id = @p.id }, null)</th>
                </tr>
             }
         </table>

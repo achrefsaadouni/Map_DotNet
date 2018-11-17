@@ -814,6 +814,7 @@
     <Content Include="fonts\src\fonts\ionicons.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="image\27867899_1243953722405318_5314041134861884436_n.png" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -4465,6 +4466,8 @@
     <Content Include="Views\ResourceViewModels\Edit.cshtml" />
     <Content Include="Views\ResourceViewModels\Index.cshtml" />
     <Content Include="Views\Resource\AddResource.cshtml" />
+    <Content Include="Views\Resource\UpdateResource.cshtml" />
+    <Content Include="Views\Resource\Archiver.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
