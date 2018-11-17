@@ -1,0 +1,43 @@
+﻿@model Web.Models.MandateViewModels
+
+@{
+    ViewBag.Title = "MyMandate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MyMandate</h2>
+
+<div>
+    <h4>MandateViewModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.archived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.archived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.montant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.montant)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gps_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gps_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

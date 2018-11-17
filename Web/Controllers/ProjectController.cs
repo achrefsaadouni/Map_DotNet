@@ -1,89 +1,170 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Mvc;
+using Domain;
+using Service.Interfaces;
+using Service.Services;
+using Web.Models;
+using Data;
 
 namespace Web.Controllers
 {
     public class ProjectController : Controller
     {
-        // GET: Project
+        private Context db = new Context();
+
+        private IClientService clientService = new ClientService();
         public ActionResult Index()
         {
-            return View();
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("Map-JavaEE-web/MAP/projects").Result;
+            
+            if (response.IsSuccessStatusCode)
+            {
+                ViewBag.result = response.Content.ReadAsAsync<IEnumerable<ProjectViewModel>>().Result;
+            }
+            else
+            {
+                ViewBag.result = "error";
+            }
+            return View(ViewBag.result);
         }
 
-        // GET: Project/Details/5
+
         public ActionResult Details(int id)
         {
-            return View();
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("Map-JavaEE-web/MAP/projects?projectId=" + id).Result;
+            ViewBag.result = response.Content.ReadAsAsync<ProjectViewModel>().Result;
+
+            return View(ViewBag.result);
         }
 
-        // GET: Project/Create
+
         public ActionResult Create()
         {
-            return View();
+            initDropList();
+            FillEnumDropDownList();
+            return View("Create");
         }
 
-        // POST: Project/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ProjectViewModel projectViewModel,FormCollection form)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            initDropList();
+            projectViewModel.totalNumberResource = 0;
+            projectViewModel.levioNumberResource = 0;
+            string clientId = Request.Form["CLIENT"].ToString();
+            string projectType = Request.Form["TypeProject"].ToString();
+            projectViewModel.projectType = projectType;
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080");
+            Client.PostAsJsonAsync<ProjectViewModel>("Map-JavaEE-web/MAP/projects?idClient=" + Int32.Parse(clientId), projectViewModel)
+               .ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
+            return RedirectToAction("Index");
         }
 
-        // GET: Project/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            initDropList();
+            FillEnumDropDownList();
+            ProjectViewModel projectViewModel = null;
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080/");
+            var responseTask = Client.GetAsync("Map-JavaEE-web/MAP/projects?projectId=" + id.ToString());
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<ProjectViewModel>();
+                readTask.Wait();
+                projectViewModel = readTask.Result;
+            }
+            ViewBag.CLIENT = new SelectList(db.people, "id", "nameSociety", projectViewModel.clientId.id);
+            return View(projectViewModel);
         }
 
-        // POST: Project/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ProjectViewModel projectViewModel)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                String clientId = Request.Form["CLIENT"].ToString();
+                string projectType = Request.Form["TypeProject"].ToString();
+                projectViewModel.projectType = projectType;
+                person person = clientService.GetById(Int32.Parse(clientId));
+                projectViewModel.clientId = person;
+                client.BaseAddress = new Uri("http://127.0.0.1:18080/");
+                var putTask = client.PutAsJsonAsync<ProjectViewModel>("Map-JavaEE-web/MAP/projects", projectViewModel);
+                putTask.Wait();
+                var result = putTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            FillEnumDropDownList();
+            ViewBag.CLIENT = new SelectList(db.people, "id", "nameSociety", projectViewModel.clientId.id);
+            return View(projectViewModel);
         }
 
-        // GET: Project/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Archive(int id)
         {
-            return View();
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("Map-JavaEE-web/MAP/projects?projectId=" + id).Result;
+            ViewBag.result = response.Content.ReadAsAsync<ProjectViewModel>().Result;
+            return View(ViewBag.result);
         }
 
-        // POST: Project/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Archive(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
+            ProjectViewModel projectViewModel = null;
+            HttpClient Client2 = new HttpClient();
+            Client2.BaseAddress = new Uri("http://127.0.0.1:18080");
+            Client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client2.GetAsync("Map-JavaEE-web/MAP/projects?projectId=" + id).Result;
+            ViewBag.result = response.Content.ReadAsAsync<ProjectViewModel>().Result;
+            projectViewModel = ViewBag.result;
+
+
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080");
+            Client.PostAsJsonAsync<ProjectViewModel>("Map-JavaEE-web/MAP/projects/ArchiveProject" , projectViewModel)
+                .ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
+            return RedirectToAction("Index");
+
+        }
+
+        public void FillEnumDropDownList()
+        {
+            var list = new List<SelectListItem>
+
             {
-                return View();
-            }
+                new SelectListItem{ Text="New project", Value = "newProject" },
+                new SelectListItem{ Text="Project in progress", Value = "projectInProgress" },
+                new SelectListItem{ Text="Completed project", Value = "completedProject"},
+            };
+            ViewBag.TypeProject = list;
+        }
+
+        public void initDropList()
+        {
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://127.0.0.1:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("Map-JavaEE-web/MAP/clients").Result;
+            ViewBag.CLIENT = response.Content.ReadAsAsync<IEnumerable<ClientViewModel>>().Result;
         }
     }
 }

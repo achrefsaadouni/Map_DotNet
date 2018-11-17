@@ -13,6 +13,14 @@
     <![endif]-->
     <!-- global css -->
     <link href="@Url.Content("~/Content/")css/app.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/")vendors/datatables/css/dataTables.bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/")vendors/datatables/css/buttons.bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/")vendors/datatables/css/colReorder.bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/")vendors/datatables/css/dataTables.bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/")vendors/datatables/css/rowReorder.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/")vendors/datatables/css/buttons.bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/")vendors/datatables/css/scroller.bootstrap.css" />
+    <link href="@Url.Content("~/Content/")css/pages/tables.css" rel="stylesheet" type="text/css">
     <!-- end of global css -->
     <!--page level css -->
     <!--end of page level css-->
@@ -691,25 +699,9 @@
                 </div>
             </section>
         </aside>
-        <aside class="right-side">
-            <section class="content-header">
-                
-                <ol class="breadcrumb">
-                    <li>
-                        <a href="index.html">
-                            <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Pages</a>
-                    </li>
-                    <li class="active">Blank page</li>
-                </ol>
-            </section>
-            <section class="content">
-    @RenderBody()</section>
-        </aside>
-        <!-- right-side -->
+
+    @RenderBody()
+
     </div>
     <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
         <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
@@ -718,5 +710,21 @@
 
 
 <script src="@Url.Content("~/Scripts/")js/app.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/jeditable/js/jquery.jeditable.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.buttons.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.colReorder.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.responsive.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.rowReorder.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.colVis.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.html5.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.print.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.bootstrap.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/pdfmake.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/vfs_fonts.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.scroller.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")js/pages/table-advanced.js"></script>
 </body>
 </html>

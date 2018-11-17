@@ -1,3 +1,6 @@
+using Domain.Enumeration;
+
+using Newtonsoft.Json;
 namespace Domain
 {
     using System;
@@ -43,6 +46,7 @@ namespace Domain
 
         public int totalNumberResource { get; set; }
 
+        [JsonIgnore]
         public int? clientId { get; set; }
 
         public int? organizationalChart_id { get; set; }
@@ -52,9 +56,11 @@ namespace Domain
 
         public virtual organizationalchart organizationalchart { get; set; }
 
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<person> people { get; set; }
 
+        [JsonIgnore]
         public virtual person person { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

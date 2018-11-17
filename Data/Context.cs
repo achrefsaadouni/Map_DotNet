@@ -1,11 +1,11 @@
 using Domain;
+using Domain.Enumeration;
 
 namespace Data
 {
     using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
+
 
     public partial class Context : DbContext
     {
@@ -184,8 +184,8 @@ namespace Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<person>()
-                .Property(e => e.roleT)
-                .IsUnicode(false);
+                .Property(e => e.roleT);
+                
 
             modelBuilder.Entity<person>()
                 .Property(e => e.candidateState)
@@ -314,8 +314,7 @@ namespace Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<project>()
-                .Property(e => e.projectType)
-                .IsUnicode(false);
+                .Property(e => e.projectType);
 
             modelBuilder.Entity<project>()
                 .HasMany(e => e.mandates)

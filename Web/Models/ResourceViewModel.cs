@@ -1,4 +1,5 @@
 ﻿using Domain.Enumeration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,7 +33,8 @@ namespace Web.Models
         public string email { get; set; }
         public int archived { get; set; }
         public string password { get; set; }
-
+        
+        public Role roleT { get; set; }
         //public HttpPostedFileBase ImageFile { get; set; }
     }
 }

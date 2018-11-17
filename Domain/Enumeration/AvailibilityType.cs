@@ -8,6 +8,6 @@ namespace Domain.Enumeration
 {
    public enum AvailibilityType
     {
-        available , unavailable , availableSoon
+        available , unavailable  , availableSoon 
     }
 }

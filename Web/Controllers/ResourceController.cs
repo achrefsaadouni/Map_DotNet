@@ -47,6 +47,7 @@ namespace Web.Controllers
              string extension = Path.GetExtension(file.FileName);
              fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
              resource.picture = "~/Image/" + fileName;
+            resource.roleT = Domain.Enumeration.Role.Resource;
              fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
              file.SaveAs(fileName);
              HttpClient client = new HttpClient();

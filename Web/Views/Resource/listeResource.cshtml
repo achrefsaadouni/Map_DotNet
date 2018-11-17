@@ -3,47 +3,67 @@
     <title>Liste des resources</title>
 </head>
 <body>
-    <div class="collapse navbar-collapse" id="exCollapsingNavbar2">
-        <ul class="nav navbar-nav ">
-            <li class="nav-item active"> <a class="nav-link" href="@Url.Action("listeResource")">Liste des resources <span class="sr-only">(current)</span></a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#">Liste des resources archivées</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="@Url.Action("AddResource")">Ajouter resource</a> </li>
-        </ul>
-    </div>
-        
-        <table class="table">
-            <tr class="thead-dark">
-                <th scope="col">Id</th>
-                <th scope="col">Etat</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">seniority</th>
-                <th scope="col">workProfile</th>
-                <th scope="col">availability</th>
-            </tr>
-            @foreach (var p in ViewBag.result)
-            {
-                <tr>
-                    <th scope="col">@p.id</th>
-                    <th scope="col">@p.archived</th>
-                     <th scope="col">@Html.ActionLink("details","DetailResource","Resource",new {id = @p.id },null)</th>
-                    <th scope="col">@p.email</th>
-                    <th scope="col">@p.seniority</th>
-                    <th scope="col">@p.workProfil</th>
-                    <th scope="col">@p.availability</th>
-                    <img src="@Url.Content(@p.picture)" width="250" height="250" multiple />
-                    @if (@p.archived == 0) {
-                        <th>@Html.ActionLink("Archiver", "Archiver", "Resource", new { id = @p.id }, null)</th>
+    <aside class="right-side">
+        <section class="content-header">
+            <h1>Mandates</h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">
+                        <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Mandates</a>
+                </li>
+                <li class="active">Handle Request</li>
+            </ol>
+        </section>
 
-               
-                    }
-                    else
-                    {
-                        <th> <input type="submit" value="Unarchive" class="btn btn-default" /></th>
-                    }
-                    <th>@Html.ActionLink("Edit", "UpdateResource", "Resource", new { id = @p.id }, null)</th>
-               </tr>
-            }
-        </table>
+
+
+
+        <section class="content">
+            <div class="collapse navbar-collapse" id="exCollapsingNavbar2">
+                <ul class="nav navbar-nav ">
+                    <li class="nav-item active"> <a class="nav-link" href="@Url.Action("listeResource")">Liste des resources <span class="sr-only">(current)</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#">Liste des resources archivées</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("AddResource")">Ajouter resource</a> </li>
+                </ul>
+            </div>
+
+            <table class="table">
+                <tr class="thead-dark">
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">seniority</th>
+                    <th scope="col">workProfile</th>
+                    <th scope="col">availability</th>
+                </tr>
+                @foreach (var p in ViewBag.result)
+            {
+                    <tr>
+                        <th scope="col">@p.firstName  @p.lastName</th>
+                        <th scope="col">@p.email</th>
+                        <th scope="col">@p.seniority</th>
+                        <th scope="col">@p.workProfil</th>
+                        <th scope="col">@p.availability</th>
+                        <th scope="col">@Html.ActionLink("View", "DetailResource", "Resource", new { id = @p.id }, null)</th>
+                        @if (@p.archived == 0)
+                        {
+                            <th>@Html.ActionLink("Archiver", "Archiver", "Resource", new { id = @p.id }, null)</th>
+
+
+                        }
+                        else
+                        {
+                            <th> <input type="submit" value="Unarchive" class="btn btn-default" /></th>
+                        }
+                        <th>@Html.ActionLink("Edit", "UpdateResource", "Resource", new { id = @p.id }, null)</th>
+                    </tr>
+                }
+            </table>
+        </section>
+        <!-- content -->
+    </aside>
 </body>
 </html>

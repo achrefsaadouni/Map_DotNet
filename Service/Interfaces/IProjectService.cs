@@ -8,7 +8,7 @@ using ServicePattern;
 
 namespace Service.Interfaces
 {
-    interface IProjectService : IService<project>
+    public interface IProjectService : IService<project>
     {
     }
 }
