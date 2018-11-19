@@ -26,9 +26,8 @@ namespace Domain
             resourceskills = new HashSet<resourceskill>();
             requests = new HashSet<request>();
             tests = new HashSet<test>();
-            requests1 = new HashSet<request>();
+            requestsResources = new HashSet<request>();
             projects = new HashSet<project>();
-            requests2 = new HashSet<request>();
             dayoffs = new HashSet<dayoff>();
             organizationalcharts = new HashSet<organizationalchart>();
         }
@@ -185,18 +184,13 @@ namespace Domain
 
         [JsonIgnore]
         public virtual project project { get; set; }
-
-        [JsonIgnore]
+                [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<request> requests1 { get; set; }
+        public virtual ICollection<request> requestsResources { get; set; }
 
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<project> projects { get; set; }
-
-        [JsonIgnore]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<request> requests2 { get; set; }
 
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

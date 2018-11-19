@@ -372,7 +372,7 @@ var ColReorder = function( dt, opts )
 	var settings = new $.fn.dataTable.Api( dt ).settings()[0];
 
 	// Ensure that we can't initialise on the same table twice
-	if ( settings._colReorder ) {
+	if (settings._colReorder) {
 		return settings._colReorder;
 	}
 
@@ -1264,7 +1264,7 @@ if ( typeof $.fn.dataTable == "function" &&
 		"fnInit": function( settings ) {
 			var table = settings.oInstance;
 
-			if ( ! settings._colReorder ) {
+			if (!settings._colReorder) {
 				var dtInit = settings.oInit;
 				var opts = dtInit.colReorder || dtInit.oColReorder || {};
 

@@ -9,18 +9,22 @@ using System.Net.Http.Headers;
 using System.Net;
 using RestSharp;
 using Domain;
+using Service;
 using RestSharp.Deserializers;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Web.Controllers
 {
     public class MandateController : Controller
     {
-        
+
         private const string BASE_URI = "http://localhost:18080/Map-JavaEE-web/MAP/";
+        private IMandateService ms = new MandateService();
         // GET: Mandate
         public ActionResult Index()
         {
-          
+
             var client = new RestClient(BASE_URI);
             var request = new RestRequest("mandate");
             request.Method = Method.GET;
@@ -33,8 +37,23 @@ namespace Web.Controllers
                 return RedirectToAction("Login", "Home");
         }
 
+        public ActionResult AllRequest()
+        {
+            var client = new RestClient(BASE_URI);
+            var request = new RestRequest("mandate/request");
+            request.Method = Method.GET;
+            request.AddHeader("Authorization", "Bearer " + Session["token"]);
+            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+            var response = client.Execute<List<SrequestModelViews>>(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+                return View(response.Data);
+            else
+                return RedirectToAction("Login", "Home");
+        }
+
         [HttpPost]
-        public string AddMandate() {
+        public string AddMandate()
+        {
             var client = new RestClient(BASE_URI);
             var request = new RestRequest(Method.POST);
             client.AddHandler("application/json", new JsonDeserializer());
@@ -64,7 +83,7 @@ namespace Web.Controllers
         public ActionResult MyMandate(int id)
         {
             var client = new RestClient(BASE_URI);
-            var request = new RestRequest("mandate?ressourceId="+id);
+            var request = new RestRequest("mandate?ressourceId=" + id);
             request.Method = Method.GET;
             request.AddHeader("Authorization", "Bearer " + Session["token"]);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
@@ -76,13 +95,13 @@ namespace Web.Controllers
                 return RedirectToAction("Login", "Home");
 
             }
-                
+
         }
 
         public ActionResult ClientMandates(int id)
         {
             var client = new RestClient(BASE_URI);
-            var request = new RestRequest("mandate?clientId="+id);
+            var request = new RestRequest("mandate?clientId=" + id);
             request.Method = Method.GET;
             request.AddHeader("Authorization", "Bearer " + Session["token"]);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
@@ -122,6 +141,91 @@ namespace Web.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
+        public ActionResult HandleRequest(int id)
+        {
+            var client = new RestClient(BASE_URI);
+            var request = new RestRequest(Method.POST);
+            client.AddHandler("application/json", new JsonDeserializer());
+            request.RequestFormat = DataFormat.Json;
+            request.Resource = "mandate/suggestion";
+            var obj = new
+            {
+                requestId = id
+            };
+            request.AddJsonBody(obj);
+            request.AddHeader("Authorization", "Bearer " + Session["token"]);
+            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+            var response = client.Execute<SuggestionViewModels>(request);
+            if (response.StatusCode == HttpStatusCode.OK && response.Data != null)
+            {
 
+                ViewData["content"] = trie(response.Data);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+        }
+        [HttpPost]
+        public string addSuggestion()
+        {
+            Stream req = Request.InputStream;
+            req.Seek(0, System.IO.SeekOrigin.Begin);
+            string json = new StreamReader(req).ReadToEnd();
+
+            SuggestionViewModels input = null;
+            try
+            {
+                input = JsonConvert.DeserializeObject<SuggestionViewModels>(json);
+            }
+
+            catch (Exception ex)
+            {
+                return "error";
+            }
+            person p = new person();
+            p.id = input.resources[0].id;
+            request r = new request();
+            r.id = input.request.id;
+            ms.addSuggestion(r, p);
+            return "success";
+        }
+        public ActionResult MyRequest()
+        {
+            var client = new RestClient(BASE_URI);
+            string s = "mandate/request?id="+Session["id"];
+            var request = new RestRequest(s);
+            request.Method = Method.GET;
+            request.AddHeader("Authorization", "Bearer " + Session["token"]);
+            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+            var response = client.Execute<List<SrequestModelViews>>(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+                return View(response.Data);
+            else
+                return RedirectToAction("Login", "Home");
+        }
+
+
+        public SuggestionViewModels trie(SuggestionViewModels s)
+
+        {
+            SuggestionViewModels cont = s;
+            var r1 = from name in s.request.project.projectSkills
+                     orderby name.percentage descending
+                     select name;
+            cont.request.project.projectSkills = new List<projectskill>();
+            cont.request.project.projectSkills.AddRange(r1);
+                cont.resources.ForEach(e =>
+                {
+                    var x = e.resourceSkills.OrderByDescending(w => w.rateSkill).ToList();
+                    e.resourceSkills.Clear();
+                    e.resourceSkills.AddRange(x);
+                });
+
+            return cont;
+        }
     }
+
+        
 }

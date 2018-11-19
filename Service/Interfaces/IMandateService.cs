@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    interface IMandateService : IService<Mandate>
+    public interface IMandateService : IService<Mandate>
     {
+       void addSuggestion(request r , person s);
     }
 }

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Web.Models.MandateViewModels>
 @using Web.Models
 @{
-    ViewBag.Title = "Index";
-   bool test = true;
+    bool test = true;
+    ViewBag.Title = "Mandate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <aside class="right-side">
     <section class="content-header">
         <h1>Mandates</h1>
@@ -21,11 +21,6 @@
         </ol>
     </section>
     <section class="content">
-
-
-
-
-
 
 
 
@@ -55,55 +50,53 @@
                                         </thead>
                                         <tbody>
 
-    
-    @foreach (MandateViewModels item in Model)
-    {
-        if (test)
-        {
-            <tr role="row" class="odd">
-                <td tabindex="0" class="sorting_1">@item.mandateId.dateDebut.ToString("d")</td>
-                <td>@item.mandateId.dateFin.ToString("d")</td>
-                <td>@item.projet.projectName</td>
-                <td>@item.ressource.firstName @item.ressource.lastName</td>
-                <td>@item.montant</td>
-                @if (item.gps != null)
+                                            @foreach (MandateViewModels item in Model)
+                                            {
+                                                if (test)
+                                                {
+                                                    <tr role="row" class="odd">
+                                                        <td tabindex="0" class="sorting_1">@item.mandateId.dateDebut.ToString("d")</td>
+                                                        <td>@item.mandateId.dateFin.ToString("d")</td>
+                                                        <td>@item.projet.projectName</td>
+                                                        <td>@item.ressource.firstName @item.ressource.lastName</td>
+                                                        <td>@item.montant</td>
+                                                        @if (item.gps != null)
                     {
-                    <td>
-                        @item.gps.firstName @item.gps.lastName
-                    </td>}
+                                                            <td>
+                                                                @item.gps.firstName @item.gps.lastName
+                                                            </td>}
                     else
                     {
-                    <td></td>
-                }
-            </tr>
-            test = false;
-        }
-        else
-        {
-            <tr role="row" class="even">
-                <td tabindex="0" class="sorting_1">@item.mandateId.dateDebut.ToString("d")</td>
-                <td>@item.mandateId.dateFin.ToString("d")</td>
-                <td>@item.projet.projectName</td>
-                <td>@item.ressource.firstName @item.ressource.lastName</td>
-                <td>@item.montant</td>
-                @if (item.gps != null)
+                                                            <td></td>
+                                                        }
+                                                    </tr>
+                                                    test = false;
+                                                }
+                                                else
+                                                {
+                                                    <tr role="row" class="even">
+                                                        <td tabindex="0" class="sorting_1">@item.mandateId.dateDebut.ToString("d")</td>
+                                                        <td>@item.mandateId.dateFin.ToString("d")</td>
+                                                        <td>@item.projet.projectName</td>
+                                                        <td>@item.ressource.firstName @item.ressource.lastName</td>
+                                                        <td>@item.montant</td>
+                                                        @if (item.gps != null)
                     {
-                    <td>
-                        @item.gps.firstName @item.gps.lastName
-                    </td>}
+                                                            <td>
+                                                                @item.gps.firstName @item.gps.lastName
+                                                            </td>}
                     else
                     {
-                    <td></td>
-                }
-            </tr>
-            test = true ;
+                                                            <td></td>
+                                                        }
+                                                    </tr>
+                                                    test = true;
 
-        }
+                                                }
 
 
-    }
-
-    </tbody>
+                                            }
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -112,8 +105,27 @@
                 </div>
             </div>
         </div>
-
     </section>
-
 </aside>
 <!-- right-side -->
+
+@section scripts {
+    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/jeditable/js/jquery.jeditable.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.buttons.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.colReorder.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.responsive.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.rowReorder.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.colVis.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.html5.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.print.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.bootstrap.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/pdfmake.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/vfs_fonts.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.scroller.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")js/pages/table-advanced.js"></script>
+    
+    
+    }

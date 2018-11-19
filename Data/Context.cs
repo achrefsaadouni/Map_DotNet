@@ -278,7 +278,7 @@ namespace Data
 
             modelBuilder.Entity<person>()
                 .HasMany(e => e.requests)
-                .WithOptional(e => e.person)
+                .WithOptional(e => e.client)
                 .HasForeignKey(e => e.client_id);
 
             modelBuilder.Entity<person>()
@@ -286,20 +286,17 @@ namespace Data
                 .WithOptional(e => e.person)
                 .HasForeignKey(e => e.candidate_id);
 
-            modelBuilder.Entity<person>()
-                .HasMany(e => e.requests1)
-                .WithOptional(e => e.person1)
-                .HasForeignKey(e => e.administrator_id);
+            modelBuilder.Entity<request>()
+                       .HasRequired<person>(s => s.suggesedResource)
+                       .WithMany(g => g.requestsResources)
+                       .HasForeignKey<int?>(s => s.suggessedResource_id);
+
 
             modelBuilder.Entity<person>()
                 .HasMany(e => e.projects)
                 .WithOptional(e => e.person)
                 .HasForeignKey(e => e.clientId);
 
-            modelBuilder.Entity<person>()
-                .HasMany(e => e.requests2)
-                .WithOptional(e => e.person2)
-                .HasForeignKey(e => e.suggessedResource_id);
 
             modelBuilder.Entity<project>()
                 .Property(e => e.address)

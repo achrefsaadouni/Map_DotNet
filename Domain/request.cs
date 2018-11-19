@@ -33,20 +33,17 @@ namespace Domain
         [Column(TypeName = "date")]
         public DateTime? startDateMondate { get; set; }
 
-        public int? administrator_id { get; set; }
-
         public int? client_id { get; set; }
 
         public int? project_id { get; set; }
 
         public int? suggessedResource_id { get; set; }
 
-        public virtual person person { get; set; }
+        public virtual person client { get; set; }
 
-        public virtual person person1 { get; set; }
-
-        public virtual person person2 { get; set; }
+        public person suggesedResource { get; set; }
 
         public virtual project project { get; set; }
+        public  bool traiter { get; set; }
     }
 }

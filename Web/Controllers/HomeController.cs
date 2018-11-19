@@ -52,10 +52,15 @@ namespace Web.Controllers
             };
             request.AddJsonBody(obj);
             client.AddDefaultHeader("accept", "*/*");
-            var response = client.Execute(request);
+            var response = client.Execute<ConnectedUser>(request);
             if(response.StatusCode == HttpStatusCode.OK)
             {
-                Session["token"] = response.Content;
+                Session["token"] = response.Data.token;
+                Session["id"] = response.Data.id;
+                Session["firstName"] = response.Data.firstName;
+                Session["lastName"] = response.Data.lastName;
+                Session["role"] = response.Data.roleT;
+                Session["email"] = response.Data.email;
                 return RedirectToAction("Index");
             }
             else
