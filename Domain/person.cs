@@ -89,8 +89,6 @@ namespace Domain
         [StringLength(255)]
         public string nameSociety { get; set; }
 
-        [JsonIgnore]
-        [StringLength(255)]
         public string availability { get; set; }
 
         [JsonIgnore]

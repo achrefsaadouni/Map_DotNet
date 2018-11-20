@@ -24,6 +24,7 @@
     <link href="@Url.Content("~/Content/")css/pages/sortable_list.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="@Url.Content("~/Content/")vendors/Buttons/css/buttons.css" />
     <link rel="stylesheet" href="@Url.Content("~/Content/")css/pages/advbuttons.css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/")vendors/sweetalert/css/sweetalert.css" />
     <!-- end of global css -->
     <!--page level css -->
     <!--end of page level css-->
@@ -250,21 +251,28 @@
                                 <span class="fa arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li>
-                                    <a href="/Mandate/Index">
-                                        <i class="fa fa-angle-double-right"></i> All Mandates
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Mandate/AllRequest">
-                                        <i class="fa fa-angle-double-right"></i> All Requests
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/Mandate/MyRequest">
-                                        <i class="fa fa-angle-double-right"></i> My Requests
-                                    </a>
-                                </li>
+                                @if (Session["role"].Equals("Admin"))
+                                {
+                                    <li>
+                                        <a href="/Mandate/Index">
+                                            <i class="fa fa-angle-double-right"></i> All Mandates
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Mandate/AllRequest">
+                                            <i class="fa fa-angle-double-right"></i> All Requests
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="/Mandate/MyRequest">
+                                            <i class="fa fa-angle-double-right"></i> My Requests
+                                        </a>
+                                    </li>
+                                }
+            
                             </ul>
                         </li>
                        

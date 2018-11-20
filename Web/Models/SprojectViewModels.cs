@@ -8,6 +8,10 @@ namespace Web.Models
 {
     public class SprojectViewModels
     {
+        public SprojectViewModels()
+        {
+            projectSkills = new List<projectskill>();
+        }
         public string projectName { get; set; }
 
         public List<projectskill> projectSkills { get; set; }

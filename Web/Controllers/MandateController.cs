@@ -13,6 +13,8 @@ using Service;
 using RestSharp.Deserializers;
 using Newtonsoft.Json;
 using System.IO;
+using Service.Services;
+using Service.Interfaces;
 
 namespace Web.Controllers
 {
@@ -21,6 +23,7 @@ namespace Web.Controllers
 
         private const string BASE_URI = "http://localhost:18080/Map-JavaEE-web/MAP/";
         private IMandateService ms = new MandateService();
+        private IRequestService rm = new RequestService();
         // GET: Mandate
         public ActionResult Index()
         {
@@ -207,8 +210,32 @@ namespace Web.Controllers
         }
 
 
-        public SuggestionViewModels trie(SuggestionViewModels s)
+        public new ActionResult ValidateRequest(int id)
+        {
+            request r = ms.getRequestSortedByProjectSkills(id);
+            SrequestModelViews model = new SrequestModelViews();
+            SprojectViewModels p = new SprojectViewModels();
+            model.id = r.id;
+            p.projectName = r.project.projectName;
+            p.projectSkills.AddRange(r.project.projectskills);
+            model.project = p;
+            model.requestedProfil = r.requestedProfil;
+            model.experienceYear = r.experienceYear;
+            model.traiter = r.traiter;
+            model.startDateMondate = r.startDateMondate;
+            model.endDateMondate = r.endDateMondate;
+            model.depositDate = r.depositDate;
+            ViewData["content"] = model;
+            if (Session["token"] != null)
+            {
+                return View(model);
+            }
+            return RedirectToAction("Login", "Home");
+            
+        }
 
+
+        public SuggestionViewModels trie(SuggestionViewModels s)
         {
             SuggestionViewModels cont = s;
             var r1 = from name in s.request.project.projectSkills

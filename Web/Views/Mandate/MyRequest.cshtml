@@ -4,6 +4,7 @@
     bool test = true;
     ViewBag.Title = "All Requests";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <aside class="right-side">
@@ -53,6 +54,7 @@
 
                                             @foreach (SrequestModelViews item in Model)
                                             {
+                                               
                                                 if (test)
                                                 {
                                                     <tr role="row" class="odd">
@@ -61,15 +63,17 @@
                                                         <td>@item.requestedProfil</td>
                                                         <td>@item.experienceYear</td>
                                                         <td>@item.depositDate.ToString("d")</td>
-                                                        @if (@item.traiter == true)
+                                                        
+                                                        @if (item.suggessedResource != null)
                                                         {
-                                                            <td><button disabled class="button button-pill button-success">Not Traited Yet</button></td>
+                                                            
+                                                            <td>@Html.ActionLink("Check", "ValidateRequest", "Mandate", new { id = @item.id }, new { @class = "button button-pill button-success" })</td>
                                                         }
 
                                                         else
                                                         {
 
-                                                            <td>@Html.ActionLink("Check", "ValidateRequest", "Mandate", new { id = @item.id }, new { @class = "button button-pill button-success" })</td>
+                                                            <td><button disabled class="button button-pill button-success">Not Traited Yet</button></td>
                                                         }
 
                                                     </tr>
@@ -83,14 +87,15 @@
                                                         <td>@item.requestedProfil</td>
                                                         <td>@item.experienceYear</td>
                                                         <td>@item.depositDate.ToString("d")</td>
-                                                        @if (@item.traiter)
+                                                        @if (item.suggessedResource != null)
                                                         {
-                                                            <td><button disabled class="button button-pill button-success">Not Traited Yet</button></td>
+                                                            <td>@Html.ActionLink("Check", "ValidateRequest", "Mandate", new { id = @item.id }, new { @class = "button button-pill button-success" })</td>
                                                         }
 
                                                         else
                                                         {
-                                                            <td>@Html.ActionLink("Check", "ValidateRequest", "Mandate", new { id = @item.id }, new { @class = "button button-pill button-success" })</td>
+
+                                                            <td><button disabled class="button button-pill button-success">Not Traited Yet</button></td>
                                                         }
 
                                                     </tr>

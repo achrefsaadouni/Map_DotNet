@@ -9,7 +9,7 @@ namespace Web.Models
     public class SrequestModelViews
     {
         public int id { get; set; }
-        public WorkType requestedProfil { get; set; }
+        public string requestedProfil { get; set; }
         public int experienceYear  { get; set; }
         public SprojectViewModels project { get; set;}
         public DateTime startDateMondate { get; set; }
@@ -17,5 +17,6 @@ namespace Web.Models
         public ClientViewModel Client { get; set; }
         public DateTime depositDate { get; set; }
         public Boolean traiter { get; set; }
+        public SResourceViewModels suggessedResource { get; set; }
     }
 }

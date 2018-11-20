@@ -51,7 +51,6 @@ namespace Domain
 
         public int? organizationalChart_id { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mandate> mandates { get; set; }
 
         public virtual organizationalchart organizationalchart { get; set; }
@@ -62,11 +61,8 @@ namespace Domain
 
         [JsonIgnore]
         public virtual person person { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<projectskill> projectskills { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<request> requests { get; set; }
     }
 }

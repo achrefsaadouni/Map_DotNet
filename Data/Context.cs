@@ -292,6 +292,11 @@ namespace Data
                        .HasForeignKey<int?>(s => s.suggessedResource_id);
 
 
+            modelBuilder.Entity<request>()
+                       .HasRequired<project>(s => s.project)
+                       .WithMany(g => g.requests)
+                       .HasForeignKey<int?>(s => s.project_id);
+
             modelBuilder.Entity<person>()
                 .HasMany(e => e.projects)
                 .WithOptional(e => e.person)
@@ -330,11 +335,6 @@ namespace Data
                 .HasForeignKey(e => e.idProject)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<project>()
-                .HasMany(e => e.requests)
-                .WithOptional(e => e.project)
-                .HasForeignKey(e => e.project_id);
-
             modelBuilder.Entity<request>()
                 .Property(e => e.educationScolarity)
                 .IsUnicode(false);
@@ -343,9 +343,6 @@ namespace Data
                 .Property(e => e.manager)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<request>()
-                .Property(e => e.requestedProfil)
-                .IsUnicode(false);
 
             modelBuilder.Entity<skill>()
                 .Property(e => e.NameSkill)

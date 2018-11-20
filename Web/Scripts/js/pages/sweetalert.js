@@ -54,19 +54,42 @@ $(document).ready(function() {
             timer: 2000,  showConfirmButton: false
         });
     });
-    $('#btn9').on('click',function(){
+    $('#HandleRequestBtn').on('click',function(){
         swal({
-            title: "Ajax request example",
-            text: "Submit to run ajax request",
+            title: "Add This Resource to this request",
+            text: "are you sure",
             type: "info",
             showCancelButton: true,
             closeOnConfirm: false,
             showLoaderOnConfirm: true
         }, function () {
             setTimeout(function () {
-                swal("Ajax request finished!");
-            }, 2000);
+                swal({ title:  "Add Resource finished!" }, function () { window.location.href = $("#page").val(); });
+                var xk = $(".myliste").children().children()[0].value
+                var p = new Object();
+                p.id = xk;
+                var resources = new Array(p);
+                var a = new Object();
+                a.id = $("#reqId").val();
+                var sug  = {
+
+                    request : a,
+                    resources : resources
+                };
+                $.ajax({
+                    type: "POST",
+                    url: '/Mandate/addSuggestion',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(sug),
+                    success: function (data) {
+
+                    },
+
+                });
+            }, 3000);
+         
         });
+     
     });
 
 });

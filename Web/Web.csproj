@@ -4648,6 +4648,7 @@
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Views\Mandate\AllRequest.cshtml" />
     <Content Include="Views\Mandate\MyRequest.cshtml" />
+    <Content Include="Views\Mandate\ValidateRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

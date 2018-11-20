@@ -61,7 +61,7 @@
                                                         <td>@item.project.projectName</td>
                                                         <td>@item.depositDate.ToString("d")</td>
                                                         <td>@item.requestedProfil</td>
-                                                        @if(@item.traiter == true)
+                                                        @if(item.suggessedResource != null)
                                                         {
                                                         <td><button disabled class="button button-pill button-success">Traited</button></td>
                                                         }
@@ -83,7 +83,7 @@
                                                         <td>@item.project.projectName</td>
                                                         <td>@item.depositDate.ToString("d")</td>
                                                         <td>@item.requestedProfil</td>
-                                                        @if(@item.traiter)
+                                                        @if(item.suggessedResource != null)
                                                         {
                                                         <td><button disabled class="button button-pill button-success">Traited</button></td>
                                                         }
