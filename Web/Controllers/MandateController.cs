@@ -139,8 +139,6 @@ namespace Web.Controllers
             var response = client.Execute<List<MandateViewModels>>(request);
             if (response.StatusCode == HttpStatusCode.OK)
                 return View(response.Data);
-            else if (response.StatusCode == HttpStatusCode.NoContent)
-                return RedirectToAction("Index", "Home");
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -230,6 +228,8 @@ namespace Web.Controllers
 
             ress.firstName = r.suggesedResource.firstName;
             ress.lastName = r.suggesedResource.lastName;
+            ress.picture = r.suggesedResource.picture;
+            ress.email = r.suggesedResource.email;
             ress.id = r.suggesedResource.id;
             ress.resourceSkills = new List<resourceskill>();
             ress.resourceSkills.AddRange(r.suggesedResource.resourceskills);

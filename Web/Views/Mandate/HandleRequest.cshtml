@@ -301,6 +301,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert-dev.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/js/pages/sweetalert.js")"></script>
     <script>
+        $(document).ready(function() {
         $(".myliste").on('DOMSubtreeModified', function (e) {
             $("#HandleRequestBtn").prop('disabled', false);
             var x = $("#advanced-1").children();
@@ -310,6 +311,6 @@
                 $("#advanced-2").append(`<li class="items col-xs-12  clearfix">` + x[0].innerHTML + `</li>`);
             }
         });
-
+        });
     </script>
 }

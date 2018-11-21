@@ -28,23 +28,23 @@
 
         <div class="row">
 
-            <div class="col-lg-offset-5">
+            <div class="col-lg-offset-4">
                 @if (s.traiter)
                 {
                     <span class="button-wrap">
-                        <a href="#" class="button button-pill button-success">Start Mandate</a>
+                        <a href="#" id="btnA" class="button button-pill button-success">Accept Application</a>
                     </span>
                     <span class="button-wrap">
-                        <a href="#" class="button button-pill button-danger">Refuse Condidate</a>
+                        <button id="btnR" class="button button-pill button-danger">Refuse Condidate</button>
                     </span>
                 }
                 else
                 {
                     <span class="button-wrap">
-                        <button class="button button-pill button-primary" id="conf">Summon Resource</button>
+                        <button id="btnS" class="button button-pill button-primary" id="conf">Summon For Review</button>
                     </span>
                     <span class="button-wrap">
-                        <a href="#" class="button button-pill button-danger">Refuse Condidate</a>
+                        <a href="#" id="btnR" class="button button-pill button-danger">Refuse Candidate</a>
                     </span>
                 }
 
@@ -56,10 +56,7 @@
         <div class="row">
 
 
-
-
-
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
@@ -202,13 +199,174 @@
                 </div>
 
 
+
+            <div class="col-lg-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="livicon" data-name="users" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i> Resource Suggesed
+                        </h3>
+                    </div>
+                    <div class="panel-body" style="display: block;">
+                        
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail img-file">
+                                        <img src="@s.suggessedResource.picture" width="200" class="img-responsive" height="150" alt="riot">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="users">
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>
+                                             @s.suggessedResource.lastName @s.suggessedResource.firstName
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Job Type</td>
+                                            <td>
+                                                @s.suggessedResource.jobType
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Work Profil</td>
+                                            <td>
+                                                @s.suggessedResource.workProfil
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>
+                                                @s.suggessedResource.email
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Seniority</td>
+                                            <td>
+                                                @s.suggessedResource.seniority
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Skills</td>
+                                            <td>
+                                                @foreach(var i in @s.suggessedResource.resourceSkills)
+                                                {
+                                                    <span style="color :#01BC8C">@i.skill.NameSkill</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                  
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </section>
     <!-- content -->
 </aside>
 @section scripts {
-    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/Sortable/js/Sortable.js"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/js/pages/you.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert-dev.js")"></script>
+    <script>
+        $('#btnR').on('click', function () {
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55  ",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    swal({ title: "Deleted!", text: "The Suggestion has  been deleted.", type: "success" }, function () {
+                        
+                        // delete
 
+                    });
+                } else {
+                    swal("Cancelled", "Your Suggestion  is safe :)", "error");
+                }
+            });
+        });
+        $('#btnA').on('click', function () {
+            swal({
+                title: "Add This Resource to this request",
+                text: "are you sure",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function () {
+                setTimeout(function () {
+                    swal({ title: "Add Resource finished!" }, function () { window.location.href = $("#page").val(); });
+                   
+                    $.ajax({
+                        type: "POST",
+                        url: '/Mandate/addSuggestion',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(sug),
+                        success: function (data) {
+
+                        },
+
+                    });
+                }, 3000);
+
+            });
+
+        });
+        $('#btnS').on('click', function () {
+            swal({
+                title: "Add This Resource to this request",
+                text: "are you sure",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function () {
+                setTimeout(function () {
+                    swal({ title: "Add Resource finished!" }, function () { window.location.href = $("#page").val(); });
+                    var xk = $(".myliste").children().children()[0].value
+                    var p = new Object();
+                    p.id = xk;
+                    var resources = new Array(p);
+                    var a = new Object();
+                    a.id = $("#reqId").val();
+                    var sug = {
+
+                        request: a,
+                        resources: resources
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: '/Mandate/addSuggestion',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(sug),
+                        success: function (data) {
+
+                        },
+
+                    });
+                }, 3000);
+
+            });
+
+        });
+</script>
 }
