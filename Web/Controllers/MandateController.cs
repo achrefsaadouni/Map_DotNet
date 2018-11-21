@@ -215,6 +215,7 @@ namespace Web.Controllers
             request r = ms.getRequestSortedByProjectSkills(id);
             SrequestModelViews model = new SrequestModelViews();
             SprojectViewModels p = new SprojectViewModels();
+            SResourceViewModels ress = new SResourceViewModels();
             model.id = r.id;
             p.projectName = r.project.projectName;
             p.projectSkills.AddRange(r.project.projectskills);
@@ -225,6 +226,18 @@ namespace Web.Controllers
             model.startDateMondate = r.startDateMondate;
             model.endDateMondate = r.endDateMondate;
             model.depositDate = r.depositDate;
+
+
+            ress.firstName = r.suggesedResource.firstName;
+            ress.lastName = r.suggesedResource.lastName;
+            ress.id = r.suggesedResource.id;
+            ress.resourceSkills = new List<resourceskill>();
+            ress.resourceSkills.AddRange(r.suggesedResource.resourceskills);
+            ress.seniority = r.suggesedResource.seniority;
+            ress.workProfil = r.suggesedResource.workProfil;
+            ress.jobType = r.suggesedResource.jobType;
+
+            model.suggessedResource = ress;
             ViewData["content"] = model;
             if (Session["token"] != null)
             {

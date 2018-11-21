@@ -9,12 +9,12 @@ namespace Web.Models
     public class SResourceViewModels
     {
         public int id { get; set; }
-        public SeniorityType seniority { get; set; }
-        public WorkType workProfil { get; set; }
+        public string seniority { get; set; }
+        public string workProfil { get; set; }
         public float salary { get; set; }
         public string picture { get; set; }
         public float moyenneSkill { get; set; }
-        public JobType jobType { get; set; }
+        public string jobType { get; set; }
         public string cv { get; set; }
         public string businessSector { get; set; }
         public AvailibilityType availability { get; set; }
