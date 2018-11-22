@@ -46,5 +46,30 @@ namespace Service
             }
             return r;
         }
+
+        public void cancelSuggesion(int id)
+        {
+            request s = rs.GetById(id);
+            person p = ps.GetById((int)s.suggessedResource_id);
+            s.suggessedResource_id = null;
+            p.availability = "available";
+            ps.Update(p);
+            rs.Update(s);
+            ps.Commit();
+            rs.Commit();
+           
+        }
+        public List<Mandate> getByClient(int id)
+        {
+            List<Mandate> result = new List<Mandate>();
+            result.AddRange(this.GetMany(e => e.project.clientId == id));
+            return result;
+        }
+        public List<Mandate> getByResource(int id)
+        {
+            List<Mandate> result = new List<Mandate>();
+            result.AddRange(this.GetMany(e => e.person.id == id));
+            return result;
+        }
     }
 }

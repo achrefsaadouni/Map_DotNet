@@ -27,15 +27,19 @@ namespace Web.Controllers
         // GET: Mandate
         public ActionResult Index()
         {
-
             var client = new RestClient(BASE_URI);
             var request = new RestRequest("mandate");
             request.Method = Method.GET;
             request.AddHeader("Authorization", "Bearer " + Session["token"]);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+            List<MandateViewModels> liste = new List<MandateViewModels>();
             var response = client.Execute<List<MandateViewModels>>(request);
             if (response.StatusCode == HttpStatusCode.OK)
-                return View(response.Data);
+            {
+                liste.AddRange(response.Data);
+                return View(liste);
+            }
+               
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -47,86 +51,121 @@ namespace Web.Controllers
             request.Method = Method.GET;
             request.AddHeader("Authorization", "Bearer " + Session["token"]);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+            List<SrequestModelViews> liste = new List<SrequestModelViews>();
             var response = client.Execute<List<SrequestModelViews>>(request);
             if (response.StatusCode == HttpStatusCode.OK)
-                return View(response.Data);
+            {
+                liste.AddRange(response.Data);
+                return View(liste);
+            }
+                
             else
                 return RedirectToAction("Login", "Home");
         }
 
         [HttpPost]
-        public string AddMandate()
+        public bool AddMandate()
         {
             var client = new RestClient(BASE_URI);
             var request = new RestRequest(Method.POST);
             client.AddHandler("application/json", new JsonDeserializer());
             request.RequestFormat = DataFormat.Json;
             request.Resource = "mandate";
-            var obj = new
-            {
-                requestId = HttpContext.Request.Form.Get("requestId"),
-                resourceId = HttpContext.Request.Form.Get("resourceId")
+            Stream req = Request.InputStream;
+            req.Seek(0, System.IO.SeekOrigin.Begin);
+            string json = new StreamReader(req).ReadToEnd();
 
-            };
-            request.AddJsonBody(obj);
-            request.AddHeader("Authorization", "Bearer " + Session["token"]);
-            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
-            var response = client.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            SrequestModelViews input = null;
+            try
             {
-                return "Add Mandate With success";
-            }
-            else
-            {
-                return "Error";
-            }
+                input = JsonConvert.DeserializeObject<SrequestModelViews>(json);
+                var obj = new
+                {
+                    requestId = input.id,
+                    resourceId = input.suggessedResource.id
 
-        }
-
-        public ActionResult MyMandate(int id)
-        {
-            var client = new RestClient(BASE_URI);
-            var request = new RestRequest("mandate?ressourceId=" + id);
-            request.Method = Method.GET;
-            request.AddHeader("Authorization", "Bearer " + Session["token"]);
-            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
-            var response = client.Execute<MandateViewModels>(request);
-            if (response.StatusCode == HttpStatusCode.OK)
-                return View(response.Data);
-            else
-            {
-                return RedirectToAction("Login", "Home");
-
+                };
+                request.AddJsonBody(obj);
+                request.AddHeader("Authorization", "Bearer " + Session["token"]);
+                request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+                var response = client.Execute(request);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
 
+            catch (Exception ex)
+            {
+                return false;
+            }
+     
+
         }
 
-        public ActionResult ClientMandates(int id)
+        public ActionResult MyMandate()
         {
-            var client = new RestClient(BASE_URI);
-            var request = new RestRequest("mandate?clientId=" + id);
-            request.Method = Method.GET;
-            request.AddHeader("Authorization", "Bearer " + Session["token"]);
-            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
-            var response = client.Execute<List<MandateViewModels>>(request);
-            if (response.StatusCode == HttpStatusCode.OK)
-                return View(response.Data);
-            else
+            List<MandateViewModels> liste = new List<MandateViewModels>();
+            if(Session["role"].Equals("Resource")&&Session["token"] != null)
+            {
+                if (ms.getByResource((int)Session["id"]).Capacity == 0)
+                    return View(liste);
+                else
+                {
+                    foreach (var i in ms.getByResource((int)Session["id"]))
+                    {
+                        MandateViewModels m = new MandateViewModels();
+                        m.ressource = i.person;
+                        m.projet = i.project;
+                        m.gps = i.person1;
+                        m.montant = (double)i.montant;
+                        MandateId mi = new MandateId();
+                        mi.dateDebut = i.dateDebut;
+                        mi.dateFin = i.dateFin;
+                        mi.projetId = i.projetId;
+                        mi.ressourceId = i.ressourceId;
+                        m.mandateId = mi;
+                        liste.Add(m);
+
+                    }
+                    return View(liste);
+                }
+            }
+            else if(Session["role"].Equals("Client") && Session["token"] != null)
+            {
+                if (ms.getByClient((int)Session["id"]).Capacity == 0)
+                    return View(liste);
+                else
+                {
+                    foreach (var i in ms.getByClient((int)Session["id"]))
+                    {
+                        MandateViewModels m = new MandateViewModels();
+                        m.ressource = i.person;
+                        m.projet = i.project;
+                        m.gps = i.person1;
+                        m.montant = (double)i.montant;
+                        MandateId mi = new MandateId();
+                        mi.dateDebut = i.dateDebut;
+                        mi.dateFin = i.dateFin;
+                        mi.projetId = i.projetId;
+                        mi.ressourceId = i.ressourceId;
+                        m.mandateId = mi;
+                        liste.Add(m);
+
+                    }
+                    return View(liste);
+                }
+            }
+           else
                 return RedirectToAction("Login", "Home");
+
         }
-        public ActionResult ProjectMandates(int id)
-        {
-            var client = new RestClient(BASE_URI);
-            var request = new RestRequest("mandate?projetId=" + id);
-            request.Method = Method.GET;
-            request.AddHeader("Authorization", "Bearer " + Session["token"]);
-            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
-            var response = client.Execute<List<MandateViewModels>>(request);
-            if (response.StatusCode == HttpStatusCode.OK)
-                return View(response.Data);
-            else
-                return RedirectToAction("Login", "Home");
-        }
+
+
 
         public ActionResult Archived()
         {
@@ -137,8 +176,12 @@ namespace Web.Controllers
             request.AddHeader("Authorization", "Bearer " + Session["token"]);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
             var response = client.Execute<List<MandateViewModels>>(request);
+            List<MandateViewModels> liste = new List<MandateViewModels>();
             if (response.StatusCode == HttpStatusCode.OK)
-                return View(response.Data);
+            {
+                liste.AddRange(response.Data);
+                return View(liste);
+            } 
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -161,6 +204,7 @@ namespace Web.Controllers
             {
 
                 ViewData["content"] = trie(response.Data);
+
                 return View();
             }
             else
@@ -192,6 +236,17 @@ namespace Web.Controllers
             ms.addSuggestion(r, p);
             return "success";
         }
+
+        public void cancelSuggestion(int id)
+        {
+        if (Session["role"].Equals("Client") && Session["token"] != null)
+            {
+                ms.cancelSuggesion(id);
+            }
+
+        }
+
+
         public ActionResult MyRequest()
         {
             var client = new RestClient(BASE_URI);
@@ -201,8 +256,13 @@ namespace Web.Controllers
             request.AddHeader("Authorization", "Bearer " + Session["token"]);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
             var response = client.Execute<List<SrequestModelViews>>(request);
+            List<SrequestModelViews> liste = new List<SrequestModelViews>();
             if (response.StatusCode == HttpStatusCode.OK)
-                return View(response.Data);
+            {
+                liste.AddRange(response.Data);
+                return View(liste);
+            }
+
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -224,7 +284,7 @@ namespace Web.Controllers
             model.startDateMondate = r.startDateMondate;
             model.endDateMondate = r.endDateMondate;
             model.depositDate = r.depositDate;
-
+            model.traiter = r.traiter;
 
             ress.firstName = r.suggesedResource.firstName;
             ress.lastName = r.suggesedResource.lastName;

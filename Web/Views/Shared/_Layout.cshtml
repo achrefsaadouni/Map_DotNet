@@ -269,15 +269,28 @@
                                         </a>
                                     </li>
                                 }
-                                else
+                                else if (Session["role"].Equals("Client"))
                                 {
                                     <li>
                                         <a href="/Mandate/MyRequest">
                                             <i class="fa fa-angle-double-right"></i> My Requests
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="/Mandate/MyMandate">
+                                            <i class="fa fa-angle-double-right"></i> My Mandates
+                                        </a>
+                                    </li>
                                 }
-            
+                                else if(Session["role"].Equals("Resource"))
+                                                    {
+                                    <li>
+                                        <a href="/Mandate/MyMandate">
+                                            <i class="fa fa-angle-double-right"></i> My Mandates
+                                        </a>
+                                    </li>
+                                }
+
                             </ul>
                         </li>
                        

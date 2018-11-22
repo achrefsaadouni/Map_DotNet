@@ -64,10 +64,18 @@
                     {
                                                             <td>
                                                                 @item.gps.firstName @item.gps.lastName
+                                                                <button>
+                                                                    <i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete Gps"></i>
+                                                                </button>
                                                             </td>}
                     else
                     {
-                                                            <td></td>
+                                                            <td>
+                                                                <a href="view_user.html">
+                                                                    <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Add Gps"></i>
+                                                                </a>
+ 
+                                                            </td>
                                                         }
                                                     </tr>
                                                     test = false;
@@ -83,11 +91,20 @@
                                                         @if (item.gps != null)
                     {
                                                             <td>
-                                                                @item.gps.firstName @item.gps.lastName
+                                                                @item.gps.firstName @item.gps.lastName 
+                                                                <button>
+                                                                    <i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete Gps"></i>
+                                                                </button>
                                                             </td>}
                     else
                     {
-                                                            <td></td>
+                                                            <td>
+                                                                <a href="view_user.html">
+                                                                    <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Add Gps"></i>
+                                                                </a>
+                                
+
+                                                            </td>
                                                         }
                                                     </tr>
                                                     test = true;
@@ -126,6 +143,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/vfs_fonts.js"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.scroller.js"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/")js/pages/table-advanced.js"></script>
-    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert-dev.js")"></script>
     
     }

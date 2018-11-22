@@ -10,8 +10,13 @@ namespace Service
 {
     public interface IMandateService : IService<Mandate>
     {
-       void addSuggestion(request r , person s);
+        void addSuggestion(request r , person s);
         request getRequestSortedByProjectSkills(int id);
+        void cancelSuggesion(int id);
+
+        List<Mandate> getByClient(int id);
+
+        List<Mandate> getByResource(int id);
     }
 
 

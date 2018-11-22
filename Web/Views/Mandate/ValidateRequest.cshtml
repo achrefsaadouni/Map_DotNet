@@ -41,7 +41,7 @@
                 else
                 {
                     <span class="button-wrap">
-                        <button id="btnS" class="button button-pill button-primary" id="conf">Summon For Review</button>
+                        <button id="btnS" class="button button-pill button-primary" >Summon For Review</button>
                     </span>
                     <span class="button-wrap">
                         <a href="#" id="btnR" class="button button-pill button-danger">Refuse Candidate</a>
@@ -82,7 +82,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="livicon" data-name="user" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
                                                     </span>
-                                                    <span class="form-control">@s.depositDate</span>
+                                                    <span class="form-control">@s.depositDate.ToString("d")</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,7 +213,16 @@
                             <div class="text-center">
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                     <div class="fileinput-new thumbnail img-file">
-                                        <img src="@s.suggessedResource.picture" width="200" class="img-responsive" height="150" alt="riot">
+                                        @if (s.suggessedResource.picture != "")
+                                        {
+                                            <img  src="@s.suggessedResource.picture" width="200" class="img-responsive" height="150" alt="riot">
+
+                                        }
+                                        else
+                                        {
+                                            <img style="background-color : black"  src="@Url.Content("~/Content/img/authors/user.png")" width="200" class="img-responsive" height="150" alt="riot">
+
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -281,6 +290,15 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert.min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert-dev.js")"></script>
     <script>
+        Date.prototype.addDays = function(days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+      function format(date){
+            return (date.getFullYear()  + '-' + (date.getMonth()+1) + '-' + date.getDate());
+        }
+
         $('#btnR').on('click', function () {
             swal({
                 title: "Are you sure?",
@@ -289,14 +307,21 @@
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55  ",
                 confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel plx!",
+                cancelButtonText: "No, cancel !",
                 closeOnConfirm: false,
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
                     swal({ title: "Deleted!", text: "The Suggestion has  been deleted.", type: "success" }, function () {
-                        
-                        // delete
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/Mandate/cancelSuggestion",
+                            data: { id :  @s.id },
+                            success: function (msg) {
+                                window.location.href = '@Url.Action("MyRequest", "Mandate")';
+                            }
+                        });
 
                     });
                 } else {
@@ -306,19 +331,25 @@
         });
         $('#btnA').on('click', function () {
             swal({
-                title: "Add This Resource to this request",
-                text: "are you sure",
+                title: "Add This Request to Your Mandate",
+                text: "Are you sure",
                 type: "info",
                 showCancelButton: true,
                 closeOnConfirm: false,
                 showLoaderOnConfirm: true
             }, function () {
                 setTimeout(function () {
-                    swal({ title: "Add Resource finished!" }, function () { window.location.href = $("#page").val(); });
-                   
+                    swal({ title: "Add finished!" }, function () { window.location.href = '@Url.Action("MyRequest", "Mandate")'; });
+                    var sugged = {
+                        id : @s.suggessedResource.id,
+                    }
+                    var sug = {
+                        id : @s.id,
+                        suggessedResource : sugged
+                    }
                     $.ajax({
                         type: "POST",
-                        url: '/Mandate/addSuggestion',
+                        url: '/Mandate/AddMandate',
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify(sug),
                         success: function (data) {
@@ -332,41 +363,32 @@
 
         });
         $('#btnS').on('click', function () {
+           
             swal({
-                title: "Add This Resource to this request",
-                text: "are you sure",
-                type: "info",
+                title: "Pick a Date!",
+                text: "Write Date Between: " +format(new Date())+" And "+ format(new Date().addDays(5)),
+                type: "input",
                 showCancelButton: true,
                 closeOnConfirm: false,
-                showLoaderOnConfirm: true
-            }, function () {
-                setTimeout(function () {
-                    swal({ title: "Add Resource finished!" }, function () { window.location.href = $("#page").val(); });
-                    var xk = $(".myliste").children().children()[0].value
-                    var p = new Object();
-                    p.id = xk;
-                    var resources = new Array(p);
-                    var a = new Object();
-                    a.id = $("#reqId").val();
-                    var sug = {
-
-                        request: a,
-                        resources: resources
-                    };
-                    $.ajax({
-                        type: "POST",
-                        url: '/Mandate/addSuggestion',
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(sug),
-                        success: function (data) {
-
-                        },
-
-                    });
-                }, 3000);
-
+                inputPlaceholder: "Write something"
+            }, function (inputValue) {
+                if (inputValue === false) return false;
+                if (inputValue === "") {
+                    swal.showInputError("You need to write a Date!");
+                    return false
+                }
+                if(isNaN(Date.parse(inputValue)))
+                {
+                    swal.showInputError("Date format not correct it shoud be yyyy-mm-dd!");
+                    return false
+                }
+                if(!((new Date(inputValue).getTime() > new Date().getTime()) && (new Date(inputValue).getTime() <= new Date().addDays(5).getTime())))
+                {
+                    swal.showInputError("Date should be bigger then system date");
+                    return false
+                }
+                swal("Nice!", "You wrote: " + new Date().getTime()+' ' + new Date().addDays(5).getTime() +" "+ new Date(inputValue).getTime() , "success");
             });
-
         });
 </script>
 }

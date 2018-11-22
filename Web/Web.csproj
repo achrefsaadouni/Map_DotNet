@@ -333,6 +333,7 @@
     <Content Include="Content\img\authors\avatar5.jpg" />
     <Content Include="Content\img\authors\avatar6.jpg" />
     <Content Include="Content\img\authors\avatar7.jpg" />
+    <Content Include="Content\img\authors\user.png" />
     <Content Include="Content\img\close.png" />
     <Content Include="Content\img\cropping-image.jpg" />
     <Content Include="Content\img\cropping-image2.png" />
