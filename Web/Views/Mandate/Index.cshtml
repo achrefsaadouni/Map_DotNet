@@ -64,14 +64,24 @@
                     {
                                                             <td>
                                                                 @item.gps.firstName @item.gps.lastName
-                                                                <button>
+                                                                <a href="#" id="bs">
+                                                                    <span hidden>@item.mandateId.dateDebut.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.dateFin.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.projetId</span>
+                                                                    <span hidden>@item.mandateId.ressourceId</span>
+                                                                    <span hidden>@item.gps.id</span>
                                                                     <i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete Gps"></i>
-                                                                </button>
+                                                                </a>
                                                             </td>}
                     else
                     {
                                                             <td>
-                                                                <a href="view_user.html">
+                                                                <a id="bt" href="#">
+                                                                    <span hidden>@item.mandateId.dateDebut.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.dateFin.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.projetId</span>
+                                                                    <span hidden>@item.mandateId.ressourceId</span>
+
                                                                     <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Add Gps"></i>
                                                                 </a>
  
@@ -92,14 +102,23 @@
                     {
                                                             <td>
                                                                 @item.gps.firstName @item.gps.lastName 
-                                                                <button>
+                                                                <a href="#" id="bs">
+                                                                    <span hidden>@item.mandateId.dateDebut.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.dateFin.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.projetId</span>
+                                                                    <span hidden>@item.mandateId.ressourceId</span>
+                                                                    <span hidden>@item.gps.id</span>
                                                                     <i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete Gps"></i>
-                                                                </button>
+                                                                </a>
                                                             </td>}
                     else
                     {
                                                             <td>
-                                                                <a href="view_user.html">
+                                                                <a id="bt" href="#">
+                                                                    <span hidden>@item.mandateId.dateDebut.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.dateFin.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.projetId</span>
+                                                                    <span hidden>@item.mandateId.ressourceId</span>
                                                                     <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Add Gps"></i>
                                                                 </a>
                                 
@@ -128,7 +147,7 @@
 
 @section scripts {
     
-    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/jeditable/js/jquery.jeditable.js"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.buttons.js"></script>
@@ -143,7 +162,54 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/vfs_fonts.js"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.scroller.js"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/")js/pages/table-advanced.js"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert.min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert-dev.js")"></script>
+<script>
+    $("#bt").click(function (e) {
+        var e1 =  e.currentTarget.children['0'].innerHTML;
+        var e2 =  e.currentTarget.children['1'].innerHTML;
+        var e3 =  e.currentTarget.children['2'].innerHTML;
+        var e4 =  e.currentTarget.children['3'].innerHTML;
+        $.ajax({
+            type: "GET",
+            url: "/Mandate/currentMandate",
+            data: { dateDebut :  e1,dateFin : e2 , projectId : e3 , resourceId : e4 },
+            success: function (msg) {
+                window.location.href = '@Url.Action("AllGPS", "Mandate")';
+            }
+        });
+
+
+    })
+    $('#bs').on('click', function (e) {
+        var e1 = e.currentTarget.children['0'].innerHTML;
+        var e2 = e.currentTarget.children['1'].innerHTML;
+        var e3 = e.currentTarget.children['2'].innerHTML;
+        var e4 = e.currentTarget.children['3'].innerHTML;
+        var id = e.currentTarget.children['4'].innerHTML;
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55  ",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+            swal({title : "Deleted!", text :"Gps has been deleted.", type : "success"},function(){
+                $.ajax({
+                    type: "GET",
+                    url: "/Mandate/DeleteGps",
+                    data: { id : id ,dateDebut: e1, dateFin: e2, projectId: e3, resourceId: e4 },
+                    success: function (msg) {
+                        window.location.href = '@Url.Action("Index", "Mandate")';
+                    }
+                });
+            
+            });
+        });
+    });
+
+    </script>
     
     }

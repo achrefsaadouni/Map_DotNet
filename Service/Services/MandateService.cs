@@ -53,6 +53,7 @@ namespace Service
             person p = ps.GetById((int)s.suggessedResource_id);
             s.suggessedResource_id = null;
             p.availability = "available";
+            s.traiter = false;
             ps.Update(p);
             rs.Update(s);
             ps.Commit();
@@ -71,5 +72,47 @@ namespace Service
             result.AddRange(this.GetMany(e => e.person.id == id));
             return result;
         }
+        public string getResourceMail(int id)
+        {
+            return rs.GetById(id).suggesedResource.email;
+        }
+
+        public void traitRequest(int id)
+        {
+            request r = rs.GetById(id);
+            r.traiter = true;
+            rs.Update(r);
+            rs.Commit();
+        }
+        public List<person> getGps()
+        {
+            List<person> liste = new List<person>();
+            liste.AddRange(ps.GetMany(e => e.availability.Equals("available") && e.roleT.Equals("Resource") ));
+            return liste;
+        }
+        public void addGps(int id, int projectId, int resourceId, DateTime dateFin, DateTime dateDebut)
+        {
+            Mandate m = this.GetMany(e => e.dateDebut == dateDebut && e.dateFin == dateFin && e.projetId == projectId && e.ressourceId == resourceId).ElementAt(0);
+            person p = ps.GetById(id);
+            p.availability = "unavailable";
+            m.gps_id = id;
+            this.Update(m);
+            this.Commit();
+            ps.Update(p);
+            ps.Commit();
+        }
+
+        public  void removeGps(int id, int projectId, int resourceId, DateTime dateFin, DateTime dateDebut)
+        {
+            Mandate m = this.GetMany(e => e.dateDebut == dateDebut && e.dateFin == dateFin && e.projetId == projectId && e.ressourceId == resourceId).ElementAt(0);
+            m.gps_id = null;
+            person p = ps.GetById(id);
+            p.availability = "available";
+            this.Update(m);
+            this.Commit();
+            ps.Update(p);
+            ps.Commit();
+        }
     }
+    
 }

@@ -22,6 +22,7 @@ namespace Web.Controllers
     {
 
         private const string BASE_URI = "http://localhost:18080/Map-JavaEE-web/MAP/";
+        private const string APP_URI = "http://localhost:8993";
         private IMandateService ms = new MandateService();
         private IRequestService rm = new RequestService();
         // GET: Mandate
@@ -324,6 +325,96 @@ namespace Web.Controllers
                 });
 
             return cont;
+        }
+
+        public void SummonResource(int id , String date)
+        {
+
+            var client = new RestClient(BASE_URI);
+            var request = new RestRequest(Method.POST);
+            client.AddHandler("application/json", new JsonDeserializer());
+            request.RequestFormat = DataFormat.Json;
+            request.Resource = "mandate/Summon";
+            var obj = new
+            {
+                requestId = id,
+                date = date,
+                link = "",
+                email = ms.getResourceMail(id)
+
+            };
+            request.AddJsonBody(obj);
+            request.AddHeader("Authorization", "Bearer " + Session["token"]);
+            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+            var response = client.Execute(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                ms.traitRequest(id);
+            }
+        }
+
+
+        public ActionResult AllGPS()
+        {
+            if (Session["token"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+        
+            List<SResourceViewModels> liste = new List<SResourceViewModels>();
+            foreach(person i in ms.getGps())
+            {
+                SResourceViewModels r = new SResourceViewModels();
+                r.resourceSkills = new List<resourceskill>();
+                r.email = i.email;
+                r.firstName = i.firstName;
+                r.lastName = i.lastName;
+                r.jobType = i.jobType;
+                r.resourceSkills.AddRange(i.resourceskills);
+                r.workProfil = i.workProfil;
+                r.id = i.id;
+                r.seniority = i.seniority;
+                liste.Add(r);
+
+            }
+
+            return View(liste);
+        }
+        public void  currentMandate(string dateDebut,string dateFin,int projectId , int resourceId)
+        {
+            Session["dateDebut"] = dateDebut;
+            Session["dateFin"] = dateFin;
+            Session["projectId"] = projectId;
+            Session["resourceId"] = resourceId;
+        }
+        public ActionResult AddGPS(int id)
+        {
+            if (Session["token"] != null)
+            {
+                DateTime dateFin = DateTime.ParseExact((string)Session["dateFin"], "dd/MM/yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+                DateTime dateDebut = DateTime.ParseExact((string)Session["dateDebut"], "dd/MM/yyyy",
+                                           System.Globalization.CultureInfo.InvariantCulture);
+                ms.addGps(id, (int)Session["projectId"], (int)Session["resourceId"], dateFin, dateDebut);
+            }
+            return RedirectToAction("Index", "Mandate");
+            
+        }
+        
+
+        public ActionResult DeleteGps(int id, string dateDebut, string dateFin, int projectId, int resourceId)
+        {
+            if(Session["token"] != null)
+            {
+                DateTime dFin = DateTime.ParseExact(dateFin, "dd/MM/yyyy",
+                                     System.Globalization.CultureInfo.InvariantCulture);
+                DateTime dDebut = DateTime.ParseExact(dateDebut, "dd/MM/yyyy",
+                                           System.Globalization.CultureInfo.InvariantCulture);
+                ms.removeGps(id, projectId, resourceId, dFin, dDebut);
+            }
+            return RedirectToAction("Index", "Mandate");
+           
+          
         }
     }
 

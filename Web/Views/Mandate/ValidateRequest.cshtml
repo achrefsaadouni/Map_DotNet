@@ -370,7 +370,7 @@
                 type: "input",
                 showCancelButton: true,
                 closeOnConfirm: false,
-                inputPlaceholder: "Write something"
+                inputPlaceholder: "yyyy-mm-dd"
             }, function (inputValue) {
                 if (inputValue === false) return false;
                 if (inputValue === "") {
@@ -387,7 +387,18 @@
                     swal.showInputError("Date should be bigger then system date");
                     return false
                 }
-                swal("Nice!", "You wrote: " + new Date().getTime()+' ' + new Date().addDays(5).getTime() +" "+ new Date(inputValue).getTime() , "success");
+                swal({title : "Nice!", text : "You wrote: " , type : "success"},function(){
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Mandate/SummonResource",
+                        data: { id :  @s.id , date : format(new Date(inputValue))},
+                        success: function (msg) {
+                            window.location.href = '@Url.Action("MyRequest", "Mandate")';
+                        }
+                    });
+                
+                });
             });
         });
 </script>

@@ -1,0 +1,89 @@
+﻿@model ICollection<Web.Models.SResourceViewModels>
+@using Web.Models
+@{
+    bool test = true;
+    ViewBag.Title = "Gps";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<aside class="right-side">
+    <section class="content-header">
+        <h1>Mandates</h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">
+                    <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">Mandates</a>
+            </li>
+            <li class="active">All Mandates</li>
+        </ol>
+    </section>
+    <section class="content paddingleft_right15">
+        <div class="row">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <i class="livicon" data-name="users-remove" data-size="18" data-c="#ffffff" data-hc="#ffffff"></i> Available Resource List
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="table">
+                            <thead>
+                                <tr class="filters">
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>User E-mail</th>
+                                    <th>Work Profil</th>
+                                    <th>Seniority</th>
+                                    <th>Job Type</th>
+                                    <th>Skills</th> 
+                                    <th>Add</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (SResourceViewModels r in Model)
+                                {
+                                    <tr>
+                                        <td>@r.firstName</td>
+                                        <td>@r.lastName</td>
+                                        <td>@r.email</td>
+                                        <td>@r.workProfil</td>
+                                        <td>@r.seniority</td>
+                                        <td>@r.jobType</td>
+                                        <td>
+                                            @foreach(var i in r.resourceSkills)
+                                            {
+                                                 <span style="color : darkblue">@i.skill.NameSkill</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <a  href="/Mandate/AddGPS/@r.id"><i class="livicon" data-name="user-flag" data-c="#01BC8C" data-hc="#01BC8C" data-size="18" title="Add GPS"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                             
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+<!-- right-side -->
+
+@section scripts {
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.bootstrap.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#table').DataTable();
+    });
+
+</script>
+}
