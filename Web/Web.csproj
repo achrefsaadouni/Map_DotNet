@@ -246,8 +246,10 @@
     <Compile Include="Models\JobRequestModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MandateViewModels.cs" />
+    <Compile Include="Models\ProjectSkillViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\ResourceViewModel.cs" />
+    <Compile Include="Models\SkillViewModel.cs" />
     <Compile Include="Models\SprojectViewModels.cs" />
     <Compile Include="Models\SrequestModelViews.cs" />
     <Compile Include="Models\SResourceViewModels.cs" />
@@ -4639,8 +4641,6 @@
     <Content Include="Views\JobRequest\Create.cshtml" />
     <Content Include="Views\JobRequest\Delete.cshtml" />
     <Content Include="Views\JobRequest\Edit.cshtml" />
-    <Content Include="Views\Project\Create.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Mandate\MyMandate.cshtml" />
     <Content Include="Views\Mandate\Archived.cshtml" />
@@ -4651,6 +4651,13 @@
     <Content Include="Views\Mandate\MyRequest.cshtml" />
     <Content Include="Views\Mandate\ValidateRequest.cshtml" />
     <Content Include="Views\Mandate\AllGPS.cshtml" />
+    <Content Include="Views\Project\Archive.cshtml" />
+    <Content Include="Views\Project\Create.cshtml" />
+    <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Project\EditSkills.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\Project\Skills.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
