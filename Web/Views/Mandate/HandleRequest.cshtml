@@ -1,0 +1,316 @@
+﻿@using Web.Models
+@{
+    var s = (SuggestionViewModels)ViewData["content"];
+    ViewBag.Title = "Handle Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .dnd {
+        min-height: 200px;
+        min-width: 200px;
+    }
+
+    .glyphicon-lgg
+{
+     width:100px;min-height:110px;margin-right:22px;text-align:center!important;padding:20px 0
+}
+
+    .glyphicon-lg
+{
+    font-size:4em
+}
+
+.info-block
+{
+    border-right:5px solid #E6E6E6;margin-bottom:25px
+}
+.info-block .square-box
+{
+    width:100px;min-height:110px;margin-right:22px;text-align:center!important;background-color:#676767;padding:20px 0
+}
+.info-block.block-info
+{
+    border-color:#20819e
+}
+.info-block.block-info .square-box
+{
+    background-color:#20819e;color:#FFF
+}
+
+</style>
+<aside class="right-side">
+    <section class="content-header">
+        <h1>Mandates</h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">
+                    <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">Mandates</a>
+            </li>
+            <li class="active">Handle Request</li>
+        </ol>
+    </section>
+
+
+
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-lg-offset-5">
+                <span class="button-wrap">
+                    <button disabled class="button button-pill button-primary" id="HandleRequestBtn">Confirm</button>
+                </span>
+                <span class="button-wrap">
+                    <a href="/Mandate/AllRequest" class="button button-pill button-danger">Cancel</a>
+                </span>
+            </div>
+        </div>
+
+
+        <div class="row">
+         
+        
+
+    
+            <input hidden id="reqId" value="@s.request.id"/>
+            <input hidden id="page" value="@Url.Action("AllRequest", "Mandate")" />
+            
+            <div class="col-lg-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="livicon" data-name="doc-portrait" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i> Request
+                        </h3>
+                    </div>
+                    <div class="panel-body" style="display: block;">
+
+
+
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                                <form action="#" class="form-horizontal">
+                                    <div class="form-body">
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Client:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="user" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.request.Client.lastName @s.request.Client.firstName</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Company Name:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="presentation" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.request.Client.nameSociety</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Project Name:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="briefcase" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.request.project.projectName</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Requested Profil:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="address-book" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.request.requestedProfil</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Experience Year:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="timer" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.request.experienceYear Years</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Mandate Start Date:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="calendar" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.request.startDateMondate.ToString("d")</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Mandate End Date:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="calendar" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.request.endDateMondate.ToString("d")</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+
+
+                            <div class="col-lg-6">
+
+                                <div>
+                                    <center><h4 style="color : #418BCA">Suggesed Resource</h4></center>
+                                    <hr size="4" color="blue">
+                                    <ul id="advanced-1" class="myliste  list-unstyled dnd"></ul>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <form action="#" class="form-horizontal">
+                            <div class="form-body">
+                                <div class="form-group pad-top40">
+                                    <center><h4 style="color :#418BCA">Skills Required</h4></center>
+
+                                    @foreach (var t in s.request.project.projectSkills)
+                                    {
+                                        <div class="col-md-3  control-label">
+                                            <center><span>@t.skill.NameSkill @t.percentage %</span></center>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="@t.percentage" aria-valuemin="0" aria-valuemax="100" style="width:@t.percentage%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+
+
+
+
+
+                            </div>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+            
+
+            
+
+
+            <div class="col-lg-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="livicon" data-name="users" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i> Resources Matching The Requested Profil
+                        </h3>
+                    </div>
+                    <div class="panel-body" style="display: block;">
+                        <ul id="advanced-2" class="list-unstyled dnd">
+
+                            @foreach (SResourceViewModels item in s.resources)
+                            {
+                               <li class="items col-xs-12  clearfix">
+                                   <input class="Pid" value="@item.id" hidden />
+               <div class="info-block block-info clearfix">
+                    <div class="square-box pull-left">
+                       @if (@item.picture == "")
+                       { <span class="glyphicon glyphicon-user glyphicon-lg"></span>}
+                       else
+                       {<img class="glyphicon-lgg" src="@item.picture"/>}
+                    </div>
+                   
+                    <h5>@item.jobType</h5>
+                    <h4>Name: @item.lastName @item.firstName</h4>
+                    <p>Profil: @item.workProfil</p>
+                    <span style="color : seagreen">Skills : </span>
+                    @foreach (var ss in item.resourceSkills)
+                    {
+                        <span>@ss.skill.NameSkill</span>
+                    }                
+               </div>
+            </li>
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- content -->
+</aside>
+@section scripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/Sortable/js/Sortable.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/js/pages/you.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert-dev.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/js/pages/sweetalert.js")"></script>
+    <script>
+        $(document).ready(function() {
+        $(".myliste").on('DOMSubtreeModified', function (e) {
+            $("#HandleRequestBtn").prop('disabled', false);
+            var x = $("#advanced-1").children();
+            if ($(".myliste").children().length > 1)
+            {
+                x[0].remove();
+                $("#advanced-2").append(`<li class="items col-xs-12  clearfix">` + x[0].innerHTML + `</li>`);
+            }
+        });
+        });
+    </script>
+}

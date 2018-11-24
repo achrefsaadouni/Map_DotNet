@@ -1,0 +1,53 @@
+﻿<html>
+<head>
+    <title>Liste des resources</title>
+</head>
+<body>
+    <div class="collapse navbar-collapse" id="exCollapsingNavbar2">
+        <ul class="nav navbar-nav ">
+            <li class="nav-item active"> <a class="nav-link" href="@Url.Action("listeResource")">Liste des resources <span class="sr-only">(current)</span></a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#">Liste des resources archivées</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="@Url.Action("AddResource")">Ajouter resource</a> </li>
+        </ul>
+    </div>
+        
+        <table class="table">
+            <tr class="thead-dark">
+                <th scope="col">Id</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">seniority</th>
+                <th scope="col">workProfile</th>
+                <th scope="col">availability</th>
+            </tr>
+            @foreach (var p in ViewBag.result)
+            {
+                <tr>
+                    <th scope="col">@p.id</th>
+                    <th scope="col">@p.archived</th>
+                     <th scope="col"><a href="@Url.Action("DetailResource")">@p.firstName @p.lastName</a></th>
+                    <th scope="col">@p.email</th>
+                    <th scope="col">@p.seniority</th>
+                    <th scope="col">@p.workProfil</th>
+                    <th scope="col">@p.availability</th>
+                    @if (@p.archived == 0) {
+                    <th> <a href="#">
+                               <i class="glyphicon glyphicon-lock" data-name="home" data-size="20" data-color="#000" ></i>
+                         </a>
+                    </th>
+                    }
+                    else
+                    {
+                        <th> <input type="submit" value="Unarchive" class="btn btn-default" /></th>
+                    }
+                    <th>
+                       <a href="#">
+                       <i class="glyphicon glyphicon-cog" data-name="home" data-size="20" ></i> 
+                       </a>
+                    </th>
+               </tr>
+            }
+        </table>
+</body>
+</html>

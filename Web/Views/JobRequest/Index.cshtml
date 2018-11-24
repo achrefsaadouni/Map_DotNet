@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Web.Models.JobRequestModels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="panel panel-success filterable" style="overflow:auto;">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <i class="livicon" data-name="responsive" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> JobRequests List
+        </h3>
+    </div>
+    <div class="panel-body table-responsive">
+        <table class="table table-striped table-bordered" id="table2">
+            <thead>
+                <tr>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.person.firstName)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.rdvdate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.sentdate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.speciality)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.stateType)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.person.firstName)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.rdvdate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.sentdate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.speciality)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.stateType)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        </td>
+                    </tr>
+                }
+
+
+
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+
+
+  

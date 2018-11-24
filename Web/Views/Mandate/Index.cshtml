@@ -1,0 +1,215 @@
+﻿@model IEnumerable<Web.Models.MandateViewModels>
+@using Web.Models
+@{
+    bool test = true;
+    ViewBag.Title = "Mandate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<aside class="right-side">
+    <section class="content-header">
+        <h1>Mandates</h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">
+                    <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">Mandates</a>
+            </li>
+            <li class="active">All Mandates</li>
+        </ol>
+    </section>
+    <section class="content">
+
+
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-success filterable" style="overflow:auto;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="livicon" data-name="tasks" data-size="16" data-loop="true" data-c="#fff" data-hc="white" id="livicon-47" style="width: 16px; height: 16px;"></i> Mandates
+                        </h3>
+                    </div>
+                    <div class="panel-body table-responsive">
+                        <div id="table2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-striped table-bordered dataTable no-footer dtr-inline" id="table2" role="grid" aria-describedby="table2_info" style="width: 1177px;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="table2" rowspan="1" colspan="1" style="width: 200px;" aria-sort="ascending" aria-label="Start Date: activate to sort column descending" data-column-index="0">Start Date</th>
+                                                <th class="sorting" tabindex="0" aria-controls="table2" rowspan="1" colspan="1" style="width: 200px;" aria-label="End Date: activate to sort column ascending" data-column-index="1">End Date</th>
+                                                <th class="sorting" tabindex="0" aria-controls="table2" rowspan="1" colspan="1" style="width: 200px;" aria-label="Project Name: activate to sort column ascending" data-column-index="2">Project Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="table2" rowspan="1" colspan="1" style="width: 200px;" aria-label="Resource Name: activate to sort column ascending" data-column-index="3">Resource Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="table2" rowspan="1" colspan="1" style="width: 200px;" aria-label="Fess: activate to sort column ascending" data-column-index="4">Fees</th>
+                                                <th class="sorting" tabindex="0" aria-controls="table2" rowspan="1" colspan="1" style="width: 200px;" aria-label="Gps Name: activate to sort column ascending" data-column-index="5">Gps Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (MandateViewModels item in Model)
+                                            {
+                                                if (test)
+                                                {
+                                                    <tr role="row" class="odd">
+                                                        <td tabindex="0" class="sorting_1">@item.mandateId.dateDebut.ToString("d")</td>
+                                                        <td>@item.mandateId.dateFin.ToString("d")</td>
+                                                        <td>@item.projet.projectName</td>
+                                                        <td>@item.ressource.firstName @item.ressource.lastName</td>
+                                                        <td>@item.montant</td>
+                                                        @if (item.gps != null)
+                    {
+                                                            <td>
+                                                                @item.gps.firstName @item.gps.lastName
+                                                                <a href="#" id="bs">
+                                                                    <span hidden>@item.mandateId.dateDebut.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.dateFin.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.projetId</span>
+                                                                    <span hidden>@item.mandateId.ressourceId</span>
+                                                                    <span hidden>@item.gps.id</span>
+                                                                    <i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete Gps"></i>
+                                                                </a>
+                                                            </td>}
+                    else
+                    {
+                                                            <td>
+                                                                <a id="bt" href="#">
+                                                                    <span hidden>@item.mandateId.dateDebut.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.dateFin.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.projetId</span>
+                                                                    <span hidden>@item.mandateId.ressourceId</span>
+
+                                                                    <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Add Gps"></i>
+                                                                </a>
+ 
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                    test = false;
+                                                }
+                                                else
+                                                {
+                                                    <tr role="row" class="even">
+                                                        <td tabindex="0" class="sorting_1">@item.mandateId.dateDebut.ToString("d")</td>
+                                                        <td>@item.mandateId.dateFin.ToString("d")</td>
+                                                        <td>@item.projet.projectName</td>
+                                                        <td>@item.ressource.firstName @item.ressource.lastName</td>
+                                                        <td>@item.montant</td>
+                                                        @if (item.gps != null)
+                    {
+                                                            <td>
+                                                                @item.gps.firstName @item.gps.lastName 
+                                                                <a href="#" id="bs">
+                                                                    <span hidden>@item.mandateId.dateDebut.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.dateFin.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.projetId</span>
+                                                                    <span hidden>@item.mandateId.ressourceId</span>
+                                                                    <span hidden>@item.gps.id</span>
+                                                                    <i class="livicon" data-name="user-remove" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete Gps"></i>
+                                                                </a>
+                                                            </td>}
+                    else
+                    {
+                                                            <td>
+                                                                <a id="bt" href="#">
+                                                                    <span hidden>@item.mandateId.dateDebut.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.dateFin.ToString("d")</span>
+                                                                    <span hidden>@item.mandateId.projetId</span>
+                                                                    <span hidden>@item.mandateId.ressourceId</span>
+                                                                    <i class="livicon" data-name="plus" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="Add Gps"></i>
+                                                                </a>
+                                
+
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                    test = true;
+
+                                                }
+
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+<!-- right-side -->
+
+@section scripts {
+    
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/jeditable/js/jquery.jeditable.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.buttons.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.colReorder.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.responsive.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.rowReorder.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.colVis.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.html5.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.print.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/buttons.bootstrap.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/pdfmake.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/vfs_fonts.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.scroller.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")js/pages/table-advanced.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert-dev.js")"></script>
+<script>
+    $("#bt").click(function (e) {
+        var e1 =  e.currentTarget.children['0'].innerHTML;
+        var e2 =  e.currentTarget.children['1'].innerHTML;
+        var e3 =  e.currentTarget.children['2'].innerHTML;
+        var e4 =  e.currentTarget.children['3'].innerHTML;
+        $.ajax({
+            type: "GET",
+            url: "/Mandate/currentMandate",
+            data: { dateDebut :  e1,dateFin : e2 , projectId : e3 , resourceId : e4 },
+            success: function (msg) {
+                window.location.href = '@Url.Action("AllGPS", "Mandate")';
+            }
+        });
+
+
+    })
+    $('#bs').on('click', function (e) {
+        var e1 = e.currentTarget.children['0'].innerHTML;
+        var e2 = e.currentTarget.children['1'].innerHTML;
+        var e3 = e.currentTarget.children['2'].innerHTML;
+        var e4 = e.currentTarget.children['3'].innerHTML;
+        var id = e.currentTarget.children['4'].innerHTML;
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55  ",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+            swal({title : "Deleted!", text :"Gps has been deleted.", type : "success"},function(){
+                $.ajax({
+                    type: "GET",
+                    url: "/Mandate/DeleteGps",
+                    data: { id : id ,dateDebut: e1, dateFin: e2, projectId: e3, resourceId: e4 },
+                    success: function (msg) {
+                        window.location.href = '@Url.Action("Index", "Mandate")';
+                    }
+                });
+            
+            });
+        });
+    });
+
+    </script>
+    
+    }

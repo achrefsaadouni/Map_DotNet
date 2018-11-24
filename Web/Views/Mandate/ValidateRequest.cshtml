@@ -1,0 +1,405 @@
+﻿@using Web.Models
+@{
+    var s = (SrequestModelViews)ViewData["content"];
+    ViewBag.Title = "Handle Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<aside class="right-side">
+    <section class="content-header">
+        <h1>Mandates</h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">
+                    <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">Mandates</a>
+            </li>
+            <li class="active">Validate My Request</li>
+        </ol>
+    </section>
+
+
+
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-lg-offset-4">
+                @if (s.traiter)
+                {
+                    <span class="button-wrap">
+                        <a href="#" id="btnA" class="button button-pill button-success">Accept Application</a>
+                    </span>
+                    <span class="button-wrap">
+                        <button id="btnR" class="button button-pill button-danger">Refuse Condidate</button>
+                    </span>
+                }
+                else
+                {
+                    <span class="button-wrap">
+                        <button id="btnS" class="button button-pill button-primary" >Summon For Review</button>
+                    </span>
+                    <span class="button-wrap">
+                        <a href="#" id="btnR" class="button button-pill button-danger">Refuse Candidate</a>
+                    </span>
+                }
+
+
+            </div>
+        </div>
+
+
+        <div class="row">
+
+
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="livicon" data-name="doc-portrait" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i> Request
+                        </h3>
+                    </div>
+                    <div class="panel-body" style="display: block;">
+
+
+
+                        <div class="row">
+                            <div >
+
+                                <form action="#" class="form-horizontal">
+                                    <div class="form-body">
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Deposit Date:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="user" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.depositDate.ToString("d")</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Project Name:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="briefcase" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.project.projectName</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Requested Profil:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="address-book" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.requestedProfil</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Experience Year:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="timer" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.experienceYear Years</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Mandate Start Date:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="calendar" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.startDateMondate.ToString("d")</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group pad-top40">
+                                            <label for="inputUsername" class="col-md-3 control-label">
+                                                Mandate End Date:
+                                            </label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="livicon" data-name="calendar" data-size="18" data-c="#000" data-hc="#000" data-loop="true"></i>
+                                                    </span>
+                                                    <span class="form-control">@s.endDateMondate.ToString("d")</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+
+                        <form action="#" class="form-horizontal">
+                            <div class="form-body">
+                                <div class="form-group pad-top40">
+                                    <center><h4 style="color :#418BCA">Skills Required</h4></center>
+
+                                    @foreach (var t in s.project.projectSkills)
+                                    {
+                                        <div class="col-md-3  control-label">
+                                            <center><span>@t.skill.NameSkill @t.percentage %</span></center>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="@t.percentage" aria-valuemin="0" aria-valuemax="100" style="width:@t.percentage%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+
+
+
+
+
+                            </div>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+                </div>
+
+
+
+            <div class="col-lg-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="livicon" data-name="users" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i> Resource Suggesed
+                        </h3>
+                    </div>
+                    <div class="panel-body" style="display: block;">
+                        
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail img-file">
+                                        @if (s.suggessedResource.picture != "")
+                                        {
+                                            <img  src="@s.suggessedResource.picture" width="200" class="img-responsive" height="150" alt="riot">
+
+                                        }
+                                        else
+                                        {
+                                            <img style="background-color : black"  src="@Url.Content("~/Content/img/authors/user.png")" width="200" class="img-responsive" height="150" alt="riot">
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="users">
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>
+                                             @s.suggessedResource.lastName @s.suggessedResource.firstName
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Job Type</td>
+                                            <td>
+                                                @s.suggessedResource.jobType
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Work Profil</td>
+                                            <td>
+                                                @s.suggessedResource.workProfil
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>
+                                                @s.suggessedResource.email
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Seniority</td>
+                                            <td>
+                                                @s.suggessedResource.seniority
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Skills</td>
+                                            <td>
+                                                @foreach(var i in @s.suggessedResource.resourceSkills)
+                                                {
+                                                    <span style="color :#01BC8C">@i.skill.NameSkill</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                  
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- content -->
+</aside>
+@section scripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/vendors/sweetalert/js/sweetalert-dev.js")"></script>
+    <script>
+        Date.prototype.addDays = function(days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+      function format(date){
+            return (date.getFullYear()  + '-' + (date.getMonth()+1) + '-' + date.getDate());
+        }
+
+        $('#btnR').on('click', function () {
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55  ",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel !",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    swal({ title: "Deleted!", text: "The Suggestion has  been deleted.", type: "success" }, function () {
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/Mandate/cancelSuggestion",
+                            data: { id :  @s.id },
+                            success: function (msg) {
+                                window.location.href = '@Url.Action("MyRequest", "Mandate")';
+                            }
+                        });
+
+                    });
+                } else {
+                    swal("Cancelled", "Your Suggestion  is safe :)", "error");
+                }
+            });
+        });
+        $('#btnA').on('click', function () {
+            swal({
+                title: "Add This Request to Your Mandate",
+                text: "Are you sure",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function () {
+                setTimeout(function () {
+                    swal({ title: "Add finished!" }, function () { window.location.href = '@Url.Action("MyRequest", "Mandate")'; });
+                    var sugged = {
+                        id : @s.suggessedResource.id,
+                    }
+                    var sug = {
+                        id : @s.id,
+                        suggessedResource : sugged
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: '/Mandate/AddMandate',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(sug),
+                        success: function (data) {
+
+                        },
+
+                    });
+                }, 3000);
+
+            });
+
+        });
+        $('#btnS').on('click', function () {
+           
+            swal({
+                title: "Pick a Date!",
+                text: "Write Date Between: " +format(new Date())+" And "+ format(new Date().addDays(5)),
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                inputPlaceholder: "yyyy-mm-dd"
+            }, function (inputValue) {
+                if (inputValue === false) return false;
+                if (inputValue === "") {
+                    swal.showInputError("You need to write a Date!");
+                    return false
+                }
+                if(isNaN(Date.parse(inputValue)))
+                {
+                    swal.showInputError("Date format not correct it shoud be yyyy-mm-dd!");
+                    return false
+                }
+                if(!((new Date(inputValue).getTime() > new Date().getTime()) && (new Date(inputValue).getTime() <= new Date().addDays(5).getTime())))
+                {
+                    swal.showInputError("Date should be bigger then system date");
+                    return false
+                }
+                swal({title : "Nice!", text : "You wrote: " , type : "success"},function(){
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/Mandate/SummonResource",
+                        data: { id :  @s.id , date : format(new Date(inputValue))},
+                        success: function (msg) {
+                            window.location.href = '@Url.Action("MyRequest", "Mandate")';
+                        }
+                    });
+                
+                });
+            });
+        });
+</script>
+}
