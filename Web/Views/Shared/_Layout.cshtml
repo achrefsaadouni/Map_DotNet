@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title> @ViewBag.Title </title>
@@ -25,14 +24,10 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")vendors/Buttons/css/buttons.css" />
     <link rel="stylesheet" href="@Url.Content("~/Content/")css/pages/advbuttons.css" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/")vendors/sweetalert/css/sweetalert.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
-   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-   crossorigin=""/>
     <!-- end of global css -->
     <!--page level css -->
     <!--end of page level css-->
 </head>
-
 <body class="skin-josh">
     <header class="header">
         <a href="index.html" class="logo">
@@ -254,67 +249,98 @@
                                 <span class="fa arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                @if (Session["role"].Equals("Admin"))
-                                {
-                                    <li>
-                                        <a href="/Mandate/Index">
-                                            <i class="fa fa-angle-double-right"></i> All Mandates
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/Mandate/AllRequest">
-                                            <i class="fa fa-angle-double-right"></i> All Requests
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/Mandate/Archived">
-                                            <i class="fa fa-angle-double-right"></i> Archive
-                                        </a>
-                                    </li>
-                                }
-                                else if (Session["role"].Equals("Client"))
-                                {
-                                    <li>
-                                        <a href="/Mandate/MyRequest">
-                                            <i class="fa fa-angle-double-right"></i> My Requests
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/Mandate/MyMandate">
-                                            <i class="fa fa-angle-double-right"></i> My Mandates
-                                        </a>
-                                    </li>
-                                }
+                                <!--  if(Session["role"].Equals("Admin"))-->
+
+
+                                <li>
+                                    <a href="/Mandate/Index">
+                                        <i class="fa fa-angle-double-right"></i> All Mandates
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Mandate/AllRequest">
+                                        <i class="fa fa-angle-double-right"></i> All Requests
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Mandate/Archived">
+                                        <i class="fa fa-angle-double-right"></i> Archive
+                                    </a>
+                                </li>
+                                <!--}
+                                 else if (Session["role"].Equals("Client"))
+                                 {-->
+                                <li>
+                                    <a href="/Mandate/MyRequest">
+                                        <i class="fa fa-angle-double-right"></i> My Requests
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Mandate/MyMandate">
+                                        <i class="fa fa-angle-double-right"></i> My Mandates
+                                    </a>
+                                </li>
+                                <!--}
                                 else if(Session["role"].Equals("Resource"))
-                                                    {
-                                    <li>
-                                        <a href="/Mandate/MyMandate">
-                                            <i class="fa fa-angle-double-right"></i> My Mandates
-                                        </a>
-                                    </li>
-                                }
+                                     -->
+                                {
+                                <li>
+                                    <a href="/Mandate/MyMandate">
+                                        <i class="fa fa-angle-double-right"></i> My Mandates
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>
-                       
+                        <li>
+                            <a href="#">
+                                <i class="livicon" data-name="barchart" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
+                                <span class="title">Stats</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/StatAdmin/GeneralInformation">
+                                        <i class="fa fa-angle-double-right"></i> General Informations
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/StatAdmin/Index">
+                                        <i class="fa fa-angle-double-right"></i> About Candidate
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/StatAdmin/Rh">
+                                        <i class="fa fa-angle-double-right"></i> About RH
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/StatAdmin/Client">
+                                        <i class="fa fa-angle-double-right"></i> About Client
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/StatAdmin/Project">
+                                        <i class="fa fa-angle-double-right"></i> About Project
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>
             </section>
         </aside>
-
-    @RenderBody()
-
+        @RenderBody()
     </div>
     <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
         <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
     </a>
 
-
     <script src="@Url.Content("~/Scripts/")js/jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/")js/jquery-ui.min.js" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/")js/app.js" type="text/javascript"></script>
-    @RenderSection("scripts",false)
-
+    @RenderSection("scripts", false)
 </body>
 </html>
