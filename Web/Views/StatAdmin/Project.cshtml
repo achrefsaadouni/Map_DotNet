@@ -3,5 +3,81 @@
     ViewBag.Title = "Project";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .row {
+        margin-left: 350px;
+    }
 
+    .row1 {
+        margin-left: 550px;
+    }
+</style>
+<!--CandidateByTestResult-->
+<div Style="font-family: Corbel; font-size: medium ;text-align:center " class="row">
+    <div style="width:75%;height:75%">
+        <canvas id="myChart" style="padding: 0;margin: auto;display: block; "> </canvas>
+    </div>
+</div>
+<div Style="font-family: Corbel; font-size: medium ;text-align:center " class="row">
+    <div style="width:75%;height:75%">
+        <canvas id="myChart1" style="padding: 0;margin: auto;display: block; "> </canvas>
+    </div>
+</div>
+
+<!-- CandidateByState-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!--CandidateByTestResult-->
+
+<script>
+ var data2 = @Html.Raw(@ViewBag.result1);
+    var data3 = data2.map(function (e) {
+        return e[0];
+    });
+    var data4 = data2.map(function (e) {
+        return e[1];
+    });
+
+    $.ajax({
+
+        success: function () {
+            var aData = [0,1,2,3,4,5];
+            var aLabels = data4;
+            var aset=data3;
+
+            var color = Chart.helpers.color;
+            var dataT = {
+                labels: aLabels,
+                datasets: [
+                    {
+                    label: "",
+                    data: aset,
+                    fill: false,
+                    backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+                    
+                    borderColor: ["rgb(54, 162, 235)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                    borderWidth: 1
+                    }
+                    ]
+            };
+                    var ctx = $("#myChart").get(0).getContext("2d");
+                    var myNewChart = new Chart(ctx, {
+
+                        type: 'bar',
+                        data: dataT,
+                        options: {
+
+                            responsive: true,
+                    title: { display: true, text: 'Benefice By Project' },
+                    legend: { position: 'none' },
+                    scales: {
+                        xAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: 'Project Name ' } }],
+                        yAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: ' Benefice (Dt)' }, ticks: { stepSize: 400, beginAtZero: true } }]
+                    },
+                }
+            });
+        }
+    });
+</script>
 
