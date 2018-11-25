@@ -4655,6 +4655,10 @@
     <Content Include="Views\Mandate\ValidateRequest.cshtml" />
     <Content Include="Views\Mandate\AllGPS.cshtml" />
     <Content Include="Views\StatAdmin\Index.cshtml" />
+    <Content Include="Views\StatAdmin\GeneralInformation.cshtml" />
+    <Content Include="Views\StatAdmin\Rh.cshtml" />
+    <Content Include="Views\StatAdmin\Client.cshtml" />
+    <Content Include="Views\StatAdmin\Project.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
