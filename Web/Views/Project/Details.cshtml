@@ -4,88 +4,153 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
 
-<h2>Details</h2>
+    <link href="@Url.Content("~/Content/")css/circle.css" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/")css/percent.css" rel="stylesheet" type="text/css" />
 
-<div>
-    <h4>ProjectViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.address)
-        </dt>
+</head>
+<aside class="right-side">
+    <section class="content-header">
+        <h1>Projects</h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">
+                    <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">Projects</a>
+            </li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row ui-sortable" id="sortable_portlets">
+                    <div class="column sortable">
+                        <div class=" portlet box warning">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="livicon" data-c="#fff" data-hc="#fff" data-name="notebook" data-size="18" data-loop="true"></i> Details project
+                                </div>
+                            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.address)
-        </dd>
+                            <div class="portlet-body">
+                                <div>
+                                    <table style="margin-left: 100px">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.endDate)
-        </dt>
+                                        <tr>
+                                            <th>
+                                                Name :
+                                            </th>
+                                            <td style="padding-left: 50px">
+                                                @Html.DisplayFor(model => model.projectName)
+                                            </td>
+                                        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.endDate)
-        </dd>
+                                        <tr>
+                                            <th>
+                                                Adress :
+                                            </th>
+                                            <td style="padding-left: 50px">
+                                                @Html.DisplayFor(model => model.address)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Start date :
+                                            </th>
+                                            <td style="padding-left: 50px">
+                                                @Html.DisplayFor(model => model.startDate)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                End Date :
+                                            </th>
+                                            <td style="padding-left: 50px">
+                                                @Html.DisplayFor(model => model.endDate)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Type :
+                                            </th>
+                                            <td style="padding-left: 50px">
+                                                @Html.DisplayFor(model => model.projectType)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Nb resource Levio :
+                                            </th>
+                                            <td style="padding-left: 50px">
+                                                @Html.DisplayFor(model => model.levioNumberResource)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Nb other resource :
+                                            </th>
+                                            <td style="padding-left: 50px">
+                                                @Html.DisplayFor(model => model.totalNumberResource)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Company :
+                                            </th>
+                                            <td style="padding-left: 50px">
+                                                @Html.DisplayFor(model => model.clientId.nameSociety)
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-warning" style="margin-top: 10px">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="livicon" data-name="piechart" data-size="16" data-loop="true" data-c="#fff" data-hc="#fff"></i> Skills
+                        </h3>
+                    </div>
+                    <div class="panel-body" style="height: 1000px">
+                        <div class="flex-wrapper">
+                        @{
+                            var getlist = (List<KeyValuePair<string, int>>) ViewBag.Skills;
+                            for (var i = 0; i < getlist.Count(); i++)
+                             {
+                                 <div class="single-chart">
+                                     <h3>@getlist[i].Key</h3>
+                                     <svg viewBox="0 0 36 36" class="circular-chart  green">
+                                         <path class="circle-bg"
+                                               d="M18 2.0845
+                                          a 15.9155 15.9155 0 0 1 0 31.831
+                                          a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                         <path class="circle"
+                                               stroke-dasharray="@getlist[i].Value, 100"
+                                               d="M18 2.0845
+                                          a 15.9155 15.9155 0 0 1 0 31.831
+                                          a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                         <text x="18" y="20.35" class="percentage">@getlist[i].Value%</text>
+                                     </svg>
+                                 </div>
+                                 if (i % 3 == 2)
+                                 {
+                                     <br/>
+                                 }
+                            }
+                        }
+                            </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.levioNumberResource)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.levioNumberResource)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.picture)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.picture)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.projectName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.projectName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.projectType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.projectType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.startDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.startDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.totalNumberResource)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.totalNumberResource)
-        </dd>
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.clientId.nameSociety)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.clientId.nameSociety)
-        </dd>
-
-    
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
