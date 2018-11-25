@@ -18,11 +18,7 @@
         <canvas id="myChart" style="padding: 0;margin: auto;display: block; "> </canvas>
     </div>
 </div>
-<div Style="font-family: Corbel; font-size: medium ;text-align:center " class="row">
-    <div style="width:75%;height:75%">
-        <canvas id="myChart1" style="padding: 0;margin: auto;display: block; "> </canvas>
-    </div>
-</div>
+
 
 <!-- CandidateByState-->
 
@@ -69,10 +65,10 @@
                         options: {
 
                             responsive: true,
-                    title: { display: true, text: 'Benefice By Project' },
+                    title: { display: true, text: 'Benefice By Client' },
                     legend: { position: 'none' },
                     scales: {
-                        xAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: 'Project Name ' } }],
+                        xAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: 'Client Name ' } }],
                         yAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: ' Benefice (Dt)' }, ticks: { stepSize: 400, beginAtZero: true } }]
                     },
                 }

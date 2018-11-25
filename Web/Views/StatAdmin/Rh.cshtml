@@ -18,6 +18,18 @@
         <canvas id="myChart1" style="padding: 0;margin: auto;display: block; "> </canvas>
     </div>
 </div>
+<!--RhRankedBySalary-->
+<div Style="font-family: Corbel; font-size: medium ;text-align:center " class="row">
+    <div style="width:75%;height:75%">
+        <canvas id="myChart" style="padding: 0;margin: auto;display: block; "> </canvas>
+    </div>
+</div>
+<!--RhAvaialableRankedByNote-->
+<div Style="font-family: Corbel; font-size: medium ;text-align:center " class="row">
+    <div style="width:75%;height:75%">
+        <canvas id="myChart3" style="padding: 0;margin: auto;display: block; "> </canvas>
+    </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!--CountRhByAvailability-->
@@ -34,7 +46,7 @@
         data: {
             labels: data4,
             datasets: [{
-                label: "Population (millions)",
+                label: "",
                 backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
                 data: data3
             }]
@@ -47,6 +59,109 @@
         }
     });
 
+</script>
+<!--RhRankedBySalary-->
+<script>
+ var data5 = @Html.Raw(@ViewBag.result2);
+    var data6 = data5.map(function (e) {
+        return e[0];
+    });
+    var data7 = data5.map(function (e) {
+        return e[1];
+    });
+
+    $.ajax({
+
+        success: function () {
+            var aData = [0,1,2,3,4,5];
+            var aLabels = data6;
+            var aset=data7;
+
+            var color = Chart.helpers.color;
+            var dataT = {
+                labels: aLabels,
+                datasets: [
+                    {
+                    label: "",
+                    data: aset,
+                    fill: false,
+                    backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+
+                    borderColor: ["rgb(54, 162, 235)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                    borderWidth: 1
+                    }
+                    ]
+            };
+                    var ctx = $("#myChart").get(0).getContext("2d");
+                    var myNewChart = new Chart(ctx, {
+
+                        type: 'bar',
+                        data: dataT,
+                        options: {
+
+                            responsive: true,
+                    title: { display: true, text: 'Rh Ranked By Salary' },
+                    legend: { position: 'none' },
+                    scales: {
+                        xAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: 'Rh Name ' } }],
+                        yAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: ' Salary (Dt)' }, ticks: { stepSize: 800, beginAtZero: true } }]
+                    },
+                }
+            });
+        }
+    });
+</script>
+<!--RhAvaialableRankedByNote-->
+
+<script>
+ var data8 = @Html.Raw(@ViewBag.result3);
+    var data9 = data8.map(function (e) {
+        return e[0];
+    });
+    var data10 = data8.map(function (e) {
+        return e[1];
+    });
+
+    $.ajax({
+
+        success: function () {
+            var aData = [0,1,2,3,4,5];
+            var aLabels = data9;
+            var aset=data10;
+
+            var color = Chart.helpers.color;
+            var dataT = {
+                labels: aLabels,
+                datasets: [
+                    {
+                    label: "",
+                    data: aset,
+                    fill: false,
+                    backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+
+                    borderColor: ["rgb(54, 162, 235)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                    borderWidth: 1
+                    }
+                    ]
+            };
+                    var ctx = $("#myChart3").get(0).getContext("2d");
+                    var myNewChart = new Chart(ctx, {
+
+                        type: 'bar',
+                        data: dataT,
+                        options: {
+
+                            responsive: true,
+                    title: { display: true, text: 'Rh Available Ranked By Note' },
+                    legend: { position: 'none' },
+                    scales: {
+                        xAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: 'Rh Name ' } }],
+                        yAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: ' Note' }, ticks: { stepSize: 2, beginAtZero: true } }]
+                    },
+                }
+            });
+        }
+    });
 </script>
 
 
