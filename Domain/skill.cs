@@ -27,5 +27,10 @@ namespace Domain
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<resourceskill> resourceskills { get; set; }
+        public skill(int idSkill, string nameSkill)
+        {
+            IdSkill = idSkill;
+            NameSkill = nameSkill;
+        }
     }
 }

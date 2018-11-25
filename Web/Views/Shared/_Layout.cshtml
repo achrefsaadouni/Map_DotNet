@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")vendors/Buttons/css/buttons.css" />
     <link rel="stylesheet" href="@Url.Content("~/Content/")css/pages/advbuttons.css" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/")vendors/sweetalert/css/sweetalert.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+   crossorigin=""/>
     <!-- end of global css -->
     <!--page level css -->
     <!--end of page level css-->
@@ -251,9 +254,8 @@
                                 <span class="fa arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <!--  if(Session["role"].Equals("Admin"))-->
-                                
-                                
+                                @if (Session["role"].Equals("Admin"))
+                                {
                                     <li>
                                         <a href="/Mandate/Index">
                                             <i class="fa fa-angle-double-right"></i> All Mandates
@@ -269,9 +271,9 @@
                                             <i class="fa fa-angle-double-right"></i> Archive
                                         </a>
                                     </li>
-                               <!--}
+                                }
                                 else if (Session["role"].Equals("Client"))
-                                {-->
+                                {
                                     <li>
                                         <a href="/Mandate/MyRequest">
                                             <i class="fa fa-angle-double-right"></i> My Requests
@@ -282,53 +284,19 @@
                                             <i class="fa fa-angle-double-right"></i> My Mandates
                                         </a>
                                     </li>
-                                <!--}
+                                }
                                 else if(Session["role"].Equals("Resource"))
-                                     -->               {
+                                                    {
                                     <li>
                                         <a href="/Mandate/MyMandate">
                                             <i class="fa fa-angle-double-right"></i> My Mandates
                                         </a>
                                     </li>
-                                
+                                }
 
                             </ul>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="livicon" data-name="barchart" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
-                                <span class="title">Stats</span>
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="/StatAdmin/GeneralInformation">
-                                        <i class="fa fa-angle-double-right"></i> General Informations
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/StatAdmin/Index">
-                                        <i class="fa fa-angle-double-right"></i> About Candidate
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/StatAdmin/Rh">
-                                        <i class="fa fa-angle-double-right"></i> About RH
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/StatAdmin/Client">
-                                        <i class="fa fa-angle-double-right"></i> About Client
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/StatAdmin/Project">
-                                        <i class="fa fa-angle-double-right"></i> About Project
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
+                       
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>

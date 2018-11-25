@@ -236,7 +236,6 @@
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\ResourceViewModelsController.cs" />
-    <Compile Include="Controllers\StatAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -247,8 +246,10 @@
     <Compile Include="Models\JobRequestModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MandateViewModels.cs" />
+    <Compile Include="Models\ProjectSkillViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\ResourceViewModel.cs" />
+    <Compile Include="Models\SkillViewModel.cs" />
     <Compile Include="Models\SprojectViewModels.cs" />
     <Compile Include="Models\SrequestModelViews.cs" />
     <Compile Include="Models\SResourceViewModels.cs" />
@@ -1070,8 +1071,6 @@
     <Content Include="Content\fonts\ionicons.ttf" />
     <Content Include="Content\fonts\ionicons.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\Chart.js" />
-    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -4642,8 +4641,6 @@
     <Content Include="Views\JobRequest\Create.cshtml" />
     <Content Include="Views\JobRequest\Delete.cshtml" />
     <Content Include="Views\JobRequest\Edit.cshtml" />
-    <Content Include="Views\Project\Create.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Mandate\MyMandate.cshtml" />
     <Content Include="Views\Mandate\Archived.cshtml" />
@@ -4654,11 +4651,14 @@
     <Content Include="Views\Mandate\MyRequest.cshtml" />
     <Content Include="Views\Mandate\ValidateRequest.cshtml" />
     <Content Include="Views\Mandate\AllGPS.cshtml" />
-    <Content Include="Views\StatAdmin\Index.cshtml" />
-    <Content Include="Views\StatAdmin\GeneralInformation.cshtml" />
-    <Content Include="Views\StatAdmin\Rh.cshtml" />
-    <Content Include="Views\StatAdmin\Client.cshtml" />
-    <Content Include="Views\StatAdmin\Project.cshtml" />
+    <Content Include="Views\Mandate\map.cshtml" />
+    <Content Include="Views\Project\Archive.cshtml" />
+    <Content Include="Views\Project\Create.cshtml" />
+    <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Project\EditSkills.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\Project\Skills.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
