@@ -416,6 +416,35 @@ namespace Web.Controllers
            
           
         }
+
+
+        public ActionResult resourceMandate()
+        {
+            var client = new RestClient(BASE_URI);
+            var request = new RestRequest("mandate?ressourceId=" + Session["role"]);
+            request.Method = Method.GET;
+            request.AddHeader("Authorization", "Bearer " + Session["token"]);
+            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+            List<MandateViewModels> liste = new List<MandateViewModels>();
+            var response = client.Execute<List<MandateViewModels>>(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                liste.AddRange(response.Data);
+                return View(liste);
+            }
+            else
+                return RedirectToAction("Login", "Home");
+        }
+
+        public ActionResult map()
+        {
+            if (Session["token"] != null)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("Login", "Home");
+        }
     }
 
         

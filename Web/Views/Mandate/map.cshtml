@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Tracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<aside class="right-side">
+    <section class="content-header">
+        <h1>Mandates</h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">
+                    <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">Mandates</a>
+            </li>
+            <li class="active">Tracking</li>
+        </ol>
+    </section>
+    <section class="content">
+
+
+
+
+        <div class="row">
+
+
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="livicon" data-name="doc-portrait" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i> Request
+                        </h3>
+                    </div>
+                    <div class="panel-body" style="display: block;">
+
+
+                        <div id="mapid" style="height: 500px;"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aside>
+
+
+
+
+
+
+
+
+@section scripts {
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+            crossorigin=""></script>
+    <script>
+        var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'pk.eyJ1Ijoic2FhZG91bmkiLCJhIjoiY2pvdm16ZXNlMWpuaTNwbGh2bHprZ21sYiJ9.rme0-S2pb8oQwK9vmRV_kQ'
+        }).addTo(mymap);
+    </script>
+}

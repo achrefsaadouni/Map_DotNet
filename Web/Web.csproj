@@ -4651,6 +4651,7 @@
     <Content Include="Views\Mandate\MyRequest.cshtml" />
     <Content Include="Views\Mandate\ValidateRequest.cshtml" />
     <Content Include="Views\Mandate\AllGPS.cshtml" />
+    <Content Include="Views\Mandate\map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

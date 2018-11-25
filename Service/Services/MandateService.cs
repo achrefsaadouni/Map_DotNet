@@ -100,6 +100,7 @@ namespace Service
             this.Commit();
             ps.Update(p);
             ps.Commit();
+   
         }
 
         public  void removeGps(int id, int projectId, int resourceId, DateTime dateFin, DateTime dateDebut)
