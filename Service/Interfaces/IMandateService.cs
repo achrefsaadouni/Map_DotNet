@@ -27,6 +27,7 @@ namespace Service
 
         void addGps(int id, int projectId, int resourceId, DateTime dateFin, DateTime dateDebut);
         void removeGps(int id, int projectId, int resourceId, DateTime dateFin, DateTime dateDebut);
+        List<project> listeprojectwithMondate();
     }
 
 

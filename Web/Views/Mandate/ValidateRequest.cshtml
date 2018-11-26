@@ -387,18 +387,19 @@
                     swal.showInputError("Date should be bigger then system date");
                     return false
                 }
-                swal({title : "Nice!", text : "You wrote: " , type : "success"},function(){
+                swal({title : "Sending!", text : "Press ok  To Summon the Resource: " , type : "success" ,showCancelButton: true, closeOnConfirm: false,showLoaderOnConfirm: true},function(){
+                    setTimeout(function () {
 
-                    $.ajax({
-                        type: "GET",
-                        url: "/Mandate/SummonResource",
-                        data: { id :  @s.id , date : format(new Date(inputValue))},
-                        success: function (msg) {
-                            window.location.href = '@Url.Action("MyRequest", "Mandate")';
-                        }
-                    });
+                        $.ajax({
+                            type: "GET",
+                            url: "/Mandate/SummonResource",
+                            data: { id :  @s.id , date : format(new Date(inputValue))},
+                            success: function (msg) {
+                                window.location.href = '@Url.Action("MyRequest", "Mandate")';
+                            }
+                        });
                 
-                });
+                    }),3000 })
             });
         });
 </script>

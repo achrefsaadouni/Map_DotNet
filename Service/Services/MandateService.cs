@@ -114,6 +114,18 @@ namespace Service
             ps.Update(p);
             ps.Commit();
         }
+
+        public List<project> listeprojectwithMondate()
+        {
+            List<project> liste = new List<project>();
+            foreach (var item in this.GetAll())
+            {
+                liste.Add(item.project);
+            }
+
+            return liste.GroupBy(test => test.id)
+                        .Select(grp => grp.First()).ToList();
+        }
     }
     
 }

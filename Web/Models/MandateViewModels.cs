@@ -15,11 +15,15 @@ namespace Web.Models
 
         public int gps_id { get; set; }
 
-        public  person ressource { get; set; }
+        public SResourceViewModels ressource { get; set; }
 
-        public  person gps { get; set; }
+        public SResourceViewModels gps { get; set; }
 
-        public  project projet { get; set; }
+        public SprojectViewModels projet { get; set; }
+
+       
+
     }
+
 
 }

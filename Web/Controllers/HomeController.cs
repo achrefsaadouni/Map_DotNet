@@ -15,6 +15,8 @@ namespace Web.Controllers
         private const string BASE_URI = "http://localhost:18080/Map-JavaEE-web/MAP/";
         public ActionResult Index()
         {
+            if (Session.Count == 0)
+                return RedirectToAction("Login", "Home");
             return View();
         }
 
@@ -35,6 +37,12 @@ namespace Web.Controllers
         {
 
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Contents.RemoveAll();
+            return RedirectToAction("Login", "Home");
         }
         [HttpPost]
         public ActionResult Login(UserViewModels user)

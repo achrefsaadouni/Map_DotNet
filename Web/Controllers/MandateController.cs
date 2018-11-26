@@ -111,7 +111,9 @@ namespace Web.Controllers
         public ActionResult MyMandate()
         {
             List<MandateViewModels> liste = new List<MandateViewModels>();
-            if(Session["role"].Equals("Resource")&&Session["token"] != null)
+            if(Session.Count == 0)
+                return RedirectToAction("Login", "Home");
+            if (Session["role"].Equals("Resource") && Session["token"] != null)
             {
                 if (ms.getByResource((int)Session["id"]).Capacity == 0)
                     return View(liste);
@@ -120,9 +122,16 @@ namespace Web.Controllers
                     foreach (var i in ms.getByResource((int)Session["id"]))
                     {
                         MandateViewModels m = new MandateViewModels();
-                        m.ressource = i.person;
-                        m.projet = i.project;
-                        m.gps = i.person1;
+                        SResourceViewModels ress = new SResourceViewModels(i.person);
+                        SprojectViewModels pro = new SprojectViewModels(i.project);
+                        SResourceViewModels gps;
+                        if (i.person1 != null)
+                            gps = new SResourceViewModels(i.person1);
+                        else
+                            gps = new SResourceViewModels();
+                        m.projet = pro;
+                        m.ressource = ress;
+                        m.gps = gps;
                         m.montant = (double)i.montant;
                         MandateId mi = new MandateId();
                         mi.dateDebut = i.dateDebut;
@@ -145,9 +154,16 @@ namespace Web.Controllers
                     foreach (var i in ms.getByClient((int)Session["id"]))
                     {
                         MandateViewModels m = new MandateViewModels();
-                        m.ressource = i.person;
-                        m.projet = i.project;
-                        m.gps = i.person1;
+                        SResourceViewModels ress = new SResourceViewModels(i.person);
+                        SprojectViewModels pro = new SprojectViewModels(i.project);
+                        SResourceViewModels gps;
+                        if (i.person1 != null)
+                         gps = new SResourceViewModels(i.person1);
+                        else
+                         gps = new SResourceViewModels();
+                        m.projet = pro;
+                        m.ressource = ress;
+                        m.gps = gps;
                         m.montant = (double)i.montant;
                         MandateId mi = new MandateId();
                         mi.dateDebut = i.dateDebut;
@@ -183,6 +199,10 @@ namespace Web.Controllers
                 liste.AddRange(response.Data);
                 return View(liste);
             } 
+            else if (response.StatusCode == HttpStatusCode.NoContent)
+            {
+                return View(liste);
+            }
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -271,14 +291,13 @@ namespace Web.Controllers
 
         public new ActionResult ValidateRequest(int id)
         {
+            if (Session.Count == 0)
+                return RedirectToAction("Login", "Home");
             request r = ms.getRequestSortedByProjectSkills(id);
             SrequestModelViews model = new SrequestModelViews();
-            SprojectViewModels p = new SprojectViewModels();
-            SResourceViewModels ress = new SResourceViewModels();
+            SprojectViewModels p = new SprojectViewModels(r.project);
+            SResourceViewModels ress = new SResourceViewModels(r.suggesedResource);
             model.id = r.id;
-            p.projectName = r.project.projectName;
-            p.projectSkills.AddRange(r.project.projectskills);
-            model.project = p;
             model.requestedProfil = r.requestedProfil;
             model.experienceYear = r.experienceYear;
             model.traiter = r.traiter;
@@ -286,18 +305,7 @@ namespace Web.Controllers
             model.endDateMondate = r.endDateMondate;
             model.depositDate = r.depositDate;
             model.traiter = r.traiter;
-
-            ress.firstName = r.suggesedResource.firstName;
-            ress.lastName = r.suggesedResource.lastName;
-            ress.picture = r.suggesedResource.picture;
-            ress.email = r.suggesedResource.email;
-            ress.id = r.suggesedResource.id;
-            ress.resourceSkills = new List<resourceskill>();
-            ress.resourceSkills.AddRange(r.suggesedResource.resourceskills);
-            ress.seniority = r.suggesedResource.seniority;
-            ress.workProfil = r.suggesedResource.workProfil;
-            ress.jobType = r.suggesedResource.jobType;
-
+            model.project = p;
             model.suggessedResource = ress;
             ViewData["content"] = model;
             if (Session["token"] != null)
@@ -356,6 +364,8 @@ namespace Web.Controllers
 
         public ActionResult AllGPS()
         {
+            if (Session.Count == 0)
+                return RedirectToAction("Login", "Home");
             if (Session["token"] == null)
             {
                 return RedirectToAction("Login", "Home");
@@ -364,16 +374,7 @@ namespace Web.Controllers
             List<SResourceViewModels> liste = new List<SResourceViewModels>();
             foreach(person i in ms.getGps())
             {
-                SResourceViewModels r = new SResourceViewModels();
-                r.resourceSkills = new List<resourceskill>();
-                r.email = i.email;
-                r.firstName = i.firstName;
-                r.lastName = i.lastName;
-                r.jobType = i.jobType;
-                r.resourceSkills.AddRange(i.resourceskills);
-                r.workProfil = i.workProfil;
-                r.id = i.id;
-                r.seniority = i.seniority;
+                SResourceViewModels r = new SResourceViewModels(i);
                 liste.Add(r);
 
             }
@@ -389,6 +390,8 @@ namespace Web.Controllers
         }
         public ActionResult AddGPS(int id)
         {
+            if (Session.Count == 0)
+                return RedirectToAction("Login", "Home");
             if (Session["token"] != null)
             {
                 DateTime dateFin = DateTime.ParseExact((string)Session["dateFin"], "dd/MM/yyyy",
@@ -404,7 +407,9 @@ namespace Web.Controllers
 
         public ActionResult DeleteGps(int id, string dateDebut, string dateFin, int projectId, int resourceId)
         {
-            if(Session["token"] != null)
+            if (Session.Count == 0)
+                return RedirectToAction("Login", "Home");
+            if (Session["token"] != null)
             {
                 DateTime dFin = DateTime.ParseExact(dateFin, "dd/MM/yyyy",
                                      System.Globalization.CultureInfo.InvariantCulture);
@@ -438,13 +443,73 @@ namespace Web.Controllers
 
         public ActionResult map()
         {
-            if (Session["token"] != null)
+            if (Session.Count == 0)
+                return RedirectToAction("Login", "Home");
+            if (Session["token"] != null && Session["role"].Equals("Admin"))
             {
-                return View();
+                List<SprojectViewModels> projet = new List<SprojectViewModels>();
+                foreach (var item in ms.listeprojectwithMondate())
+                {
+                    SprojectViewModels p = new SprojectViewModels(item);
+                    projet.Add(p);
+                }
+                return View(projet);
             }
             else
                 return RedirectToAction("Login", "Home");
         }
+
+
+        public JsonResult MapContent()
+        {
+            var client = new RestClient(BASE_URI);
+            var request = new RestRequest("mandate");
+            request.Method = Method.GET;
+            request.AddHeader("Authorization", "Bearer " + Session["token"]);
+            request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
+            List<MandateViewModels> mandates = new List<MandateViewModels>();
+            var response = client.Execute<List<MandateViewModels>>(request);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                mandates.AddRange(response.Data);
+
+            }
+            var man = from name in mandates
+                      orderby name.mandateId.projetId
+                      select name;
+            List<mapContentViewModels> liste = new List<mapContentViewModels>();
+            int i = 0;
+            foreach (var item in man)
+            {
+      
+                if (liste.Count == 0)
+                {
+                    mapContentViewModels k = new mapContentViewModels();
+                    k.projet = item.projet;
+                    k.resources.Add(item.ressource);
+                    liste.Add(k);
+                    i++;
+                }
+                else
+                {
+                    if (liste.ElementAt(i-1).projet.idProject == item.mandateId.projetId)
+                    {
+                        liste.ElementAt(i-1).resources.Add(item.ressource);
+                    }
+                    else
+                    {
+                        mapContentViewModels k = new mapContentViewModels();
+                        k.projet = item.projet;
+                        k.resources.Add(item.ressource);
+                        liste.Add(k);
+                        i++;
+                    }
+                }
+            }
+            return   new JsonResult { Data = liste, JsonRequestBehavior = JsonRequestBehavior.AllowGet }; ;
+
+        }
+            
     }
 
         

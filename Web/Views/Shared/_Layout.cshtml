@@ -36,7 +36,7 @@
 <body class="skin-josh">
     <header class="header">
         <a href="index.html" class="logo">
-            <img src="@Url.Content("~/Content/")img/logo.png" alt="logo">
+            <img width="214px" height="42px" src="@Url.Content("~/Content/")img/logo.svg" alt="logo">
         </a>
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
@@ -57,9 +57,9 @@
                             <li class="unread message">
                                 <a href="javascript:;" class="message">
                                     <i class="pull-right" data-toggle="tooltip" data-placement="top" title="Mark as Read"><span class="pull-right ol livicon" data-n="adjust" data-s="10" data-c="#287b0b"></span></i>
-                                    <img src="@Url.Content("~/Content/")img/authors/avatar.jpg" class="img-responsive message-image" alt="icon" />
+                                    <img src="@Url.Content("~/Content/")img/authors/user.png" class="img-responsive message-image" alt="icon" />
                                     <div class="message-body">
-                                        <strong>Riot Zeast</strong>
+                                        <strong>@Session["lastName"] @Session["firstName"]</strong>
                                         <br>Hello, You there?
                                         <br> <small>8 minutes ago</small>
                                     </div>
@@ -178,10 +178,10 @@
                     </li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="@Url.Content("~/Content/")img/authors/avatar3.jpg" width="35" class="img-circle img-responsive pull-left" height="35" alt="riot">
+                            <img src="@Url.Content("~/Content/")img/authors/user.png" width="35" class="img-circle img-responsive pull-left" height="35" alt="riot">
                             <div class="riot">
                                 <div>
-                                    Riot
+                                    @Session["lastName"]
                                     <span>
                                         <i class="caret"></i>
                                     </span>
@@ -191,8 +191,8 @@
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header bg-light-blue">
-                                <img src="@Url.Content("~/Content/")img/authors/avatar3.jpg" width="90" class="img-circle img-responsive" height="90" alt="User Image" />
-                                <p class="topprofiletext">Riot Zeast</p>
+                                <img src="@Url.Content("~/Content/")img/authors/user.png" width="90" class="img-circle img-responsive" height="90" alt="User Image" />
+                                <p class="topprofiletext">@Session["lastName"] @Session["firstName"]</p>
                             </li>
                             <!-- Menu Body -->
                             <li>
@@ -204,11 +204,8 @@
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="lockscreen.html"> <i class="livicon" data-name="lock" data-s="18"></i> Lock </a>
-                                </div>
                                 <div class="pull-right">
-                                    <a href="login.html"> <i class="livicon" data-name="sign-out" data-s="18"></i> Logout </a>
+                                    <a href="/Home/Logout"> <i class="livicon" data-name="sign-out" data-s="18"></i> Logout </a>
                                 </div>
                             </li>
                         </ul>
@@ -269,6 +266,11 @@
                                     <li>
                                         <a href="/Mandate/Archived">
                                             <i class="fa fa-angle-double-right"></i> Archive
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Mandate/map">
+                                            <i class="fa fa-angle-double-right"></i> Track Resources
                                         </a>
                                     </li>
                                 }

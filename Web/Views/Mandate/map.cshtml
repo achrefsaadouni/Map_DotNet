@@ -1,8 +1,29 @@
-﻿
+﻿@model IEnumerable<Web.Models.SprojectViewModels>
+@using Web.Models;
 @{
     ViewBag.Title = "Tracking";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
+<style>
+    .chip {
+        display: inline-block;
+        padding: 0 25px;
+        height: 50px;
+        font-size: 16px;
+        line-height: 50px;
+        border-radius: 25px;
+        background-color: #f1f1f1;
+    }
+
+        .chip img {
+            float: left;
+            margin: 0 10px 0 -25px;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+</style>
 <aside class="right-side">
     <section class="content-header">
         <h1>Mandates</h1>
@@ -26,22 +47,146 @@
         <div class="row">
 
 
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            <i class="livicon" data-name="doc-portrait" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i> Request
+                            <i class="livicon" data-name="doc-portrait" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i> Map
                         </h3>
                     </div>
                     <div class="panel-body" style="display: block;">
 
 
                         <div id="mapid" style="height: 500px;"></div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-5">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="livicon" data-name="doc-portrait" data-c="#fff" data-hc="#fff" data-size="18" data-loop="true"></i> Client List With  Mandates in progress
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="table">
+                                <thead>
+                                    <tr class="filters">
+                                        
+                                        <th hidden>longitude</th>
+                                        <th hidden>latitude</th>
+                                        <th hidden>id</th>
+                                        <th>Logo</th>
+                                        <th>Company Name</th>
+                                        <th>Project Name</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+@{
+    
+    foreach (var r in Model)
+    {
+                                        <tr>
+                                            
+                                            <td hidden>@r.Client.longitude</td>
+                                            <td hidden>@r.Client.latitude</td>
+                                            <td hidden>@r.idProject</td>
+                                            <td><img src="@r.Client.logo" width="80px" height="50px" /></td>
+                                            <td>@r.Client.nameSociety</td>
+                                            <td>@r.projectName</td>
+                                            <td>
+                                                <a href="#" class="linkmap"><i class="livicon" data-name="map" data-c="#01BC8C" data-hc="#01BC8C" data-size="18" title="View"></i></a>
+                                            </td>
+                                        </tr>
+
+                                            
+
+        } }
+
+                                </tbody>
+                            </table>
+                        </div>
+                     
 
                     </div>
                 </div>
             </div>
+
         </div>
+
+        <div class="row">
+            <button style="display : none" id="boutonModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Launch demo modal
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Resource Profil</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                          
+                                <div class="text-center">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="fileinput-new thumbnail img-file">
+                 
+                                    
+                                                <img id="img_r" style="background-color : black" src="@Url.Content("~/Content/img/authors/user.png")" width="200" class="img-responsive" height="150" alt="riot">
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                         
+                            
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="users">
+                                        <tr>
+                                            <td style="color : #418BCA">Name</td>
+                                            <td id="name_r"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color : #418BCA">Job Type</td>
+                                            <td id="job_r"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color : #418BCA">Work Profil</td>
+                                            <td id="work_r"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color : #418BCA">Email</td>
+                                            <td id="email_r"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color : #418BCA">Seniority</td>
+                                            <td id="senior_r"></td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                                
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
     </section>
 </aside>
 
@@ -53,16 +198,85 @@
 
 
 @section scripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.bootstrap.js"></script>
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
             integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
             crossorigin=""></script>
     <script>
-        var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
+        var markers = new Array();
+        var mymap = L.map('mapid').setView([46.7685297, -71.2958736], 4);
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
             maxZoom: 18,
             id: 'mapbox.streets',
             accessToken: 'pk.eyJ1Ijoic2FhZG91bmkiLCJhIjoiY2pvdm16ZXNlMWpuaTNwbGh2bHprZ21sYiJ9.rme0-S2pb8oQwK9vmRV_kQ'
         }).addTo(mymap);
+
+        $.ajax({
+            type: "GET",
+            url: "/Mandate/MapContent",
+            dataType: 'json',
+            success: function (msg) {
+                $.each(msg, function (index, value) {
+
+                    var a = `<img src ="` + value.projet.Client.logo + `" width="70px" height="40px" /><span style = "color : red">` + value.projet.projectName + `</span>`;
+                    $.each(value.resources, function (index, value) {
+                        
+
+                        a = a + `<a  href="#" class="chip pmodel" onclick ="map('` + value.firstName + `','` + value.lastName + `','` + value.workProfil + `','` + value.picture + `','` + value.seniority + `','` + value.jobType + `','` + value.email + `')"><img src="` + value.picture + `" alt="Person" width="30" height="30">` + value.firstName + `</a><br/><br/>`;
+                    });
+                    var popup = L.popup({
+                        maxWidth : 400
+                    }).setContent(a).setLatLng([parseFloat(value.projet.Client.longitude), parseFloat(value.projet.Client.latitude)]).openOn(mymap);
+                   
+                    var marker = L.marker([parseFloat(value.projet.Client.longitude), parseFloat(value.projet.Client.latitude)]).addTo(mymap).bindPopup(popup, { autoClose: false }).openPopup();
+                    
+                    markers["'" + value.projet.idProject + "'"] = marker;
+                    
+                   
+                });
+            }
+        });
+
+        $(".linkmap").click(function (e) {
+            var a = e.currentTarget.parentElement.parentElement.children['0'].innerHTML;
+            a = a.replace(",", ".");
+            var b = e.currentTarget.parentElement.parentElement.children['1'].innerHTML;
+            b = b.replace(",", ".");
+            mymap.flyTo([parseFloat(a), parseFloat(b)], 13);
+            
+            for (var ite in markers) {
+                console.log(markers[ite].closePopup());
+            }
+            var i = Number(e.currentTarget.parentElement.parentElement.children['2'].innerHTML);
+            markers["'" + i + "'"].openPopup();
+
+        })
+        function map(firstName, LastName, workProfil, picture, seniority, jobType,email) {
+            $('#boutonModal').trigger('click');
+            if (picture != "")
+                $("#img_r").attr("src", picture);
+            else
+                $("#img_r").attr("src", "@Url.Content("~/Content/img/authors/user.png")");
+            $("#name_r").html(LastName + ' ' + firstName)
+            $("#work_r").html(workProfil)
+            $("#senior_r").html(seniority)
+            $("#job_r").html(jobType)
+            $("#email_r").html(email)
+        }
+
     </script>
+
+
+
+
+
+
+
+
+
 }

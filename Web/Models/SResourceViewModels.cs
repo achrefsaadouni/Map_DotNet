@@ -17,11 +17,33 @@ namespace Web.Models
         public string jobType { get; set; }
         public string cv { get; set; }
         public string businessSector { get; set; }
-        public AvailibilityType availability { get; set; }
+        public string availability { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
         public int archived { get; set; }
         public List<resourceskill> resourceSkills { get; set; }
+        public SResourceViewModels(person p)
+        {
+            id = p.id;
+            seniority = p.seniority;
+            workProfil = p.workProfil;
+            salary = (float)p.salary;
+            picture = p.picture;
+            moyenneSkill = (float)p.moyenneSkill;
+            jobType = p.jobType;
+            cv = p.cv;
+            businessSector = p.businessSector;
+            availability = p.availability;
+            firstName = p.firstName;
+            lastName = p.lastName;
+            email = p.email;
+            archived = p.archived;
+            resourceSkills = new List<resourceskill>(p.resourceskills);
+    }
+        public SResourceViewModels()
+        {
+            resourceSkills = new List<resourceskill>();
+        }
     }
 }

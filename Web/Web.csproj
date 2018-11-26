@@ -246,9 +246,11 @@
     <Compile Include="Models\JobRequestModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MandateViewModels.cs" />
+    <Compile Include="Models\mapContentViewModels.cs" />
     <Compile Include="Models\ProjectSkillViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\ResourceViewModel.cs" />
+    <Compile Include="Models\SClientViewModels.cs" />
     <Compile Include="Models\SkillViewModel.cs" />
     <Compile Include="Models\SprojectViewModels.cs" />
     <Compile Include="Models\SrequestModelViews.cs" />

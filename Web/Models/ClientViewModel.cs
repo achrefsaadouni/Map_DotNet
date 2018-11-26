@@ -24,7 +24,8 @@ namespace Web.Models
         public string nameSociety { get; set; }
         public string picture { get; set; }
         public string roleT { get; set; }
-
+        public double longitude { get; set; }
+        public double latitude { get; set; }
 
     }
 }
