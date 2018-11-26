@@ -1,0 +1,265 @@
+﻿@{
+    bool test = true;
+    ViewBag.Title = "Candidate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .row {
+        margin-left: 350px;
+    }
+
+    .row1 {
+        margin-left: 550px;
+    }
+</style>
+
+<!-- CandidateByState-->
+<a href="#" id="downloadPdf">Download Report Page as PDF</a>
+<br /><br />
+<div id="reportPage">
+    <div Style="font-family: Corbel; font-size: medium ;text-align:center " class="row1">
+        <div style="width:50%;height:50%">
+            <canvas id="myChart1" style="padding: 0;margin: auto;display: block; "> </canvas>
+        </div>
+    </div>
+    <!-- SkillsRecommended-->
+
+    <div Style="font-family: Corbel; font-size: medium ;text-align:center " class="row1">
+        <div style="width:50%;height:50%">
+            <canvas id="myChart2" style="padding: 0;margin: auto;display: block; "> </canvas>
+        </div>
+    </div>
+
+    <!-- CandidateByJobRequest-->
+    <div Style="font-family: Corbel; font-size: medium ;text-align:center " class="row">
+        <div style="width:75%;height:75%">
+            <canvas id="myChart3" style="padding: 0;margin: auto;display: block; "> </canvas>
+        </div>
+    </div>
+    <!--CandidateByResultTest-->
+    <div Style="font-family: Corbel; font-size: medium ;text-align:center " class="row">
+        <div style="width:75%;height:75%">
+            <canvas id="myChart" style="padding: 0;margin: auto;display: block; "> </canvas>
+        </div>
+    </div>
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+<!-- generate pdf-->
+<script>
+    $('#downloadPdf').click(function(event) {
+        // get size of report page
+        var reportPageHeight = $('#reportPage').innerHeight();
+        var reportPageWidth = $('#reportPage').innerWidth();
+
+        // create a new canvas object that we will populate with all other canvas objects
+        var pdfCanvas = $('<canvas />').attr({
+            id: "canvaspdf",
+            width: reportPageWidth+700,
+            height: reportPageHeight+1200
+        });
+
+        // keep track canvas position
+        var pdfctx = $(pdfCanvas)[0].getContext('2d');
+        var pdfctxX = 0;
+        var pdfctxY = 0;
+        var buffer = 100;
+
+        // for each chart.js chart
+        $("canvas").each(function(index) {
+            // get the chart height/width
+            var canvasHeight = $(this).innerHeight();
+            var canvasWidth = $(this).innerWidth();
+
+            // draw the chart into the new canvas
+            pdfctx.drawImage($(this)[0], pdfctxX+200, pdfctxY+40, canvasWidth+100, canvasHeight+100);
+            pdfctxX += canvasWidth + buffer+200;
+            //pdfctxY += canvasHeight + buffer+100;
+
+            // our report page is in a grid pattern so replicate that in the new canvas
+            if (index % 2 === 1) {
+                pdfctxX = 0;
+                pdfctxY += canvasHeight + buffer+200;
+            }
+        });
+
+        // create new pdf and add our new canvas as an image
+        var pdf = new jsPDF('l', 'pt', [reportPageWidth, reportPageHeight]);
+        pdf.addImage($(pdfCanvas)[0], 'PNG', 0, 0);
+
+        // download the pdf
+        pdf.save('filename.pdf');
+    });
+</script>
+    <script>
+
+        var dat = @Html.Raw(@ViewBag.result1);
+        var data = dat.map(function (e) {
+            return e[0];
+        });
+        var data1 = dat.map(function (e) {
+            return e[1];
+        });
+        var data2 = dat.map(function (e) {
+            return e[2];
+        });
+
+        $.ajax({
+
+            success: function () {
+                var aData = [0,1,2,3,4,5];
+                var aLabels = data2;
+                var aset=data;
+                var aset1=data1;
+
+                var color = Chart.helpers.color;
+                var dataT = {
+                    labels: aLabels,
+                    datasets: [
+                        {
+                            label: "Accepted",
+                            data: aset,
+                            fill: false,
+                            backgroundColor: ["rgba(54, 162, 235, 0.2)","rgba(54, 162, 235, 0.2)"],
+                            borderColor: ["rgba(54, 162, 235)","rgba(54, 162, 235)"],
+                            borderWidth: 1
+                        },
+                    {
+                        label: "Refused",
+                        data: aset1,
+                        fill: false,
+                        backgroundColor: [ "rgba(255, 99, 132, 0.2)","rgba(255, 99, 132, 0.2)"],
+                        borderColor: ["rgba(255, 99, 132)","rgba(255, 99, 132)"],
+                        borderWidth: 1
+                    }]
+                };
+                var ctx = $("#myChart").get(0).getContext("2d");
+                var myNewChart = new Chart(ctx, {
+
+                    type: 'bar',
+                    data: dataT,
+                    options: {
+
+                        responsive: true,
+                        title: { display: true, text: 'Candidate Results By Test' },
+                        legend: { position: 'bottom' },
+                        scales: {
+                            xAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: 'Test ' } }],
+                            yAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: ' Nb Candidate' }, ticks: { stepSize: 10, beginAtZero: true } }]
+                        },
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- CandidateByState-->
+    <script>
+        var data4 = @Html.Raw(@ViewBag.result2);
+
+        var data5 = data4.map(function (e) {
+            return e[0];
+        });
+        var data6 = data4.map(function (e) {
+            return e[1];
+        });
+        new Chart(document.getElementById("myChart1"), {
+            type: 'pie',
+            data: {
+                labels: data6,
+                datasets: [{
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                    data: data5
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Nb Candidate By Status'
+                }
+            }
+        });
+
+    </script>
+    <!--Skills Recommended-->
+    <script>
+        var data7 = @Html.Raw(@ViewBag.result3);
+
+        var data8 = data7.map(function (e) {
+            return e[0];
+        });
+        var data9 = data7.map(function (e) {
+            return e[1];
+        });
+        new Chart(document.getElementById("myChart2"), {
+            type: 'pie',
+            data: {
+                labels: data8,
+                datasets: [{
+                    label: "",
+                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                    data: data9
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Skills Recommended'
+                }
+            }
+        });
+
+    </script>
+    <!--CandidateRankedByJobRequest-->
+    <script>
+        var data10 = @Html.Raw(@ViewBag.result4);
+        var data11 = data10.map(function (e) {
+            return e[0];
+        });
+        var data12 = data10.map(function (e) {
+            return e[1];
+        });
+
+        $.ajax({
+
+            success: function () {
+                var aData = [0,1,2,3,4,5];
+                var aLabels = data12;
+                var aset=data11;
+
+                var color = Chart.helpers.color;
+                var dataT = {
+                    labels: aLabels,
+                    datasets: [
+                        {
+                            label: "",
+                            data: aset,
+                            fill: false,
+                            backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+
+                            borderColor: ["rgb(54, 162, 235)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                            borderWidth: 1
+                        }
+                    ]
+                };
+                var ctx = $("#myChart3").get(0).getContext("2d");
+                var myNewChart = new Chart(ctx, {
+
+                    type: 'bar',
+                    data: dataT,
+                    options: {
+
+                        responsive: true,
+                        title: { display: true, text: 'Candidate Ranked By Job Request' },
+                        legend: { position: 'none' },
+                        scales: {
+                            xAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: 'Candidate Name ' } }],
+                            yAxes: [{ gridLines: { display: false }, display: true, scaleLabel: { display: true, labelString: ' Nb Job Request' }, ticks: { stepSize: 2, beginAtZero: true } }]
+                        },
+                    }
+                });
+            }
+        });
+    </script>

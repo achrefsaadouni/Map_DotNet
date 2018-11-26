@@ -1,4 +1,4 @@
-﻿using Domain;
+using Domain;
 using Map_DotNet.Data.Infrastructure;
 using Service.Interfaces;
 using Service.Services;
@@ -18,11 +18,11 @@ namespace Service
         private IRequestService rs = new RequestService();
         private IPersonService ps = new PersonService();
         private IProjectService pros = new ProjectService();
-        public MandateService():base(uow)
+        public MandateService() : base(uow)
         {
 
         }
-        public void addSuggestion(request  r , person p)
+        public void addSuggestion(request r, person p)
         {
             request req = rs.GetById(r.id);
             req.suggessedResource_id = p.id;
@@ -40,7 +40,7 @@ namespace Service
                      orderby name.percentage descending
                      select name;
             r.project.projectskills = new List<projectskill>();
-            foreach(var i in r1)
+            foreach (var i in r1)
             {
                 r.project.projectskills.Add(i);
             }
@@ -58,7 +58,7 @@ namespace Service
             rs.Update(s);
             ps.Commit();
             rs.Commit();
-           
+
         }
         public List<Mandate> getByClient(int id)
         {
@@ -87,7 +87,7 @@ namespace Service
         public List<person> getGps()
         {
             List<person> liste = new List<person>();
-            liste.AddRange(ps.GetMany(e => e.availability.Equals("available") && e.roleT.Equals("Resource") ));
+            liste.AddRange(ps.GetMany(e => e.availability.Equals("available") && e.roleT.Equals("Resource")));
             return liste;
         }
         public void addGps(int id, int projectId, int resourceId, DateTime dateFin, DateTime dateDebut)
@@ -100,10 +100,10 @@ namespace Service
             this.Commit();
             ps.Update(p);
             ps.Commit();
-   
+
         }
 
-        public  void removeGps(int id, int projectId, int resourceId, DateTime dateFin, DateTime dateDebut)
+        public void removeGps(int id, int projectId, int resourceId, DateTime dateFin, DateTime dateDebut)
         {
             Mandate m = this.GetMany(e => e.dateDebut == dateDebut && e.dateFin == dateFin && e.projetId == projectId && e.ressourceId == resourceId).ElementAt(0);
             m.gps_id = null;
@@ -127,5 +127,5 @@ namespace Service
                         .Select(grp => grp.First()).ToList();
         }
     }
-    
+
 }
