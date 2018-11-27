@@ -1,0 +1,106 @@
+﻿@model Web.Models.DayOffViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DayOff</title>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <aside class="right-side">
+            <section class="content-header">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("listeResource")" style="color:forestgreen">Resource List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color:forestgreen">Resource List Archived</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("AddResource")" style="color:forestgreen">Add Resource</a>
+                    </li>
+                </ul>
+
+            </section>
+
+            <div class="mar-top20">
+                <div class="row">
+                    <div class="col-md-4 pd-col-4">
+                        <h3>Add DayOff</h3>
+                        <form role="form">
+                            <div class="form-group draggable">
+                                <label for="input-text-1">Reason</label>
+                                <input type="text" class="form-control" id="input-text-1" placeholder="Reason" name="reason">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-text-1">Start Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="livicon" data-name="calendar" data-size="14" data-loop="true"></i>
+                                    </div>
+                                    <input type="date" class="form-control" id="daterange1" name="startDate">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="input-text-1">End Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="livicon" data-name="calendar" data-size="14" data-loop="true"></i>
+                                    </div>
+                                    <input type="date" class="form-control" id="daterange1" name="endDate">
+                                </div>
+                            </div>
+                           
+                            <div class="form-group draggable">
+                                <label for="select-1">State Type</label>
+                                <select id="select21" class="form-control select2" name="stateType">
+                                    <option value="">Select value...</option>
+                                    <option value="onHold">On hold</option>
+                                    <option value="refused">Refused</option>
+                                    <option value="accepted">Accepted</option>
+                                </select>
+                
+                            </div>
+
+                            <div class="form-group draggable">
+                                <label for="select-1">Type DayOff</label>
+                                <select id="select21" class="form-control select2" name="typeDayOff">
+                                    <option value="">Select value...</option>
+                                    <option value="vacancy">Vacancy</option>
+                                    <option value="maternity">Maternity</option>
+                                    <option value="illness">Illness</option>
+                                    <option value="other">Other</option>
+                                </select>
+
+                            </div>
+                            
+                            <div class="form-group draggable pd-right">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- content -->
+        </aside>
+    }
+
+
+</body>
+</html>

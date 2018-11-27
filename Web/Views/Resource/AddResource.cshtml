@@ -22,18 +22,18 @@
 
         <aside class="right-side">
             <section class="content-header">
-                <h1>Mandates</h1>
-                <ol class="breadcrumb">
-                    <li>
-                        <a href="index.html">
-                            <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> Dashboard
-                        </a>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("listeResource")" style="color:forestgreen">Resource List</a>
                     </li>
-                    <li>
-                        <a href="#">Mandates</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color:forestgreen">Resource List Archived</a>
                     </li>
-                    <li class="active">Handle Request</li>
-                </ol>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("AddResource")" style="color:forestgreen">Add Resource</a>
+                    </li>
+                </ul>
+
             </section>
 
             <div class="mar-top20">
@@ -60,35 +60,50 @@
                             </div>
                             <div class="form-group draggable">
                                 <label for="select-1">seniority</label>
-                                @Html.EnumDropDownListFor(model => model.seniority, htmlAttributes: new { @class = "form-control" })
+                                <select id="select21" class="form-control select2" name="seniority" required>
+                                    <option value="">Select value...</option>
+                                    <option value="Senior">Senior</option>
+                                    <option value="Junior">Junior</option>
+                        
+                                </select>
 
                             </div>
 
                             <div class="form-group draggable">
                                 <label for="select-1">Work Profile</label>
-                                @Html.EnumDropDownListFor(model => model.workProfil, htmlAttributes: new { @class = "form-control" })
+                                <select id="select21" class="form-control select2" name="workProfil" required>
+                                    <option value="">Select value...</option>
+                                    <option value="Developper">Developper</option>
+                                    <option value="Designer">Designer</option>
+                                    <option value="Chef">Chef</option>
+                                </select>
 
                             </div>
                             <div class="form-group draggable">
                                 <label for="input-text-1">Salary</label>
-                                <input type="text" class="form-control" id="input-text-5" placeholder="Salary" name="salary">
+                                <input type="text" class="form-control" id="input-text-5" placeholder="Salary" name="salary" required>
                             </div>
                             <div class="form-group draggable">
                                 <label for="select-1">Job Type</label>
-                                @Html.EnumDropDownListFor(model => model.jobType, htmlAttributes: new { @class = "form-control" })
+                                <select id="select21" class="form-control select2" name="jobType" required>
+                                    <option value="">Select value...</option>
+                                    <option value="Freelancer">Freelancer</option>
+                                    <option value="LevioResource">Levio Resource</option>
+
+                                </select>
 
                             </div>
                             <div class="form-group draggable">
                                 <label for="input-text-1">My Cv</label>
-                                <input type="text" class="form-control" id="input-text-2" placeholder="cv" name="cv">
+                                <input type="text" class="form-control" id="input-text-2" placeholder="cv" name="cv" required>
                             </div>
                             <div class="form-group draggable">
                                 <label for="input-text-1">Business Sector</label>
-                                <input type="text" class="form-control" id="input-text-6" placeholder="Business Sector" name="businessSector">
+                                <input type="text" class="form-control" id="input-text-6" placeholder="Business Sector" name="businessSector" required>
                             </div>
                             <div class="form-group draggable">
                                 <label for="input-file-1">My photo</label>
-                                <input type="file" id="input-file-1" name="file">
+                                <input type="file" id="input-file-1" name="file" required>
                             </div>
 
                             <div class="form-group draggable pd-right">

@@ -45,6 +45,10 @@ namespace Domain
         [StringLength(255)]
         public string email { get; set; }
 
+        public int nombreConge { get; set; }
+
+        public int nombreAlerte { get; set; }
+
         [StringLength(255)]
         public string firstName { get; set; }
 
@@ -61,7 +65,7 @@ namespace Domain
         public string password { get; set; }
 
         [JsonIgnore]
-        public Role roleT { get; set; }
+        public string roleT { get; set; }
 
         [JsonIgnore]
         [StringLength(255)]
@@ -76,15 +80,15 @@ namespace Domain
         [StringLength(255)]
         public string clientType { get; set; }
 
-        [JsonIgnore]
-        public double? latitude { get; set; }
+       /* [JsonIgnore]
+        public double? latitude { get; set; }*/
 
         [JsonIgnore]
         [StringLength(255)]
         public string logo { get; set; }
 
-        [JsonIgnore]
-        public double? longitude { get; set; }
+       /* [JsonIgnore]
+        public double? longitude { get; set; }*/
 
         [StringLength(255)]
         public string nameSociety { get; set; }
@@ -116,7 +120,7 @@ namespace Domain
         public string picture { get; set; }
 
         [JsonIgnore]
-        public float? salary { get; set; }
+        public float salary { get; set; }
 
         [JsonIgnore]
         [StringLength(255)]

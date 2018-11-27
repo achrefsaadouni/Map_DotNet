@@ -33,5 +33,7 @@ namespace Web.Models
         public System.Data.Entity.DbSet<Web.Models.ResourceViewModel> ResourceViewModels { get; set; }
         public System.Data.Entity.DbSet<Web.Models.ProjectViewModel> ProjectViewModels { get; set; }
         public System.Data.Entity.DbSet<Web.Models.ClientViewModel> ClientViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<Web.Models.DayOffViewModel> DayOffViewModels { get; set; }
     }
 }

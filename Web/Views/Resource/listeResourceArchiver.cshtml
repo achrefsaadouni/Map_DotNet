@@ -1,8 +1,7 @@
 ﻿@model IEnumerable<Web.Models.ResourceViewModel>
 
 @{
-    ViewBag.Title = "listeResource";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "listeResourceArchiver";
 }
 <aside class="right-side">
     <section class="content-header">
@@ -11,7 +10,7 @@
                 <a class="nav-link active" href="@Url.Action("listeResource")" style="color:forestgreen">Resource List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("listeResourceArchiver")"  style="color:forestgreen">Resource List Archived</a>
+                <a class="nav-link" href="@Url.Action("listeResourceArchiver")" style="color:forestgreen">Resource List Archived</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("AddResource")" style="color:forestgreen">Add Resource</a>
@@ -23,7 +22,7 @@
     </section>
 
     <div class="row">
-        @foreach (var item in ViewBag.result)
+        @foreach (var item in Model)
         {
             <div class="col-md-4">
 
@@ -45,12 +44,10 @@
                         </div>
                         <div class="wrap">
                             <p>
-                                @Html.ActionLink("View", "DetailResource", "Resource", new { id = @item.id }, null) || 
-                                @Html.ActionLink("Archiver", "Archiver", "Resource", new { id = @item.id }, null) || 
-                                @Html.ActionLink("Edit", "UpdateResource", "Resource", new { id =@item.id }, null) ||
-                                
-                                <a href="@Url.Action("Lister","DayOff")">Calendar</a>
-                                
+                                @Html.ActionLink("View", "DetailResource", "Resource", new { id = @item.id }, null)
+                                @Html.ActionLink("Unarchive", "Unarchiver", "Resource", new { id = @item.id }, null)
+                     
+
                             </p>
                         </div>
                         <!--content ends-->

@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.ResourceService
+namespace Service.Interfaces
 {
     public interface IResourceService :IService<person>
     {
+        List<person> getResourceArchive();
     }
 }

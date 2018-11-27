@@ -24,6 +24,11 @@ namespace Data
         public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<note> notes { get; set; }
         public virtual DbSet<organizationalchart> organizationalcharts { get; set; }
+
+        public void Attach(Object p)
+        {
+        }
+
         public virtual DbSet<person> people { get; set; }
         public virtual DbSet<project> projects { get; set; }
         public virtual DbSet<projectskill> projectskills { get; set; }
@@ -70,13 +75,13 @@ namespace Data
                 .Property(e => e.reason)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<dayoff>()
-                .Property(e => e.stateType)
-                .IsUnicode(false);
+           
 
             modelBuilder.Entity<dayoff>()
-                .Property(e => e.typeDayOff)
-                .IsUnicode(false);
+                .Property(e => e.stateType);
+
+            modelBuilder.Entity<dayoff>()
+                .Property(e => e.typeDayOff);
 
             modelBuilder.Entity<dayoff>()
                 .HasMany(e => e.people)
@@ -162,6 +167,12 @@ namespace Data
             modelBuilder.Entity<person>()
                 .Property(e => e.role)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<person>()
+               .Property(e => e.nombreAlerte);
+
+            modelBuilder.Entity<person>()
+                .Property(e => e.nombreConge);
 
             modelBuilder.Entity<person>()
                 .Property(e => e.email)

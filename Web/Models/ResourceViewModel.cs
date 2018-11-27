@@ -1,4 +1,5 @@
-﻿using Domain.Enumeration;
+﻿using Domain;
+using Domain.Enumeration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,19 +14,19 @@ namespace Web.Models
 
 
         public int id { get; set; }
-        public SeniorityType seniority { get; set; }
+        public string seniority { get; set; }
         [DisplayName("Work profile")]
-        public WorkType workProfil { get; set; }
+        public string workProfil { get; set; }
         public float salary { get; set; }
         public string picture { get; set; }
         [DisplayName("Average skills")]
         public float moyenneSkill { get; set; }
         [DisplayName("Job Type")]
-        public JobType jobType { get; set; }
+        public string jobType { get; set; }
         public string cv { get; set; }
         [DisplayName("Business Sector")]
         public string businessSector { get; set; }
-        public AvailibilityType availability { get; set; }
+        public string availability { get; set; }
         [DisplayName("First Name")]
         public string firstName { get; set; }
         [DisplayName("Last Name")]
@@ -33,7 +34,12 @@ namespace Web.Models
         public string email { get; set; }
         public int archived { get; set; }
         public string password { get; set; }
-        
+        [JsonIgnore]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<dayoff> dayoffs { get; set; }
+        public int nombreConge { get; set; }
+        public int nombreAlerte { get; set; }
+
         public Role roleT { get; set; }
         //public HttpPostedFileBase ImageFile { get; set; }
     }

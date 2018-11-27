@@ -25,9 +25,14 @@ namespace Web
               defaults: new { controller = "Resource", action = " DetailResource", id = UrlParameter.Optional }
           );
 
+            routes.MapRoute(
+             name: "ListeResource",
+             url: "{controller}/{action}/{id}",
+             defaults: new { controller = "Resource", action = "listeResource", id = UrlParameter.Optional }
+         );
 
 
-           
+
         }
     }
 }

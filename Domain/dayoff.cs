@@ -1,5 +1,7 @@
 namespace Domain
 {
+    using Enumeration;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -19,20 +21,20 @@ namespace Domain
         public int id { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? endDate { get; set; }
+        public DateTime endDate { get; set; }
 
         [StringLength(255)]
         public string reason { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? startDate { get; set; }
+        public DateTime startDate { get; set; }
 
-        [StringLength(255)]
         public string stateType { get; set; }
 
-        [StringLength(255)]
-        public string typeDayOff { get; set; }
+        
 
+        public string typeDayOff { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<person> people { get; set; }
     }
