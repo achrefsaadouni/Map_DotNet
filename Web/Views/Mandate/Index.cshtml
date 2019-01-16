@@ -59,7 +59,7 @@
                                                         <td>@item.mandateId.dateFin.ToString("d")</td>
                                                         <td>@item.projet.projectName</td>
                                                         <td>@item.ressource.firstName @item.ressource.lastName</td>
-                                                        <td>@item.montant</td>
+                                                        <td>@item.montant   <a href="/Mandate/CalculFrais?dateDebut=@item.mandateId.dateDebut.ToString("d")&dateFin=@item.mandateId.dateFin.ToString("d")&projectId=@item.mandateId.projetId&resourceId=@item.mandateId.ressourceId"><i class="livicon" data-name="piggybank" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="calcul frais"></i></a></td>
                                                         @if (item.gps != null)
                     {
                                                             <td>
@@ -97,7 +97,7 @@
                                                         <td>@item.mandateId.dateFin.ToString("d")</td>
                                                         <td>@item.projet.projectName</td>
                                                         <td>@item.ressource.firstName @item.ressource.lastName</td>
-                                                        <td>@item.montant</td>
+                                                        <td>@item.montant <a href="/Mandate/CalculFrais?dateDebut=@item.mandateId.dateDebut.ToString("d")&dateFin=@item.mandateId.dateFin.ToString("d")&projectId=@item.mandateId.projetId&resourceId=@item.mandateId.ressourceId"><i class="livicon" data-name="piggybank" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="calcul frais"></i></a></td>
                                                         @if (item.gps != null)
                     {
                                                             <td>

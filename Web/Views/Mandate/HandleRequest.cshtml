@@ -302,8 +302,15 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/js/pages/sweetalert.js")"></script>
     <script>
         $(document).ready(function() {
-        $(".myliste").on('DOMSubtreeModified', function (e) {
-            $("#HandleRequestBtn").prop('disabled', false);
+            $(".myliste").on('DOMSubtreeModified', function (e) {
+                if ($(".myliste").children().length < 1)
+                {
+                    $("#HandleRequestBtn").prop('disabled', true);
+                }
+                else {
+                    $("#HandleRequestBtn").prop('disabled', false);
+                }
+           
             var x = $("#advanced-1").children();
             if ($(".myliste").children().length > 1)
             {

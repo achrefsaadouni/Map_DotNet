@@ -1,0 +1,144 @@
+﻿@model Web.Models.MandateViewModels
+@using Web.Models
+@{
+    ViewBag.Title = "Mandate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<aside class="right-side">
+    <section class="content-header">
+        <h1>Mandates</h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">
+                    <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">Mandates</a>
+            </li>
+            <li class="active">My Mandate</li>
+        </ol>
+    </section>
+    <section class="content paddingleft_right15">
+        <div class="row">
+            
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <i class="livicon" data-name="users-remove" data-size="18" data-c="#ffffff" data-hc="#ffffff"></i> My Current Mandate
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    @if(ViewBag.test)
+                    { 
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="users">
+                                    <tr>
+                                        <td><h4 style="color:#84bd00">Mandate Information</h4></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Start Date</td>
+                                        <td>@Model.mandateId.dateDebut.ToString("d")</td>
+                                    </tr>
+                                    <tr>
+                                        <td>End Date</td>
+                                        <td>@Model.mandateId.dateFin.ToString("d")</td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="users">
+                                    <tr>
+                                        <td><h4 style="color:#84bd00">Project Information</h4></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Project Name</td>
+                                        <td>@Model.projet.projectName</td>
+                                    </tr>
+                                    <tr> <td>Adress</td><td>@Model.projet.Address</td></tr>
+
+
+                                    <tr>  <td>Number of Levio Resources</td><td>@Model.projet.LevioNbResource</td></tr>
+                                    <tr>  <td>Skills Required</td>
+                                        <td>
+                                            @foreach (var i in Model.projet.projectSkills)
+                                            {
+                                                <span style="color:cornflowerblue">@i.skill.NameSkill</span>
+                                            }
+                                        </td>
+                                    </tr>
+
+
+
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="text-center">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail img-file">
+                                            <img src="@Model.projet.Client.logo" width="200" class="img-responsive" height="150" alt="riot" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="users">
+                                    <tr>
+                                        <td><h4 style="color:#84bd00">Client Information</h4></td>
+                                    </tr>
+                                    
+                                   
+                                    <tr> <td>Name</td><td>@Model.projet.Client.lastName @Model.projet.Client.firstName</td></tr>
+                                    <tr><td>Company Name</td><td>@Model.projet.Client.nameSociety</td></tr>
+                                    <tr><td>Client Category</td><td>@Model.projet.Client.clientCategory</td></tr>
+                                    <tr><td>Client Type</td><td>@Model.projet.Client.clientType</td></tr>
+                                       
+                                       
+                                    <tr>
+                                        <td>Email</td><td>@Model.projet.Client.email</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+
+                        
+
+                    </div>
+                    }
+                    else
+                    {
+                        <h1 style="color:palevioletred">No Mandate For You At This Moment</h1>
+                    }
+            </div>
+        </div>
+            </div>
+    </section>
+</aside>
+<!-- right-side -->
+
+@section scripts {
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")vendors/datatables/js/dataTables.bootstrap.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#table').DataTable();
+    });
+
+    </script>
+}

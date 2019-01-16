@@ -246,6 +246,36 @@
                         </li>
                         <li>
                             <a href="#">
+                                <i class="livicon" data-name="notebook" data-size="18" data-c="#418BCA" data-hc="#418BCA" data-loop="true"></i>
+                                <span class="title">Projects</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/Project/Index">
+                                        <i class="fa fa-angle-double-right"></i> All Projects
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Project/CompletedProject">
+                                        <i class="fa fa-angle-double-right"></i> Completed Projects
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Project/calculBenefice">
+                                        <i class="fa fa-angle-double-right"></i> Benefice
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Project/listArchivedProject">
+                                        <i class="fa fa-angle-double-right"></i> Archived Projects
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
                                 <i class="livicon" data-name="list-ul" data-size="18" data-c="#EF6F6C" data-hc="#EF6F6C" data-loop="true"></i>
                                 <span class="title">Mandates</span>
                                 <span class="fa arrow"></span>
@@ -290,7 +320,7 @@
                                 else if (Session["role"].Equals("Resource"))
                                 {
                                     <li>
-                                        <a href="/Mandate/MyMandate">
+                                        <a href="/Mandate/resourceMandate">
                                             <i class="fa fa-angle-double-right"></i> My Mandates
                                         </a>
                                     </li>
@@ -332,6 +362,39 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"> <i class="livicon" data-name="doc-portrait" data-c="#5bc0de" data-hc="#5bc0de" data-size="18" data-loop="true"></i> <span class="title">Requests</span> <span class="fa arrow"></span> </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="@Url.Action("Create", "Request")"> <i class="fa fa-angle-double-right"></i> Add Request </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "Request")"> <i class="fa fa-angle-double-right"></i> List Request </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "Message")">
+                                <i class="livicon" data-name="mail" data-size="18" data-c="#5bc0de" data-hc="#5bc0de" data-loop="true"></i>
+                                <span class="title">Messages</span>
+                                <span class="fa arrow"></span>
+                            </a>
+
+                        </li>
+
+
+                        <li>
+                            <a href="@Url.Action("Index", "Discussion")">
+                                <i class="livicon" data-name="comment" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
+                                <span class="title">Chat</span>
+                                <span class="fa arrow"></span>
+                            </a>
+
+                        </li>
+
+                    </ul>
 
                     </ul>
                     <!-- END SIDEBAR MENU -->

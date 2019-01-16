@@ -16,8 +16,10 @@ using System.IO;
 using Service.Services;
 using Service.Interfaces;
 
+
 namespace Web.Controllers
 {
+
     public class MandateController : Controller
     {
 
@@ -25,6 +27,7 @@ namespace Web.Controllers
         private const string APP_URI = "http://localhost:8993";
         private IMandateService ms = new MandateService();
         private IRequestService rm = new RequestService();
+        private IProjectService ps = new ProjectService();
         // GET: Mandate
         public ActionResult Index()
         {
@@ -35,12 +38,13 @@ namespace Web.Controllers
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
             List<MandateViewModels> liste = new List<MandateViewModels>();
             var response = client.Execute<List<MandateViewModels>>(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode == HttpStatusCode.OK )
             {
                 liste.AddRange(response.Data);
                 return View(liste);
             }
-               
+            else if (response.StatusCode == HttpStatusCode.NoContent)
+                return View(liste);
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -59,7 +63,8 @@ namespace Web.Controllers
                 liste.AddRange(response.Data);
                 return View(liste);
             }
-                
+            else if (response.StatusCode == HttpStatusCode.NoContent)
+                return View(liste);
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -90,8 +95,9 @@ namespace Web.Controllers
                 request.AddHeader("Authorization", "Bearer " + Session["token"]);
                 request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
                 var response = client.Execute(request);
-                if (response.StatusCode == HttpStatusCode.OK)
+                if (response.StatusCode == HttpStatusCode.Created)
                 {
+                    ms.updateProject(input.id);
                     return true;
                 }
                 else
@@ -113,39 +119,7 @@ namespace Web.Controllers
             List<MandateViewModels> liste = new List<MandateViewModels>();
             if(Session.Count == 0)
                 return RedirectToAction("Login", "Home");
-            if (Session["role"].Equals("Resource") && Session["token"] != null)
-            {
-                if (ms.getByResource((int)Session["id"]).Capacity == 0)
-                    return View(liste);
-                else
-                {
-                    foreach (var i in ms.getByResource((int)Session["id"]))
-                    {
-                        MandateViewModels m = new MandateViewModels();
-                        SResourceViewModels ress = new SResourceViewModels(i.person);
-                        SprojectViewModels pro = new SprojectViewModels(i.project);
-                        SResourceViewModels gps;
-                        if (i.person1 != null)
-                            gps = new SResourceViewModels(i.person1);
-                        else
-                            gps = new SResourceViewModels();
-                        m.projet = pro;
-                        m.ressource = ress;
-                        m.gps = gps;
-                        m.montant = (double)i.montant;
-                        MandateId mi = new MandateId();
-                        mi.dateDebut = i.dateDebut;
-                        mi.dateFin = i.dateFin;
-                        mi.projetId = i.projetId;
-                        mi.ressourceId = i.ressourceId;
-                        m.mandateId = mi;
-                        liste.Add(m);
-
-                    }
-                    return View(liste);
-                }
-            }
-            else if(Session["role"].Equals("Client") && Session["token"] != null)
+             if(Session["role"].Equals("Client") && Session["token"] != null)
             {
                 if (ms.getByClient((int)Session["id"]).Capacity == 0)
                     return View(liste);
@@ -177,9 +151,7 @@ namespace Web.Controllers
                     return View(liste);
                 }
             }
-           else
-                return RedirectToAction("Login", "Home");
-
+            return RedirectToAction("Login", "Home");
         }
 
 
@@ -283,7 +255,8 @@ namespace Web.Controllers
                 liste.AddRange(response.Data);
                 return View(liste);
             }
-
+            else if (response.StatusCode == HttpStatusCode.NoContent)
+                return View(liste);
             else
                 return RedirectToAction("Login", "Home");
         }
@@ -426,18 +399,30 @@ namespace Web.Controllers
         public ActionResult resourceMandate()
         {
             var client = new RestClient(BASE_URI);
-            var request = new RestRequest("mandate?ressourceId=" + Session["role"]);
+            var request = new RestRequest("mandate?ressourceId=" + Session["id"]);
             request.Method = Method.GET;
             request.AddHeader("Authorization", "Bearer " + Session["token"]);
             request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
             List<MandateViewModels> liste = new List<MandateViewModels>();
             var response = client.Execute<List<MandateViewModels>>(request);
+            if (response.StatusCode == HttpStatusCode.NoContent)
+            {
+                ViewBag.test = false;
+                return View();
+            }
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                liste.AddRange(response.Data);
-                return View(liste);
+
+                if (response.Data.Count == 1)
+                {
+                    ViewBag.test = true;
+                    liste.AddRange(response.Data);
+                    return View(liste.ElementAt(0));
+                }
+      
+               
             }
-            else
+           
                 return RedirectToAction("Login", "Home");
         }
 
@@ -508,6 +493,21 @@ namespace Web.Controllers
             }
             return   new JsonResult { Data = liste, JsonRequestBehavior = JsonRequestBehavior.AllowGet }; ;
 
+        }
+
+        public ActionResult CalculFrais(string dateDebut, string dateFin, int projectId, int resourceId)
+        {
+            if (Session.Count == 0)
+                return RedirectToAction("Login", "Home");
+            if (Session["token"] != null && Session["role"].Equals("Admin"))
+            {
+                DateTime dFin = DateTime.ParseExact(dateFin, "dd/MM/yyyy",
+                                     System.Globalization.CultureInfo.InvariantCulture);
+                DateTime dDebut = DateTime.ParseExact(dateDebut, "dd/MM/yyyy",
+                                           System.Globalization.CultureInfo.InvariantCulture);
+                ms.calculFrais(projectId, resourceId, dFin, dDebut);
+            }
+            return RedirectToAction("Index", "Mandate");
         }
             
     }

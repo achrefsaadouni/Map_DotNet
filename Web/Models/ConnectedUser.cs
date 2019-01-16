@@ -12,6 +12,6 @@ namespace Web.Models
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
-        public string roleT { get; set; }
+        public string role { get; set; }
     }
 }

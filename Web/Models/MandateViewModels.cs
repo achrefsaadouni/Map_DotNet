@@ -21,7 +21,7 @@ namespace Web.Models
 
         public SprojectViewModels projet { get; set; }
 
-       
+
 
     }
 

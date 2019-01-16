@@ -126,6 +126,20 @@ namespace Service
             return liste.GroupBy(test => test.id)
                         .Select(grp => grp.First()).ToList();
         }
+        public void updateProject(int requestId)
+        {
+            project p = rs.GetById(requestId).project;
+            p.levioNumberResource += 1;
+            pros.Update(p);
+            pros.Commit();
+        }
+        public void calculFrais(int projectId, int resourceId, DateTime dateFin, DateTime dateDebut)
+        {
+            Mandate m = this.GetMany(e => e.dateDebut == dateDebut && e.dateFin == dateFin && e.projetId == projectId && e.ressourceId == resourceId).ElementAt(0);
+            m.montant = ((m.dateFin - m.dateDebut).TotalDays * m.person.salary * m.person.taux);
+            this.Update(m);
+            this.Commit();
+        }
     }
 
 }

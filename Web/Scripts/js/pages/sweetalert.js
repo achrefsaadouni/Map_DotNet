@@ -54,41 +54,53 @@ $(document).ready(function() {
             timer: 2000,  showConfirmButton: false
         });
     });
-    $('#HandleRequestBtn').on('click',function(){
-        swal({
-            title: "Add This Resource to this request",
-            text: "are you sure",
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true
-        }, function () {
-            setTimeout(function () {
-                swal({ title:  "Add Resource finished!" }, function () { window.location.href = $("#page").val(); });
-                var xk = $(".myliste").children().children()[0].value
-                var p = new Object();
-                p.id = xk;
-                var resources = new Array(p);
-                var a = new Object();
-                a.id = $("#reqId").val();
-                var sug  = {
+    $('#HandleRequestBtn').on('click', function () {
+        if ($(".myliste").children().length = 1)
+        {
+        
+            swal({
+                title: "Add This Resource to this request",
+                text: "are you sure",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function () {
+                setTimeout(function () {
+                    swal({ title: "Add Resource finished!" }, function () { window.location.href = $("#page").val(); });
+                    var xk = $(".myliste").children().children()[0].value
+                    var p = new Object();
+                    p.id = xk;
+                    var resources = new Array(p);
+                    var a = new Object();
+                    a.id = $("#reqId").val();
+                    var sug = {
 
-                    request : a,
-                    resources : resources
-                };
-                $.ajax({
-                    type: "POST",
-                    url: '/Mandate/addSuggestion',
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(sug),
-                    success: function (data) {
+                        request: a,
+                        resources: resources
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: '/Mandate/addSuggestion',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(sug),
+                        success: function (data) {
 
-                    },
+                        },
 
-                });
-            }, 3000);
-         
-        });
+                    });
+                }, 3000);
+
+            });
+
+        }
+      
+        else {
+            swal("Error", "You need to put suggessed resource", "error")
+
+        }
+
+
      
     });
 

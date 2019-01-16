@@ -67,7 +67,7 @@ namespace Web.Controllers
                 Session["id"] = response.Data.id;
                 Session["firstName"] = response.Data.firstName;
                 Session["lastName"] = response.Data.lastName;
-                Session["role"] = response.Data.roleT;
+                Session["role"] = response.Data.role;
                 Session["email"] = response.Data.email;
                 return RedirectToAction("Index");
             }

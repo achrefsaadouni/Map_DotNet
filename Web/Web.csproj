@@ -4667,6 +4667,7 @@
     <Content Include="Views\StatAdmin\Index.cshtml" />
     <Content Include="Views\StatAdmin\Project.cshtml" />
     <Content Include="Views\StatAdmin\Rh.cshtml" />
+    <Content Include="Views\Mandate\resourceMandate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
